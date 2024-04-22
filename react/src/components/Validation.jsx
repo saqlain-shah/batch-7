@@ -18,5 +18,4 @@ const  ValidationSchema = Yup.object({
   });
 
 
-  export default ValidationSchema
-
+  export default ValidationSchema;

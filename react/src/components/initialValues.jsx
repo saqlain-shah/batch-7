@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-  const initialValues= {
+const initialValues= {
     firstName: '',
     lastName: '',
     username: '',
@@ -10,4 +10,4 @@
     confirmPassword: '',
   }
 
-  export default initialValues
+  export default initialValues;

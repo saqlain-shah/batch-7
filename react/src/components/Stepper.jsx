@@ -13,8 +13,8 @@ import {
   Fade,
 } from "@mui/material";
 
-import Values from "./InitialValue";
-import ValidationSchema from "./Validation";
+ import Values from './initialValues.jsx';
+ import ValidationSchema from './validation.jsx';
 
 const MultiStepForm = () => {
   const [activeStep, setActiveStep] = React.useState(0);

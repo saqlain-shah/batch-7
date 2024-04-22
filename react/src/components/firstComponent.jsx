@@ -1,114 +1,66 @@
-import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import {
-  Box,
-  Button,
-  IconButton,
-  FormGroup,
-  FormControlLabel,
-  Checkbox,
-} from "@mui/material";
-import { IoMdSend } from "react-icons/io";
+import React, { useState } from 'react';
 
+const UserDataForm = () => {
+  const [userData, setUserData] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
 
-export default function FirstComponent() {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassowrd] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [dob, setDob] = useState();
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUserData(prevUserData => ({
+      ...prevUserData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (event) => {
+
+    alert(`Submitted Data:\nName: ${userData.name}\nEmail: ${userData.email}\nPassword: ${userData.password}`);
+    // You can reset the form fields here if needed
+    setUserData({
+      name: '',
+      email: '',
+      password: ''
+    });
+  };
+
   return (
-    <React.Fragment>
-      <h1>Sign Up</h1>
-      <Box>
-        <TextField
-          label="Name"
-          fullWidth
-          value={name}
-          // variant="outlined"
+    <form onSubmit={handleSubmit}>
+      <label>
+        Name:
+        <input
           type="text"
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
+          name="name"
+          value={userData.name}
+          onChange={handleChange}
         />
-        <TextField
-          variant="filled"
-          fullWidth
-          label="Email"
-          value={email}
+      </label>
+      <br />
+      <label>
+        Email:
+        <input
           type="email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
+          name="email"
+          value={userData.email}
+          onChange={handleChange}
         />
-        <TextField
-          variant="filled"
-          fullWidth
-          label="Phone Number"
-          value={phoneNumber}
-          type="number"
-          onChange={(e) => {
-            setPhoneNumber(e.target.value);
-          }}
-        />
-        <TextField
-          required
-          variant="filled"
-          fullWidth
-          label="Date of Birth"
-          value={dob}
-          type="Date"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={(e) => {
-            setDob(e.target.value);
-          }}
-        />
-        <TextField
-          label="Password"
-          fullWidth
-          variant="standard"
-          value={password}
+      </label>
+      <br />
+      <label>
+        Password:
+        <input
           type="password"
-          onChange={(e) => {
-            setPassowrd(e.target.value);
-          }}
+          name="password"
+          value={userData.password}
+          onChange={handleChange}
         />
-        <FormGroup>
-          <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            label="Like"
-          />
-          <FormControlLabel required control={<Checkbox />} label="Share" />
-          <FormControlLabel disabled control={<Checkbox />} label="Disabled" />
-        </FormGroup>
-
-        <Button
-          variant="outlined"
-          color="warning"
-          size="large"
-          endIcon={<IoMdSend />}
-          onClick={() => {
-            alert(`Name : ${name}  
-          Email: ${email}
-          Password : ${password}
-          `);
-          }}
-        >
-          Submit
-        </Button>
-        <IconButton
-          onClick={() => {
-            alert(`Name : ${name}  
-        Email: ${email}
-        Password : ${password}
-        `);
-          }}
-        >
-          <IoMdSend />
-        </IconButton>
-      </Box>
-    </React.Fragment>
+      </label>
+      <br />
+      <button type="submit">Submit</button>
+    </form>
   );
-}
+};
+
+export default UserDataForm;
