@@ -1,32 +1,38 @@
-import React from "react";
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
-import LoginPage from "./components/Login";
-import RegisterPage from "./components/Register";
-import LandingPage from "./components/LanndingPage";
-import PersonalInfoForm from "./components/formikForm";
-// import { ThemeProvider } from "@emotion/react";
-// import ThemeConsumer from "./components/ThemeConsumer";
-import MultiStepForm from "./components/Index";
-import TableWithLocalizationProvider from "./components/Table.jsx";
+// App.jsx
+import React from 'react';
+import {Routes, Route, BrowserRouter} from 'react-router-dom'
+// import UserDataForm from './components/firstComponent.jsx';
+import SignUp from './components/SignUp.jsx';
+import SignIn from './components/SignIn.jsx';
+import Table from './components/table.jsx';
+import ResponsiveAppBar from './components/AppBar.jsx';
+import LandingPage from './components/LanndingPage.jsx';
+import PersonalInfoForm from './components/formik.jsx';
+import MultiStepForm from './components/Stepper.jsx';
+import DummyDataComponent from './components/axios.jsx';
 
-function App() {
-  
+
+const App = () => {
   return (
-    <React.Fragment>
-      <Router>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/formik" element={<PersonalInfoForm />} />
-          <Route path="/multi-step" element={<MultiStepForm />} />
-          <Route path="/table" element={<TableWithLocalizationProvider/>} />
+    
+      <BrowserRouter>
+      <Routes>
 
-        </Routes>
+        <Route path='/' element={<LandingPage/>}/>
+        <Route  path='/login' element={<SignIn/>}/>
+        <Route path='/signup' element={<SignUp/>}/>
+        <Route path='/table' element={<Table/>}/>
+        <Route path='/Home' element={<ResponsiveAppBar/>}/>
+        <Route path='/formik' element={<PersonalInfoForm/>}/>
+        <Route path='/stepper' element={<MultiStepForm/>}/>
+        <Route path='/axios' element={<DummyDataComponent/>}/>
+        
+      </Routes>
+      </BrowserRouter>
+            
 
-      </Router>
-    </React.Fragment>
+   
   );
-}
+};
 
 export default App;
