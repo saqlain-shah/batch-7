@@ -1,0 +1,16 @@
+
+#root {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 5%;
+    text-align: left;
+    border: 10px inset rgb(248, 223, 0);
+    border-radius: 4%;
+  }
+  .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+   
+    width: 110%;
+    font-size: 10px;
+  }
