@@ -10,13 +10,13 @@ const ElectronicProducts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/photos?_limit=501');
+        const response = await axios.get('https://fakestoreapi.com/products?_limit=300');
         const productsData = response.data.map(product => ({
           id: product.id,
           name: product.title,
-          image: product.url,
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          price: Math.floor(Math.random() * 1000) + 100
+          image: product.image,
+          description: product.description,
+          price: product.price
         }));
         setProducts(productsData);
         setLoading(false);
@@ -40,7 +40,7 @@ const ElectronicProducts = () => {
   return (
     <Grid container spacing={2}>
       {products.map(product => (
-        <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+        <Grid item xs={12} sm={6} md={4} lg={4} key={product.id}>
           <Card>
             <CardMedia
               component="img"
