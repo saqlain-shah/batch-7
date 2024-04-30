@@ -2,6 +2,8 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import { Link as RouterLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import { Link } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 const LandingPage = () => {
   return (
@@ -20,7 +22,7 @@ const LandingPage = () => {
         to="/login"
         sx={{ mb: 2 }}
       >
-        Sign In
+        Sign in
       </Button>
       <Button
         variant="contained"
@@ -30,6 +32,7 @@ const LandingPage = () => {
       >
         Register
       </Button>
+      <Link to="/SignIn"  > Sign In </Link>
     </Box>
   );
 };

@@ -26,6 +26,7 @@ const App = () => {
         <Route path='/formik' element={<PersonalInfoForm/>}/>
         <Route path='/stepper' element={<MultiStepForm/>}/>
         <Route path='/axios' element={<DummyDataComponent/>}/>
+        <Route path='/SignIn' element={<SignIn/>}/>
         
       </Routes>
       </BrowserRouter>
