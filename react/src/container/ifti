@@ -1,0 +1,121 @@
+import React from 'react';
+
+
+'&:hover': { color: 'red', fontSize: '15px' }
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { Box } from '@mui/system';
+
+const NavBar = () => {
+  const handleChange = (event) => {
+    // Handle change background logic here
+  };
+
+  const handleLogout = () => {
+    // Handle logout logic here
+  };
+
+  return (
+    <AppBar position="fixed">
+      <Toolbar>
+        <Typography variant="h6" component={Link} to="/" sx={{ flexGrow: 1, textDecoration: 'none', color: 'inherit' }}>
+          ECOURSES
+        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'row' }}>
+          <Typography variant="body1" sx={{ mb: 1 }}>Our Office</Typography>
+          <Typography variant="body2" sx={{ mb: 1 }}>93 street, skardu, Pakistan</Typography>
+          <Typography variant="body1" sx={{ mb: 1 }}>Email Us</Typography>
+          <Typography variant="body2" sx={{ mb: 1 }}>ecourseinfo@gmail.com</Typography>
+          <Typography variant="body1" sx={{ mb: 1 }}>Call Us</Typography>
+          <Typography variant="body2" sx={{ mb: 2 }}>+01123223453</Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Link to="/signup" style={{ textDecoration: 'none', marginRight: '16px' }}>
+              <Typography variant="body1">Signup</Typography>
+            </Link>
+            <nav>
+              <ul style={{ listStyle: 'none', display: 'flex', alignItems: 'center', padding: 0, margin: 0 }}>
+                <li><Link to="/" style={{ textDecoration: 'none', color: 'inherit', marginRight: '8px' }}>Home</Link></li>
+                <li><Link to="/about" style={{ textDecoration: 'none', color: 'inherit', marginRight: '8px' }}>About</Link></li>
+                <li><Link to="/product" style={{ textDecoration: 'none', color: 'inherit', marginRight: '8px' }}>Product</Link></li>
+                <li><Link to="/tale" style={{ textDecoration: 'none', color: 'inherit', marginRight: '8px' }}>Tale</Link></li>
+                <li><Link to="/contact" style={{ textDecoration: 'none', color: 'inherit' }}>Contact</Link></li>
+              </ul>
+            </nav>
+          </Box>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
+          <Select value="1" onChange={handleChange} sx={{ marginRight: '16px' }}>
+            <MenuItem value="1">Light Mode</MenuItem>
+            <MenuItem value="2">Dark Mode</MenuItem>
+          </Select>
+          <Typography variant="body2" sx={{ cursor: 'pointer' }} onClick={handleLogout}>Log Out</Typography>
+        </Box>
+      </Toolbar>
+    </AppBar>
+  );
+};
+
+export default NavBar;
+
+
+
+
+
+// <!-- header section start -->
+<div class="header-section">
+    <div class="first-headercont"  id="header-section">
+        <div class="first-header" id="header">
+            <div class="box-1" id="txt">
+                <h1>ECOURSES</h1>
+            </div>
+            <div class="box-2">
+                <h3>Our Office</h3>
+                <p>93 street, skardu, Pakistan</p>
+            </div>
+            <div class="box-3">
+                <h3>Email Us</h3>
+                <p>ecourseinfo@gmail.com</p>
+            </div>
+            <div class="box-4">
+                <h3>Call Us</h3>
+                <p>+01123223453</p>
+            </div>
+        </div>
+    </div>
+  
+    <div class="second-headercont">
+        <div class="second-header">
+
+            <div class="first-div">
+                <h4>Signup</h4>
+            </div>
+            <div class="navbar-section">
+                <div class="nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="course.html">Product</a></li>
+                        <li><a href="teachers.html">Table</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="btn">
+                    <button onclick="logout()">Log Out</button>
+                </div>
+                <div class="list">
+
+                 <select  name="select" id="select" onchange="changeBackground(this)">
+                    <option id="option" value="1" >Light Mode</option>
+                    <option id="option" value="2">Dark Mode</option>
+                 </select>
+                
+            </div>
+        </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,140 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+/* Header section start */
+.header-section{
+  width: 100%;
+  height: 21vh;
+  position: fixed;
+  z-index: 1;
+  background-color: white;
+
+}
+.header-section .first-headercont{
+  width: 100%;
+  height: 12vh;
+  display: flex;
+  justify-content: center;
+  background-color: maroon;
+}
+/* first header */
+.first-headercont .first-header{
+ 
+  width: 90%;
+  height: 12vh;
+  display: flex;
+  justify-content: space-between;
+  font-family: system-ui;
+  align-items: center;
+  color: white;
+
+
+}
+.first-header .box-1 h1::first-letter{
+  color: orangered;
+}
+
+/* first header end */
+
+/* second header */
+.header-section .second-headercont{
+  width: 100%;
+  height: 9vh;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1.6px solid gray;
+  background-color: white;
+
+
+}
+.header-section .second-header{
+  width: 90%;
+  height: 9vh;
+  display: flex;
+  justify-content: space-between;
+  
+}
+.second-header .first-div{
+  width: 18%;
+  height: inherit;
+  font-size: 22px;
+  text-align: center;
+  line-height: 65px;
+  background-color: aliceblue;
+  color: orangered;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.first-div:hover{
+  cursor: pointer;
+  background-color: gainsboro;
+}
+.second-header .navbar-section{
+  width: 80%;
+  height: inherit;
+  display: flex;
+  justify-content: space-between;
+}
+.navbar-section .nav{
+  width: 90%;
+  height: inherit;
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-around; */
+}
+.nav a{
+  text-decoration: none;
+  color: black;
+}
+.nav a:hover{
+  color: orangered;
+}
+.nav ul li{
+  list-style: none;
+  float: left;
+  padding: 17px;
+  font-size: 20px;
+  font-family: system-ui;
+
+
+}
+
+.navbar-section .btn{
+  width: 20vh;
+  height: inherit;
+
+}
+.btn button{
+  width: 15vh;
+  height: 6vh;
+  margin-top: 6%;
+  border-radius: 13px;
+  background-color: orange;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  border: 1px;
+  cursor: pointer;
+}
+.btn button:hover{
+  background-color: orangered;
+}
+
+.list select{
+  width: 19px;
+  height: 5vh;
+  margin-top: 50%;
+  border-radius: 7px;
+  background-color: black;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  border: 1px;
+  cursor: pointer;
+}
+/* second header end */
+
+
+
+
+
