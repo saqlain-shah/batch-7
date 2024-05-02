@@ -1,31 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react'
+import React from 'react';
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
-  const [counts,setCounts]=useState(0);
-  const increment = () => {
-    setCount(count + 1);
+function Counter() {
 
-  };
-  const decrement = () => {
-    setCount(count - 1);
+const [count,setCount]=useState(0);
 
-  };
+  function incValue(){
+    setCount(count+1);
 
-  useEffect(() => {
-    console.log("Count has changed: ", count);
-  }, [count]); 
+  }
 
   return (
-    <div>
-      <h2>Counter</h2>
-      <div>
-        <button onClick={decrement}>-</button>
-        <span>{count}</span>
-        <button onClick={increment}>+</button>
-      </div>
-    </div>
-  );
-};
+    <>
+       <h1>{count}</h1>
+       <button onClick={incValue}>Click me</button>
+   
+    </>
+  )
+}
 
 export default Counter;

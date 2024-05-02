@@ -1,28 +1,40 @@
-import { AppBar, Button, Link, Stack, Toolbar, Typography } from '@mui/material';
 import React from 'react'
+import { AppBar, Button, Stack, Toolbar, Typography } from '@mui/material'
+import { Link, Outlet } from 'react-router-dom'
 
-function Navbar() {
+export default function Navbar() {
   return (
-
-    <>
-    <AppBar>
+    <div style={{display:'flex', flexDirection:'column'}}>
+      <AppBar>
         <Toolbar>
-            <Typography></Typography>
-            <Stack direction={'row'}>
-                <Button color='inherit' component={Link} to="/counterr">counterr</Button>
-                <Button color='inherit' component={Link} to="/fetchapi">FetcApi</Button>
-                <Button color='inherit' component={Link} to="/useEffect">UseEffect</Button>
-                <Button color='inherit' component={Link} to="/counter">counter</Button>
+          <Typography variant='h6' component='div' sx={{ flexGrow: 1, marginRight: '750px' }}> <img src='\src\assets\rinor.jpg' style={{width:'70px',height:'70px',borderRadius:'50%'}}></img> </Typography>
+          <Stack direction={'row'} spacing={2}>
+
+            <Button color='inherit' component={Link} to="/home" >Home</Button>
+            <Button color='inherit' component={Link} to="/about">About</Button>
+            <Button color='inherit' component={Link} to="/contact" >Contact</Button>
+            <Button color='inherit' component={Link} to="/login">Login</Button>
+            <Button color='inherit' component={Link} to="/signup" >Sign Up</Button>
+            <Button color='inherit' component={Link} to="/electronicProducts" >products</Button>
+            <Button color='inherit' component={Link} to="/counterr" >counterr</Button>
 
 
-            </Stack>
+            {/* <Button color='inherit' component={Link} to="/multistepform" >MultistepForm</Button> */}
+            {/* <Button color='inherit' component={Link} to="/formikandyup" >FormikAndYup</Button> */}
+
+
+
+
+
+
+          </Stack>
+
         </Toolbar>
-    </AppBar>
-    
-    
-    
-    </>
+      </AppBar>
+      <div>
+        <Outlet></Outlet>
+      </div>
+    </div>
+
   )
 }
-
-export default Navbar;
