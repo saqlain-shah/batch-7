@@ -9,7 +9,7 @@ import logo from './logo.png'
 
 const NavBar = () => {
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: 'darkblue'}}>
+    <AppBar position="fixed" sx={{ backgroundColor: 'darkblue', paddingLeft:'0px' }}>
       <Toolbar sx={{ width: '100%', display: 'flex', flexWrap: 'wrap' }}>
         <Box sx={{ width: '100%', backgroundColor: 'darkblue' }}>
           <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -34,12 +34,12 @@ const NavBar = () => {
           </Box>
         </Box>
         <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'whitesmoke' }} >
-          <Box sx={{ width: '30%'  , paddingLeft:'7%'}}>
+          <Box sx={{ width: '3%'  , paddingLeft:'7%'}}>
           <img  src={logo} alt=""  width={40} height={30}/>
           </Box>
-          <Box sx={{ width: '100%' }}>
+          <Box sx={{ width: '65%' }}>
             <ul style={{ display: 'flex', justifyContent: 'space-between', width: '50%', listStyle: 'none', display: 'flex', alignItems: 'center', margin: 5 }}>
-              <li sx={{'&:hover': { color: 'red', fontSize: '15px' }}}><Link to="/Home" style={{ textDecoration: 'none', color: 'black', fontFamily: 'sans-serif', marginRight: '8px' }}>Home</Link></li>
+              <li sx={{'&:hover': { color: 'red', fontSize: '15px' }}}><Link to="/HomePage" style={{ textDecoration: 'none', color: 'black', fontFamily: 'sans-serif', marginRight: '8px' }}>Home</Link></li>
               <li><Link to="/about" style={{ textDecoration: 'none', color: 'black', fontFamily: 'sans-serif', marginRight: '8px' }}>About</Link></li>
               <li><Link to="/products" style={{ textDecoration: 'none', color: 'black', fontFamily: 'sans-serif', marginRight: '8px' }}>Product</Link></li>
               <li><Link to="/Table" style={{ textDecoration: 'none', color: 'black', fontFamily: 'sans-serif', marginRight: '8px' }}>Table</Link></li>

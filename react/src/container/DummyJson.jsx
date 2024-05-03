@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, Grid, CircularProgress, Skeleton } from '@mui/material';
 
 const DummyJson = () => {
@@ -54,22 +55,24 @@ const DummyJson = () => {
       <Grid container spacing={3} sx={{marginTop:'1%'}}>
         {data.map((item, index) => (
           <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
-            <Card style={{ height: '100%' }}>
-              <CardMedia
-                component="img"
-                height="200"
-                image={item.image}
-                alt={item.title}
-              />
-              <CardContent style={{ backgroundColor: item.color, height: '100%' }}>
-                <Typography variant="h5" component="h2">
-                  {item.title}
-                </Typography>
-                <Typography variant="body1" component="p">
-                  Price: ${item.price}
-                </Typography>
-              </CardContent>
-            </Card>
+            <Link to={`/products/${item.id}`} style={{ textDecoration: 'none' }}>
+              <Card style={{ height: '100%' }}>
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={item.image}
+                  alt={item.title}
+                />
+                <CardContent style={{ backgroundColor: item.color, height: '100%' }}>
+                  <Typography variant="h5" component="h2">
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body1" component="p">
+                    Price: ${item.price}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Link>
           </Grid>
         ))}
       </Grid>
