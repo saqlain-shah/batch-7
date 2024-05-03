@@ -37,10 +37,12 @@ const ProductDetail = () => {
       <Typography variant="h4" gutterBottom>
         Product Details
       </Typography>
-      <Card>
+      <Card sx={
+        {height: "600px", width: "500px", marginLeft:"100px"}
+      }>
         <CardMedia
           component="img"
-          height="250"
+          height="350"
           image={product.image}
           alt={product.title}
         />
