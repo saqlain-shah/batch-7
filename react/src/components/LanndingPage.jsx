@@ -1,40 +1,67 @@
 import React from 'react';
-import Button from '@mui/material/Button';
-import { Link as RouterLink } from 'react-router-dom';
-import Box from '@mui/material/Box';
+import { AppBar, Toolbar, Typography, Button, IconButton } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
-import styled from '@emotion/styled';
 
-const LandingPage = () => {
-  return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      height="100vh"
-    >
-      <h1 >well come</h1>
-      <Button
-        variant="contained"
-        color="primary"
-        component={RouterLink}
-        to="/login"
-        sx={{ mb: 2 }}
-      >
-        Sign in
-      </Button>
-      <Button
-        variant="contained"
-        color="secondary"
-        component={RouterLink}
-        to="/signup"
-      >
-        Register
-      </Button>
-      <Link to="/SignIn"  > Sign In </Link>
-    </Box>
-  );
+const menuItems = [
+  { label: 'Home', path: '/' },
+  { label: 'Form', path: '/formik' },
+  { label: 'Table', path: '/table' },
+  { label: 'Multistep Form', path: '/Stepper' },
+  { label : 'Products', path: 'axios'},
+  { label: 'SignIn', path: '/SignIn' },
+  { label: 'Register', path: '/SignUp' }
+ 
+];
+
+const navbarStyles = {
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: 2,
+  },
+  menuItem: {
+    color: 'inherit',
+    textDecoration: 'none',
+    marginRight: 10,
+  },
 };
 
-export default LandingPage;
+const Navbar = () => {
+  return (
+    <div style={navbarStyles.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            style={navbarStyles.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" style={navbarStyles.title}>
+            RinoR
+          </Typography>
+          {menuItems.map((item, index) => (
+            <Button 
+              color="inherit" 
+              key={index} 
+              component={Link} 
+              to={item.path} 
+              style={navbarStyles.menuItem}
+            >
+              {item.label}
+            </Button>
+          ))}
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+}
+
+export default Navbar;
