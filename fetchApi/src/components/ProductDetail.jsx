@@ -32,9 +32,9 @@ const ProductDetail = () => {
   }
 
   return (
-    <div>
+    <div className='productDetails'>
       <h2>{product.title}</h2>
-      <img src={product.image} alt={product.title} />
+      <img src={product.image} alt={product.title}  style={{width:'100px',height:'100px'}}/>
       <p>{product.description}</p>
       <p>Price: ${product.price}</p>
     </div>

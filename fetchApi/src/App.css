@@ -73,3 +73,14 @@
 .product-details p {
   margin: 5px 0;
 }
+.productDetails{
+  width:400px;
+  height:450px;
+  border: 4px solid black;
+  margin-top: 100px;
+  box-shadow: 5px 5px 5px 5px;
+
+}
+.productDetails :hover{
+  transform: matrix();
+}
