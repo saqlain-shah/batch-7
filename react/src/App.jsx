@@ -4,13 +4,13 @@ import RegForm from './Form';
 import Login from './Login';
 import About from './About';
 import Contact from './Contact';
-import Product from './Product';
-import Shop from './Shop';
+import DummyJson from './DummyJson';
 import Payment from './Payment';
 import Cart from './Cart';
-import DummyJson from './DummyJson';
+import Table from './components/Table';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import ReturnsAndOrders from './ReturnAndOrder';
+import Click from './components/electronicProduct'
 import Counter from './components/Counter';
 
 
@@ -22,18 +22,14 @@ const App = () => {
     { title: 'Register', path: '/reg' },
     { title: 'about', path: '/about' },
     { title: 'contact', path: '/Contact' },
-    { title: 'product', path: '/Product' },
-    { title: 'shop', path: '/Shop' },
+    { title: 'DummyJson', path: '/products' },
     { title: 'payment', path: '/Payment' },
     { title: 'cart', path: '/Cart' },
     { title: 'returnandorder', path: '/ReturnAndOrder' },
-    { title: 'dummyjson', path: '/DummyJson' },
     { title: 'counter', path: '/Counter' },
-   
-
-
-
-
+    { title: 'table', path: '/Table' },
+    { title: 'ProductDetail', path: '/products/:productId' },
+    
 
   ];
   return (
@@ -41,7 +37,7 @@ const App = () => {
       <AppBar position="static" style={{ backgroundColor: 'blue' }}>
         <Toolbar>
           {/* Logo on the right */}
-          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-start' }}>
+          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
             <Typography variant="h4">
               RINOR
             </Typography>
@@ -52,7 +48,7 @@ const App = () => {
             <Button
               key={item.title}
               color="inherit"
-              sx={{ marginLeft: 2, '&:hover': { backgroundColor: 'blue' } }}
+              sx={{ marginLeft: 1, '&:hover': { backgroundColor: 'blue' } }}
               component={Link} // Use the Link component as the root component of Button
               to={item.path} // Set the navigation path
             >
@@ -61,21 +57,21 @@ const App = () => {
           ))}
         </Toolbar>
       </AppBar>
-      <DummyJson/>
+      
       <Routes>
         <Route path="/reg" element={<RegForm />} />
         <Route path="/loginform" element={<Login />} />
         <Route path="/about" element={<About/>} />
         <Route path="/contact" element={<Contact/>} />
-        <Route path="/product" element={<Product/>} />
-        <Route path="/shop" element={<Shop/>} />
+        <Route path="/products" element={<DummyJson/>} />
         <Route path="/payment" element={<Payment/>} />
         <Route path="/cart" element={<Cart/>} />
         <Route path="/returnandorder" element={<ReturnsAndOrders/>} />
-        <Route path="/product" element={<DummyJson/>} />
         <Route path="/counter" element={<Counter/>} />
+        <Route path="/table" element={<Table/>} />
+        <Route path="/products/:productId" element={<electricalProduct/>} />
 
-
+          
 
 
 
