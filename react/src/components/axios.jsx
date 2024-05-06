@@ -29,7 +29,7 @@ function ImageCard() {
 
   return (
     <Grid container spacing={2}>
-      {products.map(product => (
+      {products && products.map(product => (
         <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
           <Card className={classes.card}>
             <CardMedia

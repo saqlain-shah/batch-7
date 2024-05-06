@@ -129,7 +129,7 @@ function RegisterPage() {
         <DialogTitle>User Details for Registration</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {Object.keys(formData).map((key) => (
+            {Object.keys(formData)((key) => (
               <Typography key={key}>{`${key}: ${formData[key]}`}</Typography>
             ))}
           </DialogContentText>

@@ -40,14 +40,14 @@ const DummyDataComponent = () => {
                 Dummy Data
             </Typography>
             {/* <List>
-                {data.map((item) => (
+                {data && data((item) => (
                     <ListItem key={item.id}>
                         <ListItemText primary={item.title} secondary={item.body} />
                     </ListItem>
                 ))}
             </List> */}
             <Grid container spacing={2}>
-                {data.map((item) => (
+                { data && data.map((item) => (
 
                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItem: 'center', padding: '20px' }} key={item.id}>
                         <Grid item xs={12} sm={6} md={4} >

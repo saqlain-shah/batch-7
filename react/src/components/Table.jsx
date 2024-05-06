@@ -228,7 +228,7 @@ const Table = () => {
       };
 
       const handleContact = () => {
-        table.getSelectedRowModel().flatRows.map((row) => {
+        table.getSelectedRowModel().flatRows && flatRows.map((row) => {
           alert('contact ' + row.getValue('name'));
         });
       };
