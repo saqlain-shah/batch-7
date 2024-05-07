@@ -38,7 +38,7 @@ const ProductDetail = () => {
         Product Details
       </Typography>
       <Card sx={
-        {height: "600px", width: "500px", marginLeft:"100px"}
+        {height: "600px", width: "500px"}
       }>
         <CardMedia
           component="img"

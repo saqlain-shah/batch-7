@@ -1,3 +1,4 @@
+
 import './App.css';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import NavPage from './NavPage';
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<NavPage />} />
           <Route path="/login" element={<RegistrationForm />} />
           <Route path="/signup" element={<Registrationsecond />} />
+
         </Routes>
       </BrowserRouter>
     </div>
