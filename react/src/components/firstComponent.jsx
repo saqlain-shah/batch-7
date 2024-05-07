@@ -12,6 +12,11 @@ import { IoMdSend } from "react-icons/io";
 
 
 export default function FirstComponent() {
+
+
+
+
+
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassowrd] = useState();
