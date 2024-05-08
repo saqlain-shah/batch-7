@@ -4,7 +4,7 @@ function Counter() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    
+
     console.log("Count has changed:",count);
   }, [count]); 
 
