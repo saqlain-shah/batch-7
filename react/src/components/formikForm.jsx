@@ -1,4 +1,4 @@
-import {
+import { 
   TextField,
   Radio,
   RadioGroup,
@@ -11,8 +11,10 @@ import {
   FormHelperText,
   Select,
   MenuItem,
+  Grid,
+  Box
 } from "@mui/material";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 const PersonalInfoForm = () => {
@@ -51,145 +53,102 @@ const PersonalInfoForm = () => {
       onSubmit={handleSubmit}
     >
       {({ values, errors, touched, handleChange, handleBlur }) => (
-        <Form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            width: "800px",
-            justifyItems: "center",
-            margin: "20px",
-            alignItems: "center",
-          }}
-        >
-          <Field
-            as={TextField}
-            name="name"
-            label="Name"
-            fullWidth
-            error={touched.name && Boolean(errors.name)}
-            helperText={touched.name && errors.name}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.name}
-          />
-
-          <Field
-            as={TextField}
-            name="email"
-            label="Email"
-            fullWidth
-            error={touched.email && Boolean(errors.email)}
-            helperText={touched.email && errors.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.email}
-          />
-
-          <Field
-            as={TextField}
-            name="age"
-            label="Age"
-            fullWidth
-            type="number"
-            error={touched.age && Boolean(errors.age)}
-            helperText={touched.age && errors.age}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.age}
-          />
-
-          <FormControl
-            fullWidth
-            error={touched.gender && Boolean(errors.gender)}
-          >
-            <FormLabel component="legend">Gender</FormLabel>
-            <Field as={RadioGroup} name="gender">
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-              <FormControlLabel
-                value="female"
-                control={<Radio />}
-                label="Female"
+        <Form>
+          <Grid container spacing={2} justifyContent="center" alignItems="center">
+            <Grid item xs={10} sm={6}>
+              <TextField
+                fullWidth
+                label="Name"
+                name="name"
+                value={values.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.name && Boolean(errors.name)}
+                helperText={touched.name && errors.name}
               />
-              <FormControlLabel
-                value="other"
-                control={<Radio />}
-                label="Other"
+            </Grid>
+            <Grid item xs={10} sm={6}>
+              <TextField
+                fullWidth
+                label="Email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.email && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
               />
-            </Field>
-            {touched.gender && <FormHelperText>{errors.gender}</FormHelperText>}
-          </FormControl>
-
-          <FormControl
-            fullWidth
-            error={touched.educationLevel && Boolean(errors.educationLevel)}
-          >
-            <FormLabel component="legend">Education Level</FormLabel>
-            <Select
-              name="educationLevel"
-              value={values.educationLevel}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            >
-              <MenuItem value="">Select Education Level</MenuItem>
-              <MenuItem value="school">School</MenuItem>
-              <MenuItem value="college">College</MenuItem>
-              <MenuItem value="graduate">Graduate</MenuItem>
-              <MenuItem value="postgraduate">Post Graduate</MenuItem>
-            </Select>
-            {touched.educationLevel && (
-              <FormHelperText>{errors.educationLevel}</FormHelperText>
-            )}
-          </FormControl>
-
-          <FormControl
-            fullWidth
-            error={touched.interests && Boolean(errors.interests)}
-          >
-            <FormLabel component="legend">Interests</FormLabel>
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Field
-                    as={Checkbox}
-                    type="checkbox"
-                    name="interests"
-                    value="sports"
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Age"
+                name="age"
+                type="number"
+                value={values.age}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.age && Boolean(errors.age)}
+                helperText={touched.age && errors.age}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth error={touched.gender && Boolean(errors.gender)}>
+                <FormLabel component="legend">Gender</FormLabel>
+                <RadioGroup name="gender" value={values.gender} onChange={handleChange}>
+                  <FormControlLabel value="male" control={<Radio />} label="Male" />
+                  <FormControlLabel value="female" control={<Radio />} label="Female" />
+                  <FormControlLabel value="other" control={<Radio />} label="Other" />
+                </RadioGroup>
+                {touched.gender && <FormHelperText>{errors.gender}</FormHelperText>}
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth error={touched.educationLevel && Boolean(errors.educationLevel)}>
+                <FormLabel component="legend">Education Level</FormLabel>
+                <Select
+                  name="educationLevel"
+                  value={values.educationLevel}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                >
+                  <MenuItem value="">Select Education Level</MenuItem>
+                  <MenuItem value="school">School</MenuItem>
+                  <MenuItem value="college">College</MenuItem>
+                  <MenuItem value="graduate">Graduate</MenuItem>
+                  <MenuItem value="postgraduate">Post Graduate</MenuItem>
+                </Select>
+                {touched.educationLevel && <FormHelperText>{errors.educationLevel}</FormHelperText>}
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth error={touched.interests && Boolean(errors.interests)}>
+                <FormLabel component="legend">Interests</FormLabel>
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Checkbox name="interests" value="sports" onChange={handleChange} />}
+                    label="Sports"
                   />
-                }
-                label="Sports"
-              />
-              <FormControlLabel
-                control={
-                  <Field
-                    as={Checkbox}
-                    type="checkbox"
-                    name="interests"
-                    value="music"
+                  <FormControlLabel
+                    control={<Checkbox name="interests" value="music" onChange={handleChange} />}
+                    label="Music"
                   />
-                }
-                label="Music"
-              />
-              <FormControlLabel
-                control={
-                  <Field
-                    as={Checkbox}
-                    type="checkbox"
-                    name="interests"
-                    value="reading"
+                  <FormControlLabel
+                    control={<Checkbox name="interests" value="reading" onChange={handleChange} />}
+                    label="Reading"
                   />
-                }
-                label="Reading"
-              />
-            </FormGroup>
-            {touched.interests && (
-              <FormHelperText>{errors.interests}</FormHelperText>
-            )}
-          </FormControl>
-
-          <Button type="submit" variant="contained" color="primary">
-            Submit
-          </Button>
+                </FormGroup>
+                {touched.interests && <FormHelperText>{errors.interests}</FormHelperText>}
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <Box textAlign="center">
+                <Button type="submit" variant="contained" color="primary">
+                  Submit
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
         </Form>
       )}
     </Formik>
