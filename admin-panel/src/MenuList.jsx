@@ -1,13 +1,12 @@
-
- import InboxIcon from '@mui/icons-material/MoveToInbox';
- import MailIcon from '@mui/icons-material/Mail';
- 
-
+import { Link } from 'react-router-dom';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
 
 export const menuItems = [
     {
       text: 'Dashboard Overview',
       icon: <InboxIcon />,
+      link: '/dashboard',
       subMenu: [
         { text: 'Sales summary (today, this week, this month)', component: () => <div>Sales summary component</div> },
         { text: 'Total revenue', component: () => <div>1</div> },
@@ -19,6 +18,7 @@ export const menuItems = [
     {
       text: 'Orders Management',
       icon: <MailIcon />,
+      link: '/orders',
       subMenu: [
         { text: 'List of orders', component: () => <div>5</div> },
         { text: 'Order details', component: () => <div>6</div> },
@@ -30,6 +30,7 @@ export const menuItems = [
     {
       text: 'Products Management',
       icon: <InboxIcon />,
+      link: '/products',
       subMenu: [
         { text: 'List of products', component: () => <div>9</div> },
         { text: 'Product details', component: () => <div>10</div> },
@@ -40,3 +41,10 @@ export const menuItems = [
       ],
     },
   ];
+
+
+
+
+
+
+  
