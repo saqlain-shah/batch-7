@@ -15,26 +15,20 @@ import SingleProductDetails from './components/SingleIdFetching.jsx';
 
 const App = () => {
   return (
-    
-      <BrowserRouter>
-     <Navbar />
-      <Routes>
-     
-        <Route path='/login' element={<SignIn />} />
-        <Route path='/signup' element={<SignUp />} />
-        <Route path='/table' element={<Table />} />
-        <Route path='/Home' element={<ResponsiveAppBar />} />
-        <Route path='/formik' element={<PersonalInfoForm />} />
-        <Route path='/stepper' element={<MultiStepForm />} />
-        <Route path='/axios' element={<DummyDataComponent />} />
-        <Route path="/product/:productId" element={<SingleProductDetails />} />
-        <Route path='/SignIn' element={<SignIn />} />
-        <Route path='/Appbar' element={<ResponsiveAppBar />} />
-      </Routes>
-      </BrowserRouter>
-            
+    <React.Fragment>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/formik" element={<PersonalInfoForm />} />
+          <Route path="/multi-step" element={<MultiStepForm />} />
+          <Route path="/table" element={<TableWithLocalizationProvider/>} />
 
-   
+        </Routes>
+
+      </Router>
+    </React.Fragment>
   );
 };
 
