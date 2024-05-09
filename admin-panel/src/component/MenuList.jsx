@@ -1,4 +1,5 @@
 
+
  import InboxIcon from '@mui/icons-material/MoveToInbox';
  import MailIcon from '@mui/icons-material/Mail';
  
@@ -9,9 +10,9 @@ export const menuItems = [
       text: 'Dashboard Overview',
       icon: <InboxIcon />,
       subMenu: [
-        { text: 'Sales summary (today, this week, this month)', component: () => <div>Sales summary component</div> },
-        { text: 'Total revenue', component: () => <div>1</div> },
-        { text: 'Number of orders', component: () => <div>2</div> },
+        { text: 'Sales summary', component:( () => <div>Sales summary component</div> )},
+        { text: 'Total revenue', component: (() => <div>1</div>) },
+        { text: 'Number of orders', component: (() => <div>2</div>) },
         { text: 'Number of customers', component: () => <div>3</div> },
         { text: 'Top-selling products', component: () => <div>4</div> },
       ],
@@ -37,6 +38,6 @@ export const menuItems = [
         { text: 'Product categories', component: () => <div>12</div> },
         { text: 'Inventory management', component: () => <div>13</div> },
         { text: 'Product search', component: () => <div>14</div> },
-      ],
-    },
-  ];
+      ],
+    },
+  ];
