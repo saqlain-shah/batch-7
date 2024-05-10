@@ -23,7 +23,10 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-const drawerWidth = 240;
+
+import SalesSummary from "./components/SalesSummary"
+
+const drawerWidth = 300;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -95,7 +98,7 @@ const menuItems = [
     text: 'Dashboard Overview',
     icon: <InboxIcon />,
     subMenu: [
-      { text: 'Sales summary (today, this week, this month)', component: () => <div>Sales summary component</div> },
+      { text: 'Sales summary (today, this week, this month)', component: () =><SalesSummary/> },
       { text: 'Total revenue', component: () => <div>Total revenue component</div> },
       { text: 'Number of orders', component: () => <div>Number of orders component</div> },
       { text: 'Number of customers', component: () => <div>Number of customers component</div> },
