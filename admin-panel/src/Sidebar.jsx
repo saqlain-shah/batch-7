@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -21,7 +22,9 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-const drawerWidth = 240;
+
+const drawerWidth = 300;
+
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -87,11 +90,49 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+const menuItems = [
+  {
+    text: 'Dashboard Overview',
+    icon: <InboxIcon />,
+    subMenu: [
+      { text: 'Sales summary (today, this week, this month)', component: () => <div>Sales summary component</div> },
+      { text: 'Total revenue', component: () => <div>Total revenue component</div> },
+      { text: 'Number of orders', component: () => <div>Number of orders component</div> },
+      { text: 'Number of customers', component: () => <div>Number of customers component</div> },
+      { text: 'Top-selling products', component: () => <div>Top-selling products component</div> },
+    ],
+  },
+  {
+    text: 'Orders Management',
+    icon: <MailIcon />,
+    subMenu: [
+      { text: 'List of orders', component: () => <div>List of orders component</div> },
+      { text: 'Order details', component: () => <div>Order details component</div> },
+      { text: 'Order status update', component: () => <div>Order status update component</div> },
+      { text: 'Order filtering (by date, status, etc.)', component: () => <div>Order filtering component</div> },
+      { text: 'Order search', component: () => <div>Order search component</div> },
+    ],
+  },
+  {
+    text: 'Products Management',
+    icon: <InboxIcon />,
+    subMenu: [
+      { text: 'List of products', component: () => <div>List of products component</div> },
+      { text: 'Product details', component: () => <div>Product details component</div> },
+      { text: 'Add/edit/delete products', component: () => <div>Add/edit/delete products component</div> },
+      { text: 'Product categories', component: () => <div>Product categories component</div> },
+      { text: 'Inventory management', component: () => <div>Inventory management component</div> },
+      { text: 'Product search', component: () => <div>Product search component</div> },
+    ],
+  },
+];
+
 export default function Sidebar() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [selectedMenu, setSelectedMenu] = React.useState(0);
-  const [openSubMenu, setOpenSubMenu] = React.useState(null);
+  const [selectedSubMenu, setSelectedSubMenu] = React.useState(0);
+  const [openSubMenu, setOpenSubMenu] = React.useState(false);
   const [subMenuComponent, setSubMenuComponent] = React.useState(null);
 
   const handleDrawerOpen = () => {
@@ -102,25 +143,20 @@ export default function Sidebar() {
     setOpen(false);
   };
 
-  const handleMenuClick = (index, subIndex) => {
-    if (subIndex !== undefined) {
-      // Clicked on a submenu item
-      console.log(menuItems[index].subMenu[subIndex]);
-    } else {
-      // Clicked on a main menu item
-      setSelectedMenu(index);
-      setOpenSubMenu(openSubMenu === index ? null : index);
-    }
+  const handleMenuClick = (index) => {
+    console.log("index", index)
+    setSelectedMenu(index);
+    setOpenSubMenu(true);
   };
 
   React.useEffect(() => {
-    setSubMenuComponent(null);
-    if (openSubMenu !== null) {
-      setSubMenuComponent(menuItems[selectedMenu].subMenu[openSubMenu].component());
+    // setSubMenuComponent(false);
+    if (openSubMenu === true) {
+      setSubMenuComponent(menuItems[selectedMenu].subMenu[0].component());
     }
     // Clean up
     return () => {
-      setSubMenuComponent(null);
+      setSubMenuComponent(false);
     };
   }, [openSubMenu, selectedMenu]);
 
@@ -159,7 +195,7 @@ export default function Sidebar() {
               <ListItem
                 disablePadding
                 sx={{ display: 'block' }}
-                selected={selectedMenu === index}
+                // selected={selectedMenu}
                 onClick={() => handleMenuClick(index)}
               >
                 <ListItemButton
@@ -179,20 +215,20 @@ export default function Sidebar() {
                     {item.icon}
                   </ListItemIcon>
                   <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
-                  {openSubMenu === index ? <ExpandLess /> : <ExpandMore />}
+                  {openSubMenu === true ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
               </ListItem>
-              <Collapse in={openSubMenu === index} timeout="auto" unmountOnExit>
+              <Collapse in={open ? selectedMenu === index ? openSubMenu === true ? true : false : false : false} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   {item.subMenu.map((subItem, subIndex) => (
-                    <ListItem key={subIndex} disablePadding>
+                    <ListItem key={subIndex} disablePadding onClick={() => setSelectedSubMenu(subIndex)}>
                       <ListItemButton
                         sx={{
                           minHeight: 48,
                           justifyContent: open ? 'initial' : 'center',
                           px: 4,
                         }}
-                        onClick={() => handleMenuClick(index, subIndex)}
+                        onClick={() => setSubMenuComponent(subItem.component)}
                       >
                         <ListItemText primary={subItem.text} />
                       </ListItemButton>
@@ -200,7 +236,7 @@ export default function Sidebar() {
                   ))}
                 </List>
               </Collapse>
-              {openSubMenu === index ? <Divider /> : null}
+              {openSubMenu === true ? <Divider /> : null}
             </div>
           ))}
         </List>
