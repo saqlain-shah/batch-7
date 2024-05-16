@@ -25,6 +25,8 @@ import MailIcon from '@mui/icons-material/Mail';
 
 
 import SalesSummary from "./components/SalesSummary"
+import TopSellingProducts from './components/topSellingProducts';
+import OrderList from './components/orderList';
 
 const drawerWidth = 300;
 
@@ -102,14 +104,14 @@ const menuItems = [
       { text: 'Total revenue', component: () => <div>Total revenue component</div> },
       { text: 'Number of orders', component: () => <div>Number of orders component</div> },
       { text: 'Number of customers', component: () => <div>Number of customers component</div> },
-      { text: 'Top-selling products', component: () => <div>Top-selling products component</div> },
+      { text: 'Top-selling products', component: () =><TopSellingProducts/> },
     ],
   },
   {
     text: 'Orders Management',
     icon: <MailIcon />,
     subMenu: [
-      { text: 'List of orders', component: () => <div>List of orders component</div> },
+      { text: 'List of orders', component: () => <OrderList/> },
       { text: 'Order details', component: () => <div>Order details component</div> },
       { text: 'Order status update', component: () => <div>Order status update component</div> },
       { text: 'Order filtering (by date, status, etc.)', component: () => <div>Order filtering component</div> },
