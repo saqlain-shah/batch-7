@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -23,10 +22,12 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
+// import Sales from './components/SalesSummary.jsx'
 
-import SalesSummary from "./components/SalesSummary"
+import ProductSearch from './components/ProductSearch.jsx';
+import InventoryManagement from './components/InvenoryManagement.jsx';
 
-const drawerWidth = 300;
+const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -43,7 +44,7 @@ const closedMixin = (theme) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width:`calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
@@ -98,10 +99,10 @@ const menuItems = [
     text: 'Dashboard Overview',
     icon: <InboxIcon />,
     subMenu: [
-      { text: 'Sales summary (today, this week, this month)', component: () =><SalesSummary/> },
+      { text: 'Sales summary (today, this week, this month)', component: () => <div></div> },
       { text: 'Total revenue', component: () => <div>Total revenue component</div> },
-      { text: 'Number of orders', component: () => <div>Number of orders component</div> },
-      { text: 'Number of customers', component: () => <div>Number of customers component</div> },
+      { text: 'Number of orders', component: () => <div>Number Of order</div> },
+      { text: 'Number of customers', component: () => <div>Number of customers</div> },
       { text: 'Top-selling products', component: () => <div>Top-selling products component</div> },
     ],
   },
@@ -124,8 +125,8 @@ const menuItems = [
       { text: 'Product details', component: () => <div>Product details component</div> },
       { text: 'Add/edit/delete products', component: () => <div>Add/edit/delete products component</div> },
       { text: 'Product categories', component: () => <div>Product categories component</div> },
-      { text: 'Inventory management', component: () => <div>Inventory management component</div> },
-      { text: 'Product search', component: () => <div>Product search component</div> },
+      { text: 'Inventory management', component: () => <div><InventoryManagement/> </div> },
+      { text: 'Product search', component: () => <div><ProductSearch/></div> },
     ],
   },
 ];
@@ -166,7 +167,7 @@ export default function Sidebar() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} sx={{backgroundColor:'maroons'}}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -248,6 +249,6 @@ export default function Sidebar() {
         <DrawerHeader />
         {subMenuComponent}
       </Box>
-    </Box>
-  );
+    </Box>
+  );
 }

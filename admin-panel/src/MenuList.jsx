@@ -9,9 +9,9 @@ export const menuItems = [
       text: 'Dashboard Overview',
       icon: <InboxIcon />,
       subMenu: [
-        { text: 'Sales summary', component:( () => <div>Sales summary component</div> )},
-        { text: 'Total revenue', component: (() => <div>1</div>) },
-        { text: 'Number of orders', component: (() => <div>2</div>) },
+        { text: 'Sales summary (today, this week, this month)', component: () => <div>Sales summary component</div> },
+        { text: 'Total revenue', component: () => <div>1</div> },
+        { text: 'Number of orders', component: () => <div>2</div> },
         { text: 'Number of customers', component: () => <div>3</div> },
         { text: 'Top-selling products', component: () => <div>4</div> },
       ],
