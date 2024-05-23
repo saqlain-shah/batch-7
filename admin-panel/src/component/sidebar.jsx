@@ -21,6 +21,8 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import OrderDetails from './OrderList';
+import OrderSummary from './OrderStatus';
 
 const drawerWidth = 240;
 
@@ -106,8 +108,8 @@ const menuItems = [
     icon: <MailIcon />,
     subMenu: [
       { text: 'List of orders', component: () => <div>List of orders component</div> },
-      { text: 'Order details', component: () => <div>Order details component</div> },
-      { text: 'Order status update', component: () => <div>Order status update component</div> },
+      { text: 'Order details', component: () => <div> <OrderDetails/></div> },
+      { text: 'Order status update', component: () => <div><OrderSummary/></div> },
       { text: 'Order filtering (by date, status, etc.)', component: () => <div>Order filtering component</div> },
       { text: 'Order search', component: () => <div>Order search component</div> },
     ],
@@ -247,3 +249,6 @@ export default function Sidebar() {
     </Box>
   );
 }
+
+
+
