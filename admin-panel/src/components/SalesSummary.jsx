@@ -99,7 +99,7 @@ export default function Dashboard() {
               </Typography>
               <Divider />
               <Box height={300}>
-                <ResponsiveContainer width="150%" height="100%">
+                <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     width={500}
                     height={300}
