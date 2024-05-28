@@ -183,7 +183,10 @@ export default function Sidebar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            Ecomers Dashboard
+          </Typography>
+          <Typography variant="h6" noWrap component="div">
+           user 
           </Typography>
         </Toolbar>
       </AppBar>
