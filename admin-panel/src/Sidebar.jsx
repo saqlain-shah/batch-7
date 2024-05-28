@@ -24,6 +24,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import SalesSummary from './components/SalesSummary';
 import ProductManagement from './components/ProductList';
 import ProductCards from './components/ProductDetails';
+import ExampleWithLocalizationProvider from './components/ProductList';
 
 const drawerWidth = 300;
 
@@ -120,7 +121,7 @@ const menuItems = [
     icon: <InboxIcon />,
     subMenu: [
       { text: 'List of products', component: () => <ProductManagement/>},
-      { text: 'Product details', component: () => <ProductCards/> },
+      { text: 'Product details', component: () => <ProductDetails/> },
       { text: 'Add/edit/delete products', component: () => <div>Add/edit/delete products component</div> },
       { text: 'Product categories', component: () => <div>Product categories component</div> },
       { text: 'Inventory management', component: () => <div>Inventory management component</div> },
