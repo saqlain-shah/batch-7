@@ -5,9 +5,9 @@ const router = express.Router();
 router.post("/register", Register);
 router.post("/login", Login);
 
-export default router;
-
 
 // http://localhost:8000/api/auth/register
-
 // http://localhost:8000/api/auth/login
+
+export default router;
+
