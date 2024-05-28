@@ -45,7 +45,7 @@ export const Login = async (req, res, next) => {
             process.env.JWT_SECRET_KEY
         );
 
-        const { password, isAdmin, ...otherDetails } = user._doc;
+        const { password, role, ...otherDetails } = user._doc;
         console.log("Cookie", token);
         res
             .cookie("access_token", token, {
