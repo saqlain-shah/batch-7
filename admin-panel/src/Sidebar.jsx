@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -21,10 +22,9 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import SalesSummary from './components/SalesSummary';
-import ProductManagement from './components/ProductList';
-import ProductCards from './components/ProductDetails';
-import ExampleWithLocalizationProvider from './components/ProductList';
+
+
+import SalesSummary from "./components/SalesSummary"
 
 const drawerWidth = 300;
 
@@ -98,7 +98,7 @@ const menuItems = [
     text: 'Dashboard Overview',
     icon: <InboxIcon />,
     subMenu: [
-      { text: 'Sales summary (today, this week, this month)', component: () => <SalesSummary/> },
+      { text: 'Sales summary (today, this week, this month)', component: () =><SalesSummary/> },
       { text: 'Total revenue', component: () => <div>Total revenue component</div> },
       { text: 'Number of orders', component: () => <div>Number of orders component</div> },
       { text: 'Number of customers', component: () => <div>Number of customers component</div> },
@@ -120,8 +120,8 @@ const menuItems = [
     text: 'Products Management',
     icon: <InboxIcon />,
     subMenu: [
-      { text: 'List of products', component: () => <ProductManagement/>},
-      { text: 'Product details', component: () => <ProductDetails/> },
+      { text: 'List of products', component: () => <div>List of products component</div> },
+      { text: 'Product details', component: () => <div>Product details component</div> },
       { text: 'Add/edit/delete products', component: () => <div>Add/edit/delete products component</div> },
       { text: 'Product categories', component: () => <div>Product categories component</div> },
       { text: 'Inventory management', component: () => <div>Inventory management component</div> },
@@ -180,9 +180,9 @@ export default function Sidebar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold', color: 'white', fontSize: '1.5rem' }}>
-      EnvAto MarKet
-    </Typography>
+          <Typography variant="h6" noWrap component="div">
+            Mini variant drawer
+          </Typography>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
