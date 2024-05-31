@@ -11,11 +11,6 @@ const ProductSchema = new mongoose.Schema({
     required: true,
     enum: ['Men', 'Women', 'Child']
   },
-  payement: {
-    type: String,
-    required: true,
-    enum: ['paid', 'unpaid', 'pending']
-  },
   subCategory: {
     type: String,
     required: true,

@@ -1,59 +1,78 @@
-import User from "../model/user.model.js"
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import  { validationResult } from 'express-validator'
+import  User from '../model/user.model.js'
+import  bcrypt from 'bcryptjs'
+import  jwt from 'jsonwebtoken'
+
+
 
 export const Register = async (req, res, next) => {
-    try {
-        const salt = bcrypt.genSaltSync(10);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
 
-        const hashPassword = bcrypt.hashSync(req.body.password, salt);
+  const { username, email, password, firstName, lastName, ...rest } = req.body;
 
-        const newUser = new User({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            username: req.body.username,
-            email: req.body.email,
-            password: hashPassword,
-        });
+  const salt =  await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
 
-        await newUser.save();
-        res.status(200).json({
-            message: "User has been created.",
-            data: newUser,
-        });
-    } catch (err) {
-        console.error(err)
-        next(err);
-    }
+  try {
+    const user = new User({
+      username,
+      email,
+      password: hashedPassword,
+      firstName,
+      lastName,
+      ...rest,
+    });
+
+    await user.save();
+
+    res
+    .status(201)
+    .json({ 
+        status: true,
+        message: 'User created successfully',
+        data:user
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error creating user' , error:err });
+  }
 };
 
 export const Login = async (req, res, next) => {
-    try {
+  // Sanitize incoming data
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
 
-        const user = await User.findOne({ email: req.body.email });
-        if (!user) return next(createError(404, "User not found!"));
+  // Extract login credentials
+  const { email, password } = req.body;
 
-        const isPasswordCorrect = await bcrypt.compare(
-            req.body.password,
-            user.password
-        );
-        if (!isPasswordCorrect)
-            return next(createError(400, "Wrong password or username!"));
-
-        const token = jwt.sign(
-            { id: user._id, isAdmin: user.isAdmin },
-            process.env.JWT_SECRET_KEY
-        );
-
-        const { password, role, ...otherDetails } = user._doc;
-        console.log("Cookie", token);
-        res
-            .cookie("access_token", token, {
-                httpOnly: true,
-            })
-            .status(200)
-            .json({ details: { ...otherDetails }, isAdmin });
-    } catch (err) {
-        next(err);
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
+
+    // Compare password hashes
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Generate a JWT token
+    const payload = { userId: user._id };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30d' });
+
+    // Set cookies with sanitized user data (excluding password)
+    res.cookie('jwt', token, { httpOnly: true }); // Sending JWT token in a cookie
+
+    res.status(200).json({ message: 'Login successful' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error logging in' });
+  }
 };

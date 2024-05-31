@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Define the schema for a review
-const reviewSchema = new mongoose.Schema({
+export const reviewSchema = new mongoose.Schema({
     rating: {
         type: Number,
         //required: true,
