@@ -31,3 +31,10 @@ population
 
 
 ODM vs ORM 
+Authentication and authoriazation 
+role based access
+session based authentication 
+cookie based
+cookies
+session 
+local storage
