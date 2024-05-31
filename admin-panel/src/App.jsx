@@ -1,20 +1,12 @@
-// import MainContent from "./component/MainContent"
-// import Header from "./component/header"
-// import Sidebar from "./component/sidebar"
-// import Map from "./components/map"
+import React from 'react';
+import Sidebar from './Sidebar'; // Import the Sidebar component
 
-import Sidebar from "./Sidebar"
 function App() {
-
   return (
-    <>
-      <Sidebar/>
-       {/* <Header></Header> */}
-       {/* <Sidebar/> */}
-      {/* <MainContent/>  */}
-      {/* <Map/> */}
-    </>
-  )
+    <div>
+      <Sidebar /> {/* Use the Sidebar component */}
+    </div>
+  );
 }
 
-export default App
+export default App;
