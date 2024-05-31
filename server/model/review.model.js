@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Define the schema for a review
-const reviewSchema = new mongoose.Schema({
+export const reviewSchema = new mongoose.Schema({
     rating: {
         type: Number,
         //required: true,
@@ -13,14 +13,13 @@ const reviewSchema = new mongoose.Schema({
         trim: true
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+       type:mongoose.Schema.ObjectId,
+       ref:'User',
+       required:true,
     },
     product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product',
-        required: true
+      type:mongoose.schema.ObjectId,
+      ref:'Product',
     },
     createdAt: {
         type: Date,
@@ -34,4 +33,7 @@ const reviewSchema = new mongoose.Schema({
 
 // Create a model using the schema
 export default mongoose.model('Review', reviewSchema);
+
+// or you Create a model using the schema in this method also
+// export const reviewModel=mongoose.model('Review',reviewSchema);
 
