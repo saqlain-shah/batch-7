@@ -1,0 +1,137 @@
+{
+	"info": {
+		"_postman_id": "44421445-61b5-41d5-8c17-a7f13e298e5f",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33726066"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Test\",\r\n    \"firstName\": \"User\",\r\n    \"lastName\": \"test_user\",\r\n    \"password\": \"123456789\",\r\n    \"email\": \"testuser@gmail.com\",\r\n    \"phone\": \"0345678910\",\r\n    \"dateOfBirth\": \"12/51/1880\",\r\n    \"address\": {\r\n        \"street\": \"Jama Masjid Rd \",\r\n        \"city\": \"skardu\",\r\n        \"state\": \"GB\",\r\n        \"postalCode\": \"1600\",\r\n        \"country\": \"PAK\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"testuser@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/check-auth",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"check-auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Veirfy User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/check-user/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"check-user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6659d7e27b1effea3f5a074f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Veirfy Admin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/check-admin/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"check-admin",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6659d7e27b1effea3f5a074f"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
