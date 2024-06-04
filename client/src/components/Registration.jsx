@@ -24,7 +24,7 @@ const initialValues = {
     dateOfBirth: '',
 };
 
-const RegistrationForm = () => {
+const RegisterForm = () => {
     const [activeStep, setActiveStep] = useState(0);
 
     const handleNext = () => {
@@ -197,4 +197,4 @@ const RegistrationForm = () => {
     );
 };
 
-export default RegistrationForm;
+export default RegisterForm;

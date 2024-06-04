@@ -1,6 +1,7 @@
 import React from 'react';
-import { TextField, Button, Paper, Typography, Link, Box } from '@mui/material';
+import { TextField, Button, Paper, Typography, Box } from '@mui/material';
 import { styled } from '@mui/system';
+import { Link } from 'react-router-dom';
 
 const PaperStyled = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -49,8 +50,18 @@ const LoginForm = () => {
         </ButtonStyled>
       </FormStyled>
       <LinkStyled>
-        <Link href="/register">
+        <Link to="/register">
           Don't have an account? Register
+          </Link>
+          <br></br>
+          <Link to="/Navbar">
+          Navbar
+       
+        </Link>
+        <br></br>
+        <Link to="/Contact">
+          ContactUs
+       
         </Link>
       </LinkStyled>
     </PaperStyled>
