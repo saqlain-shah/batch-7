@@ -23,6 +23,8 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import OrderDetails from './OrderList';
 import OrderSummary from './OrderStatus';
+import NoOfCustomer from '../dashbord/NoOfCustomer';
+import NoOfOrder from '../dashbord/NoOfOrder';
 
 const drawerWidth = 240;
 
@@ -98,8 +100,8 @@ const menuItems = [
     subMenu: [
       { text: 'Sales summary (today, this week, this month)', component: () => <div>Sales summary component</div> },
       { text: 'Total revenue', component: () => <div>Total revenue component</div> },
-      { text: 'Number of orders', component: () => <div>Number of orders component</div> },
-      { text: 'Number of customers', component: () => <div>Number of customers component</div> },
+      { text: 'Number of customers', component: () => <div> <NoOfCustomer/></div> },
+      { text: 'Number of order', component: () => <div><NoOfOrder/></div> },
       { text: 'Top-selling products', component: () => <div>Top-selling products component</div> },
     ],
   },
