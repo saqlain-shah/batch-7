@@ -76,10 +76,10 @@ const About = () => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 minHeight: '400px',
-                margin:'3%'
+                margin:'10%'
               }}
             >
-              <img src={img4} alt="Left side" width="90%" height="100%"style={{borderRadius:'100%'}}/>
+              <img src={img4} alt="Left side" width="50%" height="60%"style={{borderRadius:'100%'}}/>
             </Box>
           </Grid>
 

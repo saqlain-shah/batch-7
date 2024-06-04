@@ -134,3 +134,22 @@ export const ProductDetail = () => {
   );
 };
 https://www.amazon.com/s?k=women+skir&i=fashion-womens-intl-ship&crid=2OZF6GY4F1BH3&sprefix=women+skir%2Cfashion-womens-intl-ship%2C669&ref=nb_sb_noss_2
+
+
+
+
+
+
+
+
+middlewares RestFul APi
+
+cors cookie-parser jsonwebtoken bcryptjs dotenv mongoose nodemon
+
+req.body req.param req.querry req.cookie
+
+schema documents model collections database querry
+
+aggregation population
+
+ODM vs ORM Authentication and authoriazation role based access session based authentication cookie based cookies session local storage
