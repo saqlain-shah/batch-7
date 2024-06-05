@@ -1,22 +1,17 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "description": "backend express app",
   "type": "module",
-  "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Kamran-Aqeel/batch-7.git"
-  },
-  "author": "kamran",
+  "keywords": [
+    "backend"
+  ],
+  "author": "saqlain shah",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Kamran-Aqeel/batch-7/issues"
-  },
-  "homepage": "https://github.com/Kamran-Aqeel/batch-7#readme",
   "dependencies": {
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
