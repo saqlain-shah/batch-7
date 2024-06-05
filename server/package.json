@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kamran-Aqeel/batch-7.git"
+  },
+  "author": "kamran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kamran-Aqeel/batch-7/issues"
+  },
+  "homepage": "https://github.com/Kamran-Aqeel/batch-7#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.0"
+  }
+}
