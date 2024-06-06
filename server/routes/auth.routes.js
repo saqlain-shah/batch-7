@@ -12,6 +12,17 @@ const registerValidation = [
     check('firstName', 'First name is required').notEmpty().trim(),
     check('lastName', 'Last name is required').notEmpty().trim(),
     check('phone', 'Please enter a valid phone number').isMobilePhone(), 
+
+
+    // Address validation (assuming all fields are required)
+  // check('address.street', 'Street address is required').notEmpty().trim(),
+  // check('address.city', 'City is required').notEmpty().trim(),
+  // check('address.state', 'State is required').notEmpty().trim(),
+  // check('address.postalCode', 'Postal code is required').notEmpty().trim(),
+  // check('address.country', 'Country is required').notEmpty().trim(),
+
+  // Date of birth validation (assuming it's a string)
+  check('dateOfBirth', 'Date of birth is required').notEmpty(),
   ];
   
   const loginValidation = [
