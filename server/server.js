@@ -4,9 +4,11 @@ import mongoose from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.routes.js" 
-import userRoute from "./routes/product.routes.js"
-import productRoute from "./routes/user.routes.js"
+import  productRoute from "./routes/product.routes.js"
+import userRoute from "./routes/user.routes.js"
 import invoiceRoute from "./routes/invoice.routes.js"
+
+
 dotenv.config();
 
 const app = express()
