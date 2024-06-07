@@ -22,6 +22,7 @@ export default function Navbar() {
             <Button color='inherit' component={Link} to="/electronicProducts">Products</Button>
             <Button color='inherit' component={Link} to="/counterr">Counter</Button>
             <Button color='inherit' component={Link} to="/mainClock">Clock</Button>
+            <Button color='inherit' component={Link} to="/map">Map</Button>
 
           </Stack>
         </Toolbar>

@@ -13,6 +13,7 @@ import Counterr from './components/counterr';
 import Login from './components/login';
 import ProductDetail from './components/ProductDetail';
 import MianClock from './components/PakistanClock/mianClock';
+import Map from './components/map';
 // import { Resturent } from './resturent/resturent';
 // import MultistepForm from './components/multistepForm';
 // import FormikAndYup from './component/formikandyup';
@@ -39,6 +40,7 @@ function App() {
 
 <Route path='counter' element={<Counterr />} />
 <Route path='mainClock' element={<MianClock/>} />
+<Route path='map' element={<Map/>}/>
 
 
 
