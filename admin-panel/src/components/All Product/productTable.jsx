@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
 import { Box, Button, ListItemIcon, MenuItem, Typography, lighten } from '@mui/material';
 import { AccountCircle, Send } from '@mui/icons-material';
-import { data } from './makeData';
+// import { data } from './makeData';
 
 const ProductTable = () => {
   const columns = useMemo(
@@ -50,7 +50,7 @@ const ProductTable = () => {
 
   const table = useMaterialReactTable({
     columns,
-    data,
+    data:[],
     initialState: {
       showColumnFilters: true,
       showGlobalFilter: true,
