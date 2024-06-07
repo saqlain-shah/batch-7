@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Link, Typography, Button, IconButton, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
+import { Typography, Button, IconButton, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import blueShoe from './images/blue.jpg';
 import greenShoe from './images/green.jpg';
@@ -44,8 +45,8 @@ export const ProductDetail = () => {
       <Box height={'100vh'} width={'85%'} display="flex">
         <Grid container spacing={1} display={'flex'} justifyContent={'space-between'}>
           <Grid item xs={6} md={12} marginTop={'15px'} marginBottom={'18px'}>
-            <Link sx={{ textDecoration: 'none', '&:hover': { cursor: 'pointer', color: 'darkblue' } }} to='/productDetail'>Home</Link>
-            <Link sx={{ textDecoration: 'none', '&:hover': { cursor: 'pointer', color: 'darkblue' } }} to='/productDetail'>/Women</Link>
+            <Link style={{ textDecoration: 'none', cursor: 'pointer', color: 'darkblue' }} to='/'>Home</Link>
+            <Link style={{ textDecoration: 'none', cursor: 'pointer', color: 'darkblue' }} to='/productDetail'>/Women</Link>
             <Typography>/Seasonal Color Couck 70</Typography>
           </Grid>
           <Grid item xs={6} md={5.5} sx={{ backgroundColor: 'white' }}>
@@ -67,8 +68,7 @@ export const ProductDetail = () => {
                   onChange={handleChange}
                   label="Category"
                 >
-                  <MenuItem value="">
-                  </MenuItem>
+                  <MenuItem value=""></MenuItem>
                   <MenuItem value={'Men-Jacket'}>Men-Jacket</MenuItem>
                   <MenuItem value={'Men-Shirt'}>Men-Shirt</MenuItem>
                   <MenuItem value={'Men-Pant'}>Men-Pant</MenuItem>
@@ -108,7 +108,6 @@ export const ProductDetail = () => {
               </p>
             </Typography>
           </Grid>
-
         </Grid>
       </Box>
 
@@ -142,10 +141,10 @@ export const ProductDetail = () => {
               <Typography>Color: {color}</Typography>
             </Grid>
             <Grid item>
-              <Link to='/viewCard'><Button fullWidth variant="contained" color="primary">View Cart</Button></Link>
+              <Link to='/viewCart'><Button fullWidth variant="contained" color="primary">View Cart</Button></Link>
             </Grid>
             <Grid item>
-              <Link href="#" underline="none">Continue Shopping</Link>
+              <Link to='/' underline="none">Continue Shopping</Link>
             </Grid>
           </Grid>
         </Box>

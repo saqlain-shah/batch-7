@@ -1,24 +1,18 @@
-import React from "react"
-// import { Routes, Route } from 'react-router-dom'
-import { ProductDetail } from "./component/productDetail.jsx"
-import About from "./component/aboutUs"
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ProductDetail } from './component/productDetail';
+import ViewCart from './component/viewCart'; 
 
-function App() {
-
+const App = () => {
   return (
-  <div>
-  <About/>   
- <ProductDetail/>
-    
+    <Router>
+      <Routes>
+      {/* <ProductDetail /> */}
+        <Route path="/" element={<ProductDetail />} />
+        <Route path="/viewCart" element={<ViewCart />} />
+      </Routes>
+    </Router>
+  );
+};
 
-  {/* <Routes> */}
-                {/* <Route path="/productDetail" element={<ProductDetail/>} /> */}
-                {/* <Route path="/aboutUs" element={<About/>} /> */}
-            
-            {/* </Routes>  */}
-
-  </div>
-  )
-}
-
-export default App
+export default App;

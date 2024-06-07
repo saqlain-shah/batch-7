@@ -68,20 +68,7 @@ const About = () => {
       <Container sx={{ my: 4 }}>
         <Grid container spacing={2}>
           {/* Left side image */}
-          <Grid item xs={12} md={6}>
-            <Box
-              sx={{
-                width: '100%',
-                height: '100%',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                minHeight: '400px',
-                margin:'10%'
-              }}
-            >
-              <img src={img4} alt="Left side" width="50%" height="60%"style={{borderRadius:'100%'}}/>
-            </Box>
-          </Grid>
+         
 
           {/* Right side text box */}
           <Grid item xs={12} md={6}>
@@ -94,16 +81,14 @@ const About = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                borderRadius:'100%',
                 overflow:'hidden',
             
             }}
             >
-              <Typography variant="h4" gutterBottom textAlign={'center'}>
+              <Typography variant="h4" gutterBottom >
                 About Us
               </Typography>
               <Typography variant="body1">
-         <center>  
             <Box sx={{width:'76%'}}>
          <Typography sx={{fontSize:'15px'}}>
 <h4>Our Story</h4>
@@ -113,8 +98,23 @@ const About = () => {
 <p>At Converse, our mission is to provide our customers with a diverse range of high-quality clothing. We believe that fashion is a powerful form of self-expression, and our goal is to help you find pieces that resonate with your personal style, whether you're dressing for a casual day out or a special occasion.</p>
 </Typography>
 </Box> 
-</center> 
+
               </Typography>
+              
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Box
+              sx={{
+                width: '100%',
+                height: '100%',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                minHeight: '400px',
+                margin:'10%'
+              }}
+            >
+              <img src={img4} alt="Left side" width="80%" height="90%"style={{borderRadius:'100%'}}/>
             </Box>
           </Grid>
         </Grid>
