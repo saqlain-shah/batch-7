@@ -10,6 +10,7 @@ import {
   Box,
   Collapse,
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
@@ -20,6 +21,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import PaymentsIcon from '@mui/icons-material/Payments';
+
 const drawerWidth = 300;
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -38,11 +40,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       anchor="left"
       open={isOpen}
       sx={{
-        width: drawerWidth,
+        width: isOpen ? drawerWidth : 0,
         flexShrink: 0,
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
+          transition: 'width 0.3s',
         },
       }}
     >
@@ -60,23 +63,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       </Box>
       <Divider />
       <List>
-        <ListItem button onClick={() => handleClick('dashboard')}>
+        <ListItem button component={Link} to="/dashboard">
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="Dashboard" />
-          {openItems['dashboard'] ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
-        <Collapse in={openItems['dashboard']} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button sx={{ pl: 4 }}>
-              <ListItemText primary="Sub-item 1" />
-            </ListItem>
-            <ListItem button sx={{ pl: 4 }}>
-              <ListItemText primary="Sub-item 2" />
-            </ListItem>
-          </List>
-        </Collapse>
 
         <ListItem button onClick={() => handleClick('orders')}>
           <ListItemIcon>
@@ -87,10 +79,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </ListItem>
         <Collapse in={openItems['orders']} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button sx={{ pl: 4 }}>
+            <ListItem button component={Link} to="/orders/order1" sx={{ pl: 4 }}>
               <ListItemText primary="Order 1" />
             </ListItem>
-            <ListItem button sx={{ pl: 4 }}>
+            <ListItem button component={Link} to="/orders/order2" sx={{ pl: 4 }}>
               <ListItemText primary="Order 2" />
             </ListItem>
           </List>
@@ -105,73 +97,35 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         </ListItem>
         <Collapse in={openItems['customers']} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button sx={{ pl: 4 }}>
+            <ListItem button component={Link} to="/customers/customer1" sx={{ pl: 4 }}>
               <ListItemText primary="Customer 1" />
             </ListItem>
-            <ListItem button sx={{ pl: 4 }}>
+            <ListItem button component={Link} to="/customers/customer2" sx={{ pl: 4 }}>
               <ListItemText primary="Customer 2" />
             </ListItem>
           </List>
         </Collapse>
-        <ListItem button onClick={() => handleClick('categories')}>
+
+        <ListItem button component={Link} to="/categories">
           <ListItemIcon>
             <CategoryIcon />
           </ListItemIcon>
           <ListItemText primary="Categories" />
-          {openItems['categories'] ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
 
-        <Collapse in={openItems['categories']} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button sx={{ pl: 4 }}>
-              <ListItemText primary="Category 1" />
-            </ListItem>
-            <ListItem button sx={{ pl: 4 }}>
-              <ListItemText primary="Category 2" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-
-        <ListItem button onClick={() => handleClick('invoice')}>
+        <ListItem button component={Link} to="/invoices">
           <ListItemIcon>
             <ReceiptIcon />
           </ListItemIcon>
-          <ListItemText primary="invoice" />
-          {openItems['invoice'] ? <ExpandLess /> : <ExpandMore />}
+          <ListItemText primary="Invoices" />
         </ListItem>
-        <Collapse in={openItems['invoice']} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button sx={{ pl: 4 }}>
-              <ListItemText primary="invoice 1" />
-            </ListItem>
-            <ListItem button sx={{ pl: 4 }}>
-              <ListItemText primary="invoice 2" />
-            </ListItem>
-          </List>
-        </Collapse>
 
-
-<ListItem button onClick={() => handleClick('Payment')}>
+        <ListItem button component={Link} to="/payments">
           <ListItemIcon>
             <PaymentsIcon />
           </ListItemIcon>
-          <ListItemText primary="Payment" />
-          {openItems['Payment'] ? <ExpandLess /> : <ExpandMore />}
+          <ListItemText primary="Payments" />
         </ListItem>
-        <Collapse in={openItems['Payment']} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button sx={{ pl: 4 }}>
-              <ListItemText primary="Payment 1" />
-            </ListItem>
-            <ListItem button sx={{ pl: 4 }}>
-              <ListItemText primary="Payment 2" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-
-
       </List>
     </Drawer>
   );

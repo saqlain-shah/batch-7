@@ -7,7 +7,8 @@ import {
   Badge,
   InputBase,
   Paper,
-  Divider,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -16,29 +17,43 @@ import MailIcon from '@mui/icons-material/Mail';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Topbar = ({ toggleSidebar }) => {
-  const [searchText, setSearchText] = useState(''); // State for search input
+  const [searchText, setSearchText] = useState('');
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
 
+  const handleProfileClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    console.log("Logged out");
+    handleMenuClose();
+    // Add your logout logic here, like redirecting to a login page
+  };
+
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleSidebar} sx={{ mr: 2 }}>
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-          
+          {/* Your title here */}
         </Typography>
-         {/* Search bar with Paper for visual separation */}
-         <Paper
+        <Paper
           component="form"
           sx={{
             p: '2px 4px',
             display: 'flex',
             alignItems: 'center',
-            width: '30%', // Adjust width as needed
+            width: '30%',
             borderRadius: 1,
           }}
         >
@@ -54,7 +69,6 @@ const Topbar = ({ toggleSidebar }) => {
           />
         </Paper>
         <IconButton color="inherit">
-          {/* Add dummy message count here (replace with actual data fetching if needed) */}
           <Badge badgeContent={3} color="secondary">
             <MailIcon />
           </Badge>
@@ -65,14 +79,21 @@ const Topbar = ({ toggleSidebar }) => {
           </Badge>
         </IconButton>
 
-       
-
-        <IconButton color="inherit">
-          <AccountCircleIcon />
-        </IconButton>
+        <div>
+          <IconButton color="inherit" onClick={handleProfileClick}>
+            <AccountCircleIcon />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
+        </div>
       </Toolbar>
-      {/* Consider adding a Divider to visually separate the search bar from the rest */}
-      {/* <Divider variant="middle" /> */}
     </AppBar>
   );
 };
