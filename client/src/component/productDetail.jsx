@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Typography, Button, IconButton, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useCart } from './cartContext.jsx';
 import blueShoe from './images/blue.jpg';
 import greenShoe from './images/green.jpg';
 import pinkShoe from './images/pink.jpg';
@@ -17,12 +18,23 @@ const images = {
 };
 
 export const ProductDetail = () => {
+  const { addToCart } = useCart();
   const [cartOpen, setCartOpen] = useState(false);
   const [image, setImage] = useState(images.Blue);
   const [category, setCategory] = useState('');
   const [color, setColor] = useState('Black');
+  const [size, setSize] = useState('Medium'); // Add size state
 
   const handleAddToCart = () => {
+    addToCart({
+      image,
+      category,
+      color,
+      size,
+      price: 500.00, // Add the price
+      brand: 'Converse',
+      name: 'Seasonal Color Couck 70'
+    });
     setCartOpen(true);
   };
 
@@ -38,6 +50,10 @@ export const ProductDetail = () => {
 
   const handleChange = (event) => {
     setCategory(event.target.value);
+  };
+
+  const handleSizeChange = (size) => {
+    setSize(size);
   };
 
   return (
@@ -89,9 +105,9 @@ export const ProductDetail = () => {
             </Typography>
 
             <Typography marginTop={'25px'}>
-              <Button sx={{ border: 'solid 1px lightgray', marginRight: '6px' }}>Small</Button>
-              <Button sx={{ border: 'solid 1px lightgray', marginRight: '6px' }}>Medium</Button>
-              <Button sx={{ border: 'solid 1px lightgray' }}>Large</Button>
+              <Button sx={{ border: 'solid 1px lightgray', marginRight: '6px' }} onClick={() => handleSizeChange('Small')}>Small</Button>
+              <Button sx={{ border: 'solid 1px lightgray', marginRight: '6px' }} onClick={() => handleSizeChange('Medium')}>Medium</Button>
+              <Button sx={{ border: 'solid 1px lightgray' }} onClick={() => handleSizeChange('Large')}>Large</Button>
             </Typography>
             <Typography marginTop={'15px'}>
               <Button value="Blue" onClick={handleColorChange} sx={{ border: 'solid 1px lightgray', marginRight: '3px', backgroundColor: color === 'Blue' ? 'blue' : 'inherit', color: color === 'Blue' ? 'white' : 'black', fontSize: '11px' }}>Blue</Button>

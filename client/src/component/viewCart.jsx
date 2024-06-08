@@ -1,11 +1,12 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-// import Grid from '@mui/material/Grid';
 import { Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useCart } from './cartContext';
 
-const ViewCart = ({ cartItems }) => {
-  // const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+const ViewCart = () => {
+  const { cartItems, clearCart } = useCart();
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
 
   return (
     <Box width={'100%'} display={'flex'} justifyContent={'center'} marginTop={'20px'}>
@@ -42,6 +43,7 @@ const ViewCart = ({ cartItems }) => {
           <Link to="/" style={{ textDecoration: 'none' }}>
             <Button variant="contained" color="primary">Continue Shopping</Button>
           </Link>
+          <Button variant="contained" color="secondary" onClick={clearCart} style={{ marginLeft: '10px' }}>Clear Cart</Button>
         </Box>
       </Box>
     </Box>
