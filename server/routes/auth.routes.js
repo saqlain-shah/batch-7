@@ -22,7 +22,7 @@ const registerValidation = [
   
 router.post(
   "/register",
-  registerValidation,
+  // registerValidation,
   Register
 );
 
