@@ -4,9 +4,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.routes.js" 
-import userRoute from "./routes/user.routes.js"
-import productRoute from "./routes/product.routes.js"
-
+import userRoute from "./routes/product.routes.js"
+import productRoute from "./routes/user.routes.js"
+import invoiceRoute from "./routes/invoice.routes.js"
 dotenv.config();
 
 const app = express()
@@ -31,7 +31,7 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
-
+app.use("/api/invoice", invoiceRoute);
 const DatabaseConnection = async () => {
     try {
       await mongoose.connect(process.env.MONGODB_URI);
