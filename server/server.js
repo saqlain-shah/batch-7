@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.routes.js" 
@@ -71,3 +71,7 @@ DatabaseConnection();
   console.log(`Server Listen on port ${port}`);
   console.log("Connected to backend.");
 });
+
+
+
+

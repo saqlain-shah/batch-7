@@ -1,12 +1,12 @@
 import express from "express";
-import userControler from "../controller/user.controller.js"
+import userController from "../controller/user.controller.js"
 const router = express.Router();
 
-router.route('/addUser').post(userControler.AddUser)
-router.get("/", userControler.viewAllUser);
-router.get("/:id", userControler.viewSingleUser);
-router.put("/:id", userControler.updateUser);
-router.delete("/:id", userControler.deleteUser);
+// router.route('/addUser').post(userControler.AddUser)
+router.get("/", userController.viewAllUser);
+router.get("/:id", userController.viewSingleUser);
+router.put("/:id", userController.updateUser);
+router.delete("/:id", userController.deleteUser);
 
 
 // http://localhost:8000/api/User/

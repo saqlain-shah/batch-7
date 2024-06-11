@@ -8,7 +8,7 @@ export const updateUser = async (req, res, next) => {
     // const { error } = validateUpdateUser(req.body); 
     // if (error) return res.status(400).send(error.details[0].message);  
     
-    const user = await User.findById(userId);
+     const user = await User.findById(userId);
 
     if (!user) return res.status(404).send('User not found');
     user.set(req.body); 
@@ -87,4 +87,10 @@ export const viewAllUser = async (req, res, next) => {
   }
 };
 
-
+ const userController={
+  updateUser,
+  deleteUser,
+  viewSingleUser,
+  viewAllUser,
+};
+export default userController;
