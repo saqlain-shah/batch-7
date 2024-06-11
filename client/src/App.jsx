@@ -2,24 +2,28 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginForm from './components/Login';
 import RegistrationForm from './components/RegistrationForm';
-import Navbar from './components/Navbar';
 import ContactUs from './components/ContactUs';
-// import RegisterForm from './components/Registration';
+import Layout from './Layout';
+import Banner from './components/Banner';
 
 const App = () => {
   return (
+
     <Router>
-      <Routes>
-        <Route path="/" element={<LoginForm />} />
-        <Route path="/register" element={<RegistrationForm />}/>
-        <Route path="/Navbar" element={<Navbar />}/>
-        <Route path="/Contact" element={<ContactUs />}/>
-
       
+      <Routes>
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegistrationForm />} />
+        <Route path="/" element={<Layout />}>
+        <Route path="" element={<Banner />} />
+          <Route path="contact" element={<ContactUs />} />
 
-        
+        </Route>
 
-        
+
+
+
+
       </Routes>
     </Router>
   );

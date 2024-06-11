@@ -50,19 +50,11 @@ const LoginForm = () => {
         </ButtonStyled>
       </FormStyled>
       <LinkStyled>
+      Don't have an account? 
         <Link to="/register">
-          Don't have an account? Register
+          Register
           </Link>
-          <br></br>
-          <Link to="/Navbar">
-          Navbar
-       
-        </Link>
-        <br></br>
-        <Link to="/Contact">
-          ContactUs
-       
-        </Link>
+        
       </LinkStyled>
     </PaperStyled>
   );

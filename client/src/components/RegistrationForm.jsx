@@ -1,8 +1,10 @@
+// RegistrationForm.jsx
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-mui';
-import { Button, Stepper, Step, StepLabel, Box, Typography, Paper } from '@mui/material';
+import { Button, Stepper, Step, StepLabel, Box, Typography, Paper, FormLabel } from '@mui/material';
 import { validationSchema } from './ValidationSchema';
+import ProfileDropzone from './dropzone';
 
 const steps = ['Personal Details', 'Address Details', 'Review & Submit'];
 
@@ -27,7 +29,6 @@ const initialValues = {
 
 const RegistrationForm = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [previewImage, setPreviewImage] = useState(null); // State for previewing image
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -37,15 +38,13 @@ const RegistrationForm = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleChange = (event) => {
-    const file = event.target.files[0];
-    setPreviewImage(URL.createObjectURL(file)); // Update preview image
-    // You might want to add logic to validate file size or type here
-  };
-
   const handleSubmit = (values) => {
     console.log('Form Data', values);
     handleNext();
+  };
+
+  const handleFileSelect = (file) => {
+    initialValues.picture = file; // Add file to form values
   };
 
   const renderStepContent = (step) => {
@@ -53,38 +52,19 @@ const RegistrationForm = () => {
       case 0:
         return (
           <>
+         <FormLabel>Upload Profile Picture</FormLabel>
 
-            <input
-              accept="image/*"
-              id="picture"
-              name="picture"
-              type="file"
-              onChange={handleChange}
-              style={{ display: 'none' }} // Hide the input element
-            />
-
-
-        
-            {previewImage && (
-              <Box mt={2} display="flex" justifyContent="center">
-                <img src={previewImage} alt="Selected Preview" style={{ width: 100, height: 100, borderRadius: '50%' }} />
-              </Box>
-            )}
-
-            <label htmlFor="picture">
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <Button variant="contained" component="span" sx={{ width: '200px'  }}>
-                Upload Picture
-              </Button>
-              </Box>
-            </label>
-
+          <div 
+              style={{display:'flex', justifyContent:'center'}}
+          >    <ProfileDropzone onFileSelect={handleFileSelect} /> </div>
+         
             <Field
               component={TextField}
               name="username"
               label="Username"
               fullWidth
               margin="normal"
+              size="small"
             />
             <Field
               component={TextField}
@@ -92,6 +72,7 @@ const RegistrationForm = () => {
               label="Email"
               fullWidth
               margin="normal"
+              size="small"
             />
             <Field
               component={TextField}
@@ -100,6 +81,7 @@ const RegistrationForm = () => {
               label="Password"
               fullWidth
               margin="normal"
+              size="small"
             />
             <Field
               component={TextField}
@@ -107,6 +89,7 @@ const RegistrationForm = () => {
               label="First Name"
               fullWidth
               margin="normal"
+              size="small"
             />
             <Field
               component={TextField}
@@ -114,6 +97,7 @@ const RegistrationForm = () => {
               label="Last Name"
               fullWidth
               margin="normal"
+              size="small"
             />
             <Field
               component={TextField}
@@ -122,10 +106,9 @@ const RegistrationForm = () => {
               label="Date of Birth"
               fullWidth
               margin="normal"
+              size="small"
               InputLabelProps={{ shrink: true }}
             />
-           
-           
           </>
         );
       case 1:
@@ -137,6 +120,7 @@ const RegistrationForm = () => {
               label="Street"
               fullWidth
               margin="normal"
+              size="small"
             />
             <Field
               component={TextField}
@@ -144,6 +128,7 @@ const RegistrationForm = () => {
               label="City"
               fullWidth
               margin="normal"
+              size="small"
             />
             <Field
               component={TextField}
@@ -151,6 +136,7 @@ const RegistrationForm = () => {
               label="State"
               fullWidth
               margin="normal"
+              size="small"
             />
             <Field
               component={TextField}
@@ -158,6 +144,7 @@ const RegistrationForm = () => {
               label="Postal Code"
               fullWidth
               margin="normal"
+              size="small"
             />
             <Field
               component={TextField}
@@ -165,6 +152,7 @@ const RegistrationForm = () => {
               label="Country"
               fullWidth
               margin="normal"
+              size="small"
             />
             <Field
               component={TextField}
@@ -172,66 +160,66 @@ const RegistrationForm = () => {
               label="Phone"
               fullWidth
               margin="normal"
-          />
-      </>
-  );
-case 2:
-  return (
-      <Typography variant="h6">
-          Review your information and submit.
-      </Typography>
-  );
-default:
-  return <div>Unknown step</div>;
-}
-};
-
-return (
-<Formik
-initialValues={initialValues}
-validationSchema={validationSchema}
-onSubmit={handleSubmit}
->
-{({ isSubmitting }) => (
-  <Form>
-      <Box mt={4} textAlign="center">
-          <Typography variant="h4" align="center">
-              Registration Form
+              size="small"
+            />
+          </>
+        );
+      case 2:
+        return (
+          <Typography variant="h6">
+            Review your information and submit.
           </Typography>
-      </Box>
-      <Paper 
-          variant="outlined" 
-          elevation={3} 
-          sx={{ mt: 2, mx: 'auto',  width: '90%', maxWidth: '600px' }}
-      >
-          <Stepper activeStep={activeStep}>
-              {steps.map((label) => (
-                  <Step key={label}>
-                      <StepLabel>{label}</StepLabel>
-                  </Step>
-              ))}
-          </Stepper>
-          <Box mt={2}>
-              {renderStepContent(activeStep)}
-              <Box mt={2} display="flex" justifyContent="space-between">
-                  {activeStep !== 0 && (
-                      <Button onClick={handleBack}>Back</Button>
-                  )}
-                  <Button
-                      type={activeStep === steps.length - 1 ? 'submit' : 'button'}
-                      onClick={activeStep === steps.length - 1 ? null : handleNext}
-                      disabled={isSubmitting}
-                  >
-                      {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
-                  </Button>
-              </Box>
+        );
+      default:
+        return <div>Unknown step</div>;
+    }
+  };
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ isSubmitting }) => (
+        <Form>
+          <Box mt={4} textAlign="center">
+            <Typography variant="h4" align="center">
+              Registration Form
+            </Typography>
           </Box>
-      </Paper>
-  </Form>
-)}
-</Formik>
-);
+          <Paper
+            variant="elevation"
+            elevation={2}
+            sx={{ mt: 2, mx: 'auto', width: '90%', maxWidth: '600px', p:'10px' }}
+          >
+            <Stepper activeStep={activeStep}>
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            <Box mt={2}>
+              {renderStepContent(activeStep)}
+              <Box mt={2} display="flex" justifyContent="flex-end">
+                {activeStep !== 0 && (
+                  <Button onClick={handleBack}>Back</Button>
+                )}
+                <Button
+                  type={activeStep === steps.length - 1 ? 'submit' : 'button'}
+                  onClick={activeStep === steps.length - 1 ? null : handleNext}
+                  disabled={isSubmitting}
+                >
+                  {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
+                </Button>
+              </Box>
+            </Box>
+          </Paper>
+        </Form>
+      )}
+    </Formik>
+  );
 };
 
 export default RegistrationForm;
-

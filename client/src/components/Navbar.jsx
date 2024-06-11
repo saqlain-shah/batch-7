@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton, Box, Drawer, List, ListItem, ListItemText } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, IconButton, Box, Drawer, List, ListItem, ListItemText, Link as MuiLink } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -46,15 +47,53 @@ const Navbar = () => {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         My eCommerce
                     </Typography>
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <Button color="inherit">Home</Button>
-                        <Button color="inherit">Products</Button>
-                        <Button color="inherit">About</Button>
-                        <Button color="inherit">Contact</Button>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 3, justifyContent:'center', alignItems:'center' }}> {/* Use gap for spacing between links */}
+                        <MuiLink
+                            component={Link}
+                            to="/"
+                            color="inherit"
+                            sx={{ textDecoration: 'none', fontSize: '1.2rem' }}
+                        >
+                            Home
+                        </MuiLink>
+                        <MuiLink
+                            component={Link}
+                            to="/product"
+                            color="inherit"
+                            sx={{ textDecoration: 'none', fontSize: '1.2rem' }}
+                        >
+                            Products
+                        </MuiLink>
+                        <MuiLink
+                            component={Link}
+                            to="/about"
+                            color="inherit"
+                            sx={{ textDecoration: 'none', fontSize: '1.2rem' }}
+                        >
+                            About
+                        </MuiLink>
+                        <MuiLink
+                            component={Link}
+                            to="/contact"
+                            color="inherit"
+                            sx={{ textDecoration: 'none', fontSize: '1.2rem' }}
+                        >
+                            Contact
+                        </MuiLink>
+
+                        <IconButton color="inherit">
+                            <ShoppingCartIcon />
+                        </IconButton>
+
+                        <MuiLink
+                            component={Link}
+                            to="/login"
+                            color="inherit"
+                            sx={{ textDecoration: 'none', fontSize: '1.2rem' }}
+                        >
+                            Sign In
+                        </MuiLink>
                     </Box>
-                    <IconButton color="inherit">
-                        <ShoppingCartIcon />
-                    </IconButton>
                 </Toolbar>
             </AppBar>
             <Drawer
