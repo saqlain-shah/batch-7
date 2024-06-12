@@ -34,6 +34,30 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     }));
   };
 
+  // Array of sidebar items
+  const sidebarItems = [
+    { text: 'Dashboard', icon: <DashboardIcon />, link: '/dashboard' },
+    {
+      text: 'Orders',
+      icon: <ShoppingCartIcon />,
+      subItems: [
+        { text: 'Order 1', link: '/orders/order1' },
+        { text: 'Order 2', link: '/orders/order2' },
+      ],
+    },
+    {
+      text: 'Customers',
+      icon: <PeopleIcon />,
+      subItems: [
+        { text: 'Customer 1', link: '/customers/customer1' },
+        { text: 'Customer 2', link: '/customers/customer2' },
+      ],
+    },
+    { text: 'Categories', icon: <CategoryIcon />, link: '/categories' },
+    { text: 'Invoices', icon: <ReceiptIcon />, link: '/invoices' },
+    { text: 'Payments', icon: <PaymentsIcon />, link: '/payments' },
+  ];
+
   return (
     <Drawer
       variant="persistent"
@@ -63,69 +87,37 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       </Box>
       <Divider />
       <List>
-        <ListItem button component={Link} to="/dashboard">
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Dashboard" />
-        </ListItem>
-
-        <ListItem button onClick={() => handleClick('orders')}>
-          <ListItemIcon>
-            <ShoppingCartIcon />
-          </ListItemIcon>
-          <ListItemText primary="Orders" />
-          {openItems['orders'] ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={openItems['orders']} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button component={Link} to="/orders/order1" sx={{ pl: 4 }}>
-              <ListItemText primary="Order 1" />
+        {sidebarItems.map((item, index) => (
+          <React.Fragment key={index}>
+            <ListItem
+              button
+              component={Link}
+              to={item.link}
+              onClick={() => item.subItems && handleClick(item.text)}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+              {item.subItems && (openItems[item.text] ? <ExpandLess /> : <ExpandMore />)}
             </ListItem>
-            <ListItem button component={Link} to="/orders/order2" sx={{ pl: 4 }}>
-              <ListItemText primary="Order 2" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-        <ListItem button onClick={() => handleClick('customers')}>
-          <ListItemIcon>
-            <PeopleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Customers" />
-          {openItems['customers'] ? <ExpandLess /> : <ExpandMore />}
-        </ListItem>
-        <Collapse in={openItems['customers']} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItem button component={Link} to="/customers/customer1" sx={{ pl: 4 }}>
-              <ListItemText primary="Customer 1" />
-            </ListItem>
-            <ListItem button component={Link} to="/customers/customer2" sx={{ pl: 4 }}>
-              <ListItemText primary="Customer 2" />
-            </ListItem>
-          </List>
-        </Collapse>
-
-        <ListItem button component={Link} to="/categories">
-          <ListItemIcon>
-            <CategoryIcon />
-          </ListItemIcon>
-          <ListItemText primary="Categories" />
-        </ListItem>
-
-        <ListItem button component={Link} to="/invoices">
-          <ListItemIcon>
-            <ReceiptIcon />
-          </ListItemIcon>
-          <ListItemText primary="Invoices" />
-        </ListItem>
-
-        <ListItem button component={Link} to="/payments">
-          <ListItemIcon>
-            <PaymentsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Payments" />
-        </ListItem>
+            {item.subItems && (
+              <Collapse in={openItems[item.text]} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {item.subItems.map((subItem, subIndex) => (
+                    <ListItem
+                      key={subIndex}
+                      button
+                      component={Link}
+                      to={subItem.link}
+                      sx={{ pl: 4 }}
+                    >
+                      <ListItemText primary={subItem.text} />
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
+            )}
+          </React.Fragment>
+        ))}
       </List>
     </Drawer>
   );
