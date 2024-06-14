@@ -60,13 +60,15 @@ export const ProductDetail = () => {
     <Box width={'100%'} display={'flex'} justifyContent={'center'}>
       <Box height={'100vh'} width={'85%'} display="flex">
         <Grid container spacing={1} display={'flex'} justifyContent={'space-between'}>
-          <Grid item xs={6} md={12} marginTop={'15px'} marginBottom={'18px'}>
-            <Link style={{ textDecoration: 'none', cursor: 'pointer', color: 'darkblue' }} to='/'>Home</Link>
-            <Link style={{ textDecoration: 'none', cursor: 'pointer', color: 'darkblue' }} to='/productDetail'>/Women</Link>
-            <Typography>/Seasonal Color Couck 70</Typography>
-          </Grid>
+        <Grid item xs={6} md={12} marginTop={'15px'} marginBottom={'18px'}>
+      <Box display="flex" alignItems="center">
+        <Link style={{ textDecoration: 'none', cursor: 'pointer', color: 'darkblue', marginRight: '8px' }} to='/'>Home</Link>
+        <Link style={{ textDecoration: 'none', cursor: 'pointer', color: 'darkblue', marginRight: '8px' }} to='/productDetail'>/Women</Link>
+        <Typography>/Seasonal Color Couck 70</Typography>
+      </Box>
+    </Grid>
           <Grid item xs={6} md={5.5} sx={{ backgroundColor: 'white' }}>
-            <img src={image} alt="product" height={'50%'} style={{ borderRadius: '80%' }} />
+            <img src={image} alt="product" height={'50%'} style={{ borderRadius: '80%', marginTop:'5%' }} />
           </Grid>
           <Grid item xs={6} md={6.5}>
             <Typography variant='h5' color={'black'}>Seasonal Color Couck 70</Typography>
@@ -160,7 +162,7 @@ export const ProductDetail = () => {
               <Link to='/viewCart'><Button fullWidth variant="contained" color="primary">View Cart</Button></Link>
             </Grid>
             <Grid item>
-              <Link to='/' underline="none">Continue Shopping</Link>
+              <Link to='/'  underline="none">Continue Shopping</Link>
             </Grid>
           </Grid>
         </Box>

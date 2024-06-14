@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { Link, Typography, Button, IconButton } from '@mui/material';
@@ -153,3 +153,35 @@ schema documents model collections database querry
 aggregation population
 
 ODM vs ORM Authentication and authoriazation role based access session based authentication cookie based cookies session local storage
+
+
+
+
+
+createContext
+// src/context/CartContext.js
+import React, { createContext, useContext, useState } from 'react';
+
+const CartContext = createContext();
+
+export const useCart = () => {
+  return useContext(CartContext);
+};
+
+export const CartProvider = ({ children }) => {
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = (item) => {
+    setCartItems([...cartItems, item]);
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  return (
+    <CartContext.Provider value={{ cartItems, addToCart, clearCart }}>
+      {children}
+    </CartContext.Provider>
+  );
+};
