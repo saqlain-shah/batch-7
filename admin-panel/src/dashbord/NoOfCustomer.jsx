@@ -100,7 +100,7 @@ const NoOfCustomer = () => {
             <img
               src={row.original.image || 'https://via.placeholder.com/50'}
               alt="Customer"
-              style={{ marginRight: 10, borderRadius: '50%', width: 50, height: 50, cursor: 'pointer' }}
+              style={{ marginRight: 10, borderRadius: '50%', width: 35, height: 50, cursor: 'pointer' }}
               onClick={() => handleImageClick(row)}
             />
             {cell.getValue()}
@@ -112,26 +112,26 @@ const NoOfCustomer = () => {
         header: 'Email',
         size: 150,
       },
-      {
-        accessorKey: 'phone',
-        header: 'Phone',
-        size: 150,
-      },
+      // {
+      //   accessorKey: 'phone',
+      //   header: 'Phone',
+      //   size: 150,
+      // },
       {
         accessorKey: 'fathername',
         header: 'Father Name',
         size: 150,
       },
-      {
-        accessorKey: 'address',
-        header: 'Address',
-        size: 150,
-      },
-      {
-        accessorKey: 'dob',
-        header: 'Date of Birth',
-        size: 150,
-      },
+      // {
+      //   accessorKey: 'address',
+      //   header: 'Address',
+      //   size: 150,
+      // },
+      // {
+      //   accessorKey: 'dob',
+      //   header: 'Date of Birth',
+      //   size: 150,
+      // },
       {
         accessorKey: 'actions',
         header: 'Edit and Delete',
