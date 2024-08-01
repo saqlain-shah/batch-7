@@ -1,4 +1,3 @@
-
 import React, { useMemo, useState } from 'react';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, IconButton, Box, Typography } from '@mui/material';
@@ -7,26 +6,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const initialData = [
-  { customer: 'Ali', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Akber', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'hassan', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Akber', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'hassan', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Akber', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'hassan', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Akber', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Ali', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Akber', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Ali', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Akber', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Ali', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Akber', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Ali', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Akber', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Ali', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  { customer: 'Akber', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
- 
-
+  { firstName: 'Ali', lastName: 'Ahmed', username: 'ali123', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Akber', lastName: 'Khan', username: 'akber456', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Hassan', lastName: 'Ali', username: 'hassan789', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
   // ... other initial data entries
 ];
 
@@ -35,13 +17,13 @@ const NoOfCustomer = () => {
   const [open, setOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(null);
-  const [newCustomer, setNewCustomer] = useState({ customer: '', email: '', phone: '', fathername: '', address: '', dob: '', image: 'https://via.placeholder.com/50' });
+  const [newCustomer, setNewCustomer] = useState({ firstName: '', lastName: '', username: '', email: '', phone: '', fathername: '', address: '', dob: '', image: 'https://via.placeholder.com/50' });
 
   const [detailOpen, setDetailOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
   const handleClickOpen = () => {
-    setNewCustomer({ customer: '', email: '', phone: '', fathername: '', address: '', dob: '', image: 'https://via.placeholder.com/50' });
+    setNewCustomer({ firstName: '', lastName: '', username: '', email: '', phone: '', fathername: '', address: '', dob: '', image: 'https://via.placeholder.com/50' });
     setIsEditing(false);
     setOpen(true);
   };
@@ -92,20 +74,28 @@ const NoOfCustomer = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'customer',
-        header: 'Customer',
-        size: 150,
-        Cell: ({ cell, row }) => (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <img
-              src={row.original.image || 'https://via.placeholder.com/50'}
-              alt="Customer"
-              style={{ marginRight: 10, borderRadius: '50%', width: 35, height: 50, cursor: 'pointer' }}
-              onClick={() => handleImageClick(row)}
-            />
-            {cell.getValue()}
-          </div>
+        accessorKey: 'picture',
+        header: 'picture',
+        size: 100,
+        Cell: ({ row }) => (
+          <img
+            src={row.original.image}
+            alt="Customer"
+            style={{ width: 50, height: 50, borderRadius: '50%' }}
+            onClick={() => handleImageClick(row)}
+          />
         ),
+      },
+      {
+        accessorKey: 'name',
+        header: 'Name',
+        size: 200,
+        Cell: ({ row }) => `${row.original.firstName} ${row.original.lastName}`,
+      },
+      {
+        accessorKey: 'username',
+        header: 'Username',
+        size: 150,
       },
       {
         accessorKey: 'email',
@@ -113,23 +103,13 @@ const NoOfCustomer = () => {
         size: 150,
       },
       // {
-      //   accessorKey: 'phone',
-      //   header: 'Phone',
+      //   accessorKey: 'fathername',
+      //   header: 'Father Name',
       //   size: 150,
       // },
-      {
-        accessorKey: 'fathername',
-        header: 'Father Name',
-        size: 150,
-      },
       // {
       //   accessorKey: 'address',
       //   header: 'Address',
-      //   size: 150,
-      // },
-      // {
-      //   accessorKey: 'dob',
-      //   header: 'Date of Birth',
       //   size: 150,
       // },
       {
@@ -160,11 +140,11 @@ const NoOfCustomer = () => {
   const table = useMaterialReactTable({
     columns,
     data,
-    getRowId: (row) => row.customer,
+    getRowId: (row) => row.username, // Changed to ensure uniqueness
   });
 
   return (
-    <Box sx={{ justifyContent: 'center', width: '180%', position: 'relative' }}>
+    <Box sx={{ justifyContent: 'center', width: '140%', position: 'relative' }}>
       <h2>Number of Customers</h2>
       <IconButton
         color="primary"
@@ -189,12 +169,30 @@ const NoOfCustomer = () => {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
-            label="Customer Name"
+            id="firstName"
+            label="First Name"
             type="text"
             fullWidth
-            value={newCustomer.customer}
-            onChange={(e) => setNewCustomer({ ...newCustomer, customer: e.target.value })}
+            value={newCustomer.firstName}
+            onChange={(e) => setNewCustomer({ ...newCustomer, firstName: e.target.value })}
+          />
+          <TextField
+            margin="dense"
+            id="lastName"
+            label="Last Name"
+            type="text"
+            fullWidth
+            value={newCustomer.lastName}
+            onChange={(e) => setNewCustomer({ ...newCustomer, lastName: e.target.value })}
+          />
+          <TextField
+            margin="dense"
+            id="username"
+            label="Username"
+            type="text"
+            fullWidth
+            value={newCustomer.username}
+            onChange={(e) => setNewCustomer({ ...newCustomer, username: e.target.value })}
           />
           <TextField
             margin="dense"
@@ -258,11 +256,13 @@ const NoOfCustomer = () => {
             />
           </Button>
           {newCustomer.image && (
-            <img
-              src={newCustomer.image}
-              alt="New Customer"
-              style={{ marginTop: 10, borderRadius: '50%', width: 50, height: 50 }}
-            />
+            <Box mt={2}>
+              <img
+                src={newCustomer.image}
+                alt="Customer"
+                style={{ width: 100, height: 100, borderRadius: '50%' }}
+              />
+            </Box>
           )}
         </DialogContent>
         <DialogActions>
@@ -270,7 +270,7 @@ const NoOfCustomer = () => {
             Cancel
           </Button>
           <Button onClick={handleAddCustomer} color="primary">
-            {isEditing ? 'Save' : 'Add'}
+            {isEditing ? 'Save Changes' : 'Add Customer'}
           </Button>
         </DialogActions>
       </Dialog>
@@ -285,7 +285,8 @@ const NoOfCustomer = () => {
                 style={{ borderRadius: '50%', width: 100, height: 100, marginRight: 20 }}
               />
               <Box>
-                <Typography variant="h6">{selectedUser.customer}</Typography>
+                <Typography variant="h6">{selectedUser.firstName} {selectedUser.lastName}</Typography>
+                <Typography variant="body1">Username: {selectedUser.username}</Typography>
                 <Typography variant="body1">{selectedUser.email}</Typography>
                 <Typography variant="body1">{selectedUser.phone}</Typography>
                 <Typography variant="body1">{selectedUser.fathername}</Typography>
