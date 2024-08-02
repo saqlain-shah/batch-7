@@ -22,8 +22,8 @@ export const ProductDetail = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [image, setImage] = useState(images.Blue);
   const [category, setCategory] = useState('');
-  const [color, setColor] = useState('Black');
-  const [size, setSize] = useState('Medium'); // Add size state
+  const [color, setColor] = useState('Blue');  
+  const [size, setSize] = useState('Medium'); 
 
   const handleAddToCart = () => {
     addToCart({
@@ -31,7 +31,7 @@ export const ProductDetail = () => {
       category,
       color,
       size,
-      price: 500.00, // Add the price
+      price: 500.00, 
       brand: 'Converse',
       name: 'Seasonal Color Couck 70'
     });
@@ -107,15 +107,92 @@ export const ProductDetail = () => {
             </Typography>
 
             <Typography marginTop={'25px'}>
-              <Button sx={{ border: 'solid 1px lightgray', marginRight: '6px' }} onClick={() => handleSizeChange('Small')}>Small</Button>
-              <Button sx={{ border: 'solid 1px lightgray', marginRight: '6px' }} onClick={() => handleSizeChange('Medium')}>Medium</Button>
-              <Button sx={{ border: 'solid 1px lightgray' }} onClick={() => handleSizeChange('Large')}>Large</Button>
+              <Button 
+                sx={{ 
+                  border: 'solid 1px lightgray', 
+                  marginRight: '6px', 
+                  backgroundColor: size === 'Small' ? 'gray' : 'inherit', 
+                  color: size === 'Small' ? 'white' : 'black' 
+                }} 
+                onClick={() => handleSizeChange('Small')}
+              >
+                Small
+              </Button>
+              <Button 
+                sx={{ 
+                  border: 'solid 1px lightgray', 
+                  marginRight: '6px', 
+                  backgroundColor: size === 'Medium' ? 'gray' : 'inherit', 
+                  color: size === 'Medium' ? 'white' : 'black' 
+                }} 
+                onClick={() => handleSizeChange('Medium')}
+              >
+                Medium
+              </Button>
+              <Button 
+                sx={{ 
+                  border: 'solid 1px lightgray', 
+                  backgroundColor: size === 'Large' ? 'gray' : 'inherit', 
+                  color: size === 'Large' ? 'white' : 'black' 
+                }} 
+                onClick={() => handleSizeChange('Large')}
+              >
+                Large
+              </Button>
             </Typography>
             <Typography marginTop={'15px'}>
-              <Button value="Blue" onClick={handleColorChange} sx={{ border: 'solid 1px lightgray', marginRight: '3px', backgroundColor: color === 'Blue' ? 'blue' : 'inherit', color: color === 'Blue' ? 'white' : 'black', fontSize: '11px' }}>Blue</Button>
-              <Button value="Green" onClick={handleColorChange} sx={{ border: 'solid 1px lightgray', marginRight: '3px', backgroundColor: color === 'Green' ? 'green' : 'inherit', color: color === 'Green' ? 'white' : 'black', fontSize: '11px' }}>Green</Button>
-              <Button value="Pink" onClick={handleColorChange} sx={{ border: 'solid 1px lightgray', marginRight: '3px', backgroundColor: color === 'Pink' ? 'pink' : 'inherit', color: color === 'Pink' ? 'white' : 'black', fontSize: '11px' }}>Pink</Button>
-              <Button value="Yellow" onClick={handleColorChange} sx={{ border: 'solid 1px lightgray', marginRight: '3px', backgroundColor: color === 'Yellow' ? 'yellow' : 'inherit', color: color === 'Yellow' ? 'white' : 'black', fontSize: '11px' }}>Yellow</Button>
+              <Button 
+                value="Blue" 
+                onClick={handleColorChange} 
+                sx={{ 
+                  border: 'solid 1px lightgray', 
+                  marginRight: '3px', 
+                  backgroundColor: color === 'Blue' ? 'blue' : 'inherit', 
+                  color: color === 'Blue' ? 'white' : 'black', 
+                  fontSize: '11px' 
+                }}
+              >
+                Blue
+              </Button>
+              <Button 
+                value="Green" 
+                onClick={handleColorChange} 
+                sx={{ 
+                  border: 'solid 1px lightgray', 
+                  marginRight: '3px', 
+                  backgroundColor: color === 'Green' ? 'green' : 'inherit', 
+                  color: color === 'Green' ? 'white' : 'black', 
+                  fontSize: '11px' 
+                }}
+              >
+                Green
+              </Button>
+              <Button 
+                value="Pink" 
+                onClick={handleColorChange} 
+                sx={{ 
+                  border: 'solid 1px lightgray', 
+                  marginRight: '3px', 
+                  backgroundColor: color === 'Pink' ? 'pink' : 'inherit', 
+                  color: color === 'Pink' ? 'white' : 'black', 
+                  fontSize: '11px' 
+                }}
+              >
+                Pink
+              </Button>
+              <Button 
+                value="Yellow" 
+                onClick={handleColorChange} 
+                sx={{ 
+                  border: 'solid 1px lightgray', 
+                  marginRight: '3px', 
+                  backgroundColor: color === 'Yellow' ? 'yellow' : 'inherit', 
+                  color: color === 'Yellow' ? 'white' : 'black', 
+                  fontSize: '11px' 
+                }}
+              >
+                Yellow
+              </Button>
             </Typography>
             <Typography marginTop={"10px"}>
               <Button variant="contained" sx={{ width: '63%', border: '1px solid gray', color: 'white' }} onClick={handleAddToCart}>Add To Cart</Button>

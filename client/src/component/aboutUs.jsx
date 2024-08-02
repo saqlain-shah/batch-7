@@ -53,7 +53,7 @@ const About = () => {
             alignItems: 'center',
             justifyContent: 'center',
             color: 'white',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
             textAlign: 'center',
             p: 2,
           }}
