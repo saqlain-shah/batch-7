@@ -185,3 +185,18 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
+
+
+
+{
+  "name": "Sample Product",
+  "category": "Men",
+  "subCategory": "Shirt",
+  "size": "medium",
+  "color": "blue",
+  "price": 29.99,
+  "brand": "Sample Brand",
+  "description": "A sample product description",
+  "stock": 50,
+  "images": ["http://example.com/image1.jpg", "http://example.com/image2.jpg"]
+}
