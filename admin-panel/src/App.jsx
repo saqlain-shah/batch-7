@@ -2,13 +2,17 @@
 // import Header from "./component/header"
 
 import Sidebar from "./Sidebar"
-import AllProducts from "./components/All Product/AllProduct"
+import Header from "./component/header"
+import { MenuItem } from "@mui/material"
+
+
 function App() {
 
   return (
     <>
-      <AllProducts />
-
+    <Header/>
+    <MenuItem/>
+    <Sidebar/>
     </>
   )
 }
