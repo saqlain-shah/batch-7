@@ -9,7 +9,22 @@ const initialData = [
   { firstName: 'Ali', lastName: 'Ahmed', username: 'ali123', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
   { firstName: 'Akber', lastName: 'Khan', username: 'akber456', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
   { firstName: 'Hassan', lastName: 'Ali', username: 'hassan789', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  // ... other initial data entries
+  { firstName: 'Asad', lastName: 'Ahmed', username: 'asad123', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Qammar', lastName: 'Khan', username: 'qammar456', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Hassanain', lastName: 'Ali', username: 'hassanain789', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Kazim', lastName: 'Ahmed', username: 'kazim123', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Abdul', lastName: 'Khan', username: 'abdul456', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Hussain', lastName: 'Ali', username: 'hussain789', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Abbas', lastName: 'Ali', username: 'abbas123', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Abuzar', lastName: 'Khan', username: 'abuzar456', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Hadi', lastName: 'Ali', username: 'hadi789', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Aslam', lastName: 'Ali', username: 'aslam123', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Qasair', lastName: 'Khan', username: 'qasair456', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Hamid', lastName: 'Ali', username: 'hamid789', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Kashif', lastName: 'Hassan', username: 'kashif123', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Abid', lastName: 'Khan', username: 'abid456', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  { firstName: 'Zafar', lastName: 'Ali', username: 'zafar789', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
+  
 ];
 
 const NoOfCustomer = () => {
