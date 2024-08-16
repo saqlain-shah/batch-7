@@ -21,9 +21,16 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import SalesSummary from "./components/SalesSummary"
+import OrderDetails from './OrderList';
+import OrderSummary from './OrderStatus';
+import NoOfCustomer from '../dashbord/NoOfCustomer';
+import SalesSummary from '../dashbord/SalesSummary';
+import Dashboard from '../dashbord/dashboard';
+import OrderCount from '../dashbord/NoOfOrder';
+// import { Dashboard } from '@mui/icons-material';
 
-const drawerWidth = 300;
+
+const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -95,10 +102,11 @@ const menuItems = [
     text: 'Dashboard Overview',
     icon: <InboxIcon />,
     subMenu: [
-      { text: 'Sales summary (today, this week, this month)', component: () =><SalesSummary/> },
+      { text: 'Dashboard', component: () => <Dashboard/> },
+      { text: 'Sales summary (today, this week, this month)', component: () => <div><SalesSummary/></div> },
       { text: 'Total revenue', component: () => <div>Total revenue component</div> },
-      { text: 'Number of orders', component: () => <div>Number of orders component</div> },
-      { text: 'Number of customers', component: () => <div>Number of customers component</div> },
+      { text: 'Number of customers', component: () => <div> <NoOfCustomer/></div> },
+      { text: 'Number of order', component: () => <NoOfCustomer/> },
       { text: 'Top-selling products', component: () => <div>Top-selling products component</div> },
     ],
   },
@@ -107,8 +115,8 @@ const menuItems = [
     icon: <MailIcon />,
     subMenu: [
       { text: 'List of orders', component: () => <div>List of orders component</div> },
-      { text: 'Order details', component: () => <div>Order details component</div> },
-      { text: 'Order status update', component: () => <div>Order status update component</div> },
+      { text: 'Order details', component: () => <div> <OrderDetails/></div> },
+      { text: 'Order status update', component: () => <div><OrderSummary/></div> },
       { text: 'Order filtering (by date, status, etc.)', component: () => <div>Order filtering component</div> },
       { text: 'Order search', component: () => <div>Order search component</div> },
     ],
@@ -245,6 +253,6 @@ export default function Sidebar() {
         <DrawerHeader />
         {subMenuComponent}
       </Box>
-    </Box>
-  );
+    </Box>
+  );
 }

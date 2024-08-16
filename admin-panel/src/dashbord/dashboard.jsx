@@ -75,7 +75,7 @@ const Dashboard = ({ isOpen }) => {
   };
 
   return (
-    <div style={{ marginLeft: isOpen ? '300px' : '0', transition: 'margin-left 0.3s' }}>
+    <div style={{ marginLeft: isOpen ? '300px' : '0',marginLeft: '0%', transition: 'margin-left 0.3s' }}>
       <Typography variant="h4" gutterBottom>
         Dashboard
       </Typography>
