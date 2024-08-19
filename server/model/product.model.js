@@ -3,37 +3,37 @@ import mongoose from "mongoose";
 const ProductSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    // required: true,
     trim: true
   },
   category: {
     type: String,
-    required: true,
-    enum: ['Men', 'Women', 'Child']
+    // required: true,
+    enum: ['Men', 'Women', 'Kid']
   },
   subCategory: {
     type: String,
-    required: true,
+    // required: true,
     enum: ['Shirt', 'Pants', 'Dress', 'Jacket', 'Skirt', 'Shorts', 'Other']
   },
 
   size: {
     type: String,
-    required: true,
+    // required: true,
     enum: ['small', 'medium', 'large']
   },
   color: {
     type: String,
-    required: true
+    // required: true
   },
   price: {
     type: Number,
-    required: true,
+    // required: true,
     min: 0
   },
   brand: {
     type: String,
-    required: true
+    // required: true
   },
   description: {
     type: String,
@@ -41,7 +41,7 @@ const ProductSchema = new mongoose.Schema({
   },
   stock: {
     type: Number,
-    required: true,
+    // required: true,
     min: 0
   },
   images: [{

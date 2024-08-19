@@ -83,6 +83,7 @@ export const viewAllProduct = async (req, res, next) => {
 };
 
 export const addProduct = async (req, res, next) => {
+  console.log("Request Data", req.body)
   try {
     const productData = req.body;
     const product = new Product(productData);

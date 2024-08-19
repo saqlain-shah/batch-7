@@ -58,7 +58,7 @@ const ShippingDetails = () => {
   };
 
   return (
-    <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'100vh'} marginTop={'7%'}>
+    <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'90vh'} marginTop={'6.5%'}>
       <Paper elevation={3} sx={{ padding: 4, width: '70%' }}>
         <Typography variant="h5" marginBottom={4}>
           Shipping Details
@@ -71,7 +71,7 @@ const ShippingDetails = () => {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
             {/* Customer Details Form Fields */}
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} >
               <TextField
                 fullWidth
                 label="Customer Name"
