@@ -2,6 +2,7 @@
 import  User from '../model/user.model.js'
 
 
+
 export const updateUser = async (req, res, next) => {
   try {
     const userId = req.params.userId; 

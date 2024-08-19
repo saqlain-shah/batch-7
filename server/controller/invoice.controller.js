@@ -1,6 +1,7 @@
 import Invoice from '../model/invoice.model.js';
 import Product from '../model/product.model.js';
 
+
 export const addInvoice = async (req, res, next) => {
   try {
     const { items, quantities } = req.body;
@@ -12,6 +13,7 @@ export const addInvoice = async (req, res, next) => {
     }
 
     const total = subtotal; 
+
 
     const invoice = new Invoice({
       ...req.body,

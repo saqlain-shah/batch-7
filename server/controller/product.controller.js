@@ -18,6 +18,7 @@ export const updateProduct = async (req, res, next) => {
   }
 };
 
+
 export const deleteProduct = async (req, res, next) => {
   try {
     const productId = req.params.id; 
@@ -32,6 +33,7 @@ export const deleteProduct = async (req, res, next) => {
     res.status(500).json({ message: 'Internal Server Error', Error_Info: error.message });
   }
 };
+
 
 export const viewSingleProduct = async (req, res, next) => {
   try {
