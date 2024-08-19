@@ -27,6 +27,7 @@ import NoOfCustomer from '../dashbord/NoOfCustomer';
 import SalesSummary from '../dashbord/SalesSummary';
 import Dashboard from '../dashbord/dashboard';
 import OrderCount from '../dashbord/NoOfOrder';
+import TopSellingProducts from '../dashbord/TopSales';
 // import { Dashboard } from '@mui/icons-material';
 
 
@@ -104,10 +105,9 @@ const menuItems = [
     subMenu: [
       { text: 'Dashboard', component: () => <Dashboard/> },
       { text: 'Sales summary (today, this week, this month)', component: () => <div><SalesSummary/></div> },
-      { text: 'Total revenue', component: () => <div>Total revenue component</div> },
       { text: 'Number of customers', component: () => <div> <NoOfCustomer/></div> },
       { text: 'Number of order', component: () => <NoOfCustomer/> },
-      { text: 'Top-selling products', component: () => <div>Top-selling products component</div> },
+      { text: 'Top-selling products', component: () => <TopSellingProducts/> },
     ],
   },
   {
@@ -117,8 +117,6 @@ const menuItems = [
       { text: 'List of orders', component: () => <div>List of orders component</div> },
       { text: 'Order details', component: () => <div> <OrderDetails/></div> },
       { text: 'Order status update', component: () => <div><OrderSummary/></div> },
-      { text: 'Order filtering (by date, status, etc.)', component: () => <div>Order filtering component</div> },
-      { text: 'Order search', component: () => <div>Order search component</div> },
     ],
   },
   {
@@ -126,7 +124,6 @@ const menuItems = [
     icon: <InboxIcon />,
     subMenu: [
       { text: 'List of products', component: () => <div>List of products component</div> },
-      { text: 'Product details', component: () => <div>Product details component</div> },
       { text: 'Add/edit/delete products', component: () => <div>Add/edit/delete products component</div> },
       { text: 'Product categories', component: () => <div>Product categories component</div> },
       { text: 'Inventory management', component: () => <div>Inventory management component</div> },

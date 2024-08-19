@@ -5,6 +5,7 @@ import Sidebar from './component/sidebar';
 import Dashboard from './dashbord/dashboard';
 import NoOfCustomer from './dashbord/NoOfCustomer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import TopSellingProducts from './dashbord/TopSales';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Routes>
             {/* <Route path="/" element={<Dashboard />} /> */}
             <Route path="/customer" element={<NoOfCustomer />} />
+            <Route path="/Top Sales" element={<TopSellingProducts />} />
           </Routes>
         </Box>
       </Box>
