@@ -1,31 +1,25 @@
 import React from 'react';
-import { Grid, Card, CardContent, Typography, List, ListItem, ListItemText, Divider, Paper, Box } from '@mui/material';
+import { Grid, Card, CardContent, Typography, ListItem, ListItemText, Divider, Paper, Box } from '@mui/material';
 import CategoryIcon from '@mui/icons-material/Category';
 
 const ProductCategories = () => {
-  // Dummy data for product categories
+  // Updated data for specific categories with details and images
   const categories = [
-    'Electronics',
-    'Clothing, Shoes & Jewelry',
-    'Home, Garden & Tools',
-    'Beauty & Health',
-    'Toys, Kids & Baby',
-    'Books & Audible',
-    'Sports & Outdoors',
-    'Automotive & Industrial',
-    'Handmade',
-    'Pet Supplies',
-    'Grocery & Gourmet Food',
-    'Music, Movies & TV Shows',
-    'Digital Downloads',
-    'Services',
-    'Furniture',
-    'Office Supplies',
-    'Fitness & Wellness',
-    'Art & Crafts',
-    'Collectibles',
-    'Travel & Leisure',
-    'Party Supplies',
+    {
+      name: 'Men',
+      details: 'Explore the latest in men’s fashion including clothing, shoes, and accessories.',
+      img: 'https://via.placeholder.com/150?text=Men' // Replace with actual image URL
+    },
+    {
+      name: 'Women',
+      details: 'Discover a wide range of women’s fashion, from clothing and shoes to accessories and beauty products.',
+      img: 'https://via.placeholder.com/150?text=Women' // Replace with actual image URL
+    },
+    {
+      name: 'Kids',
+      details: 'Find the best in children’s clothing, toys, and more for every age group.',
+      img: 'https://via.placeholder.com/150?text=Kids' // Replace with actual image URL
+    }
   ];
 
   return (
@@ -36,11 +30,18 @@ const ProductCategories = () => {
       <Divider />
       <Grid container spacing={2} mt={2}>
         {categories.map((category, index) => (
-          <Grid item xs={6} sm={4} md={3} key={index}>
+          <Grid item xs={12} sm={6} md={4} key={index}>
             <Paper elevation={3}>
               <ListItem button>
-                <CategoryIcon />
-                <ListItemText primary={category} />
+                <img
+                  src={category.img}
+                  alt={category.name}
+                  style={{ width: 100, height: 100, objectFit: 'cover', marginRight: 16 }}
+                />
+                <ListItemText
+                  primary={category.name}
+                  secondary={category.details}
+                />
               </ListItem>
             </Paper>
           </Grid>

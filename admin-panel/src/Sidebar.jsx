@@ -30,7 +30,7 @@ import ProductCategories from './components/ProductCategories';
 import ProductList from './components/ProductList';
 import ProductDetail from './components/ProductDetail';
 import InventoryManagement from './components/InventoryManagement';
-import ProductSearch from './ProductSearch';
+import ProductSearch from './components/ProductSearch';
 const drawerWidth = 300;
 
 const openedMixin = (theme) => ({
