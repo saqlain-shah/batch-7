@@ -25,7 +25,12 @@ import MailIcon from '@mui/icons-material/Mail';
 
 
 import SalesSummary from "./components/SalesSummary"
-
+import ProductManagement from './components/ProductManagement';
+import ProductCategories from './components/ProductCategories';
+import ProductList from './components/ProductList';
+import ProductDetail from './components/ProductDetail';
+import InventoryManagement from './components/InventoryManagement';
+import ProductSearch from './components/ProductSearch';
 const drawerWidth = 300;
 
 const openedMixin = (theme) => ({
@@ -120,12 +125,12 @@ const menuItems = [
     text: 'Products Management',
     icon: <InboxIcon />,
     subMenu: [
-      { text: 'List of products', component: () => <div>List of products component</div> },
-      { text: 'Product details', component: () => <div>Product details component</div> },
-      { text: 'Add/edit/delete products', component: () => <div>Add/edit/delete products component</div> },
-      { text: 'Product categories', component: () => <div>Product categories component</div> },
-      { text: 'Inventory management', component: () => <div>Inventory management component</div> },
-      { text: 'Product search', component: () => <div>Product search component</div> },
+      { text: 'List of products', component: () => <ProductList/> },
+      { text: 'Product details', component: () => <ProductDetail/>},
+      { text: 'Add/edit/delete products', component: () => <ProductManagement/>},
+      { text: 'Product categories', component: () => <ProductCategories/>},
+      { text: 'Inventory management', component: () => <InventoryManagement/>},
+      { text: 'Product search', component: () => <ProductSearch/> },
     ],
   },
 ];

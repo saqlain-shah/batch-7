@@ -14,12 +14,12 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.16",
     "@mui/material": "^5.15.17",
-<<<<<<< HEAD
-=======
     "@mui/styles": "^5.15.17",
->>>>>>> origin/main
+    "force": "^0.0.3",
+    "material-react-table": "^2.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.1",
     "recharts": "^2.12.7"
   },
   "devDependencies": {
