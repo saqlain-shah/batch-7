@@ -44,6 +44,7 @@ const Signup = () => {
   const handleSignup = async () => {
     try {
       const response = await axios.post('http://localhost:8000/api/auth/register', formData)
+
       if (response.data.status=true) {
 
         console.log("Successful", response.data)

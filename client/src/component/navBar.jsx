@@ -3,50 +3,95 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import { Box } from '@mui/system';
-import logo from '../../public/logo.jpeg'
+import { Box, Button } from '@mui/material';
+import logo from '../../public/logo.jpeg';
 
+const officeInfo = [
+  { label: 'Our Office', detail: 'Rinor.netbot, Skardu, Pakistan' },
+  { label: 'Email Us', detail: 'netbot@gmail.com' },
+  { label: 'Call Us', detail: '+01123223453' },
+];
+
+const navLinks = [
+  { title: 'Home', path: '/home' },
+  { title: 'About', path: '/about' },
+  { title: 'Contact', path: '/contact' },
+];
 
 const NavBar = () => {
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: 'darkblue', paddingLeft:'0px' }}>
-      <Toolbar sx={{ width: '100%', display: 'flex', flexWrap: 'wrap' }}>
-        <Box sx={{ width: '100%', backgroundColor: 'darkblue' }}>
-          <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Box sx={{  width: '20%'}}>
-            <Link to="/home" style={{ textDecoration: 'none'  }}>
-              <Typography variant="body1" sx={{ width: '100px', height: '30px', backgroundColor:'white',color:'black', marginLeft: '20%' ,padding:'4px' ,WebkitBorderTopLeftRadius:'20px', WebkitBorderBottomRightRadius:'20px' ,fontSize:'20px' , fontFamily: 'sans-serif' ,fontWeight:'bolder','&:hover': { color: 'darkblue' , fontSize: '21px'}}}> NETBOTS</Typography>
+    <AppBar position="fixed" sx={{ backgroundColor: 'darkblue' }}>
+      <Toolbar sx={{ flexDirection: 'column', alignItems: 'center', padding: '0 10%', backgroundColor: 'darkblue' }}>
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 1 }}>
+          <Box>
+            <Link to="/home" style={{ textDecoration: 'none' }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  color: 'white',backgroundColor: 'darkblue',padding: '4px 16px',borderRadius: '30px',fontFamily: 'sans-serif',fontWeight: 'bolder',
+                  '&:hover': {
+                    color: 'yellow',
+                    transform: 'scale(1.1)',
+                  },
+                }}
+              >
+                NETBOTS
+              </Typography>
             </Link>
-             
-            </Box>
-            <Box sx={{ width: '20%', display: 'flex', flexDirection: 'column' }}>
-              <Typography variant="body1" sx={{ mb: 1 }}>Our Office</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}> Rinor.netbot, skardu, Pakistan</Typography>
-            </Box>
-            <Box sx={{ width: '20%', display: 'flex', flexDirection: 'column' }}>
-              <Typography variant="body1" sx={{ mb: 1 }}>Email Us</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}>netbot@gmail.com</Typography>
-            </Box>
-            <Box sx={{ width: '20%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <Typography variant="body1" sx={{ mb: 1 }}>Call Us</Typography>
-              <Typography variant="body2" sx={{ mb: 2 }}>+01123223453</Typography>
-            </Box>
+          </Box>
+          <Box sx={{ width: '80%', display: 'flex', justifyContent: 'space-around', gap: 4 }}>
+            {officeInfo.map((info, index) => (
+              <Box key={index}>
+                <Typography variant="body1" color="white">{info.label}</Typography>
+                <Typography variant="body2" color="white">{info.detail}</Typography>
+              </Box>
+            ))}
           </Box>
         </Box>
-        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', backgroundColor: 'whitesmoke' }} >
-          <Box sx={{ width: '3%'  , paddingLeft:'7%'}}>
-          <img  src={logo} alt=""  width={40} height={30}/>
+
+        <Box
+          sx={{
+            width: '100%', display: 'flex',justifyContent: 'space-between',alignItems: 'center',backgroundColor: 'whitesmoke',py: 1,px: 3,mt: 1,borderRadius: '5px',
+          }}
+        >
+          <Box sx={{ margin: '0% 12% 0% 4%' }}>
+            <img src={logo} alt="Logo" width={40} height={30} />
           </Box>
-          <Box sx={{ width: '55%' }}>
-            <ul style={{ display: 'flex', justifyContent: 'space-between', width: '50%', listStyle: 'none', display: 'flex', alignItems: 'center', margin: 5 }}>
-              <li sx={{'&:hover': { color: 'red', fontSize: '15px' }}}><Link to="/home" style={{ textDecoration: 'none', color: 'black', fontFamily: 'sans-serif', marginRight: '8px' }}>Home</Link></li>
-              <li><Link to="/about" style={{ textDecoration: 'none', color: 'black', fontFamily: 'sans-serif', marginRight: '8px' }}>About</Link></li>
-              <li><Link to="/contact" style={{ textDecoration: 'none', color: 'black', fontFamily: 'sans-serif' ,'&:hover': { color: 'red', fontSize: '15px' }}}>Contact</Link></li>
-            </ul>
+          <Box sx={{ flexGrow: 1 }}>
+            <Box component="ul" sx={{ width: '80%', display: 'flex', gap: 10, listStyle: 'none', margin: 0, padding: 0 }}>
+              {navLinks.map((link, index) => (
+                <Box component="li" key={index}>
+                  <Link to={link.path} style={{ textDecoration: 'none', color: 'darkblue' }}>
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        fontFamily: 'sans-serif',
+                        '&:hover': {
+                          color: 'red',
+                          fontWeight: 'bold',
+                        },
+                      }}
+                    >
+                      {link.title}
+                    </Typography>
+                  </Link>
+                </Box>
+              ))}
+            </Box>
           </Box>
-          <Box sx={{ width: '20%' }}>
-            {/* Adding hover effect */}
-           <Link to='/register' style={{textDecoration: 'none'}}><Typography variant="body2" sx={{ cursor: 'pointer', color: 'white', fontFamily: 'sans-serif', fontWeight: 'bolder', backgroundColor:'darkblue' , borderRadius: '30px', width:'57px' ,padding: '3px' , paddingLeft: '12px','&:hover': { color: 'yellow', fontSize: '15px' } }}>Signup</Typography></Link> 
+          <Box>
+            <Button
+              component={Link}
+              to="/register"
+              variant="contained"
+              sx={{
+                backgroundColor: 'darkblue',color: 'white', borderRadius: '5px','&:hover': {
+                  backgroundColor: 'lightblue',color: 'red',
+                },
+              }}
+            >
+              Signup
+            </Button>
           </Box>
         </Box>
       </Toolbar>

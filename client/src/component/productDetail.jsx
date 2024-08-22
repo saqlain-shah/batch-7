@@ -1,29 +1,47 @@
-import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Typography, Button, IconButton, MenuItem, Select, FormControl, InputLabel, Snackbar } from '@mui/material';
+import { Typography, Button, IconButton, Snackbar } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useCart } from './cartContext.jsx';
 
 export const ProductDetail = () => {
   const location = useLocation();
-  const navigate = useNavigate(); // Initialize navigate
-  const { name, imageUrl, price, category } = location.state?.formData || {};
+  const navigate = useNavigate();
+  const { id, name, price, category, subCategory } = location.state?.formData || {};
   const { addToCart } = useCart();
+  const [productDetails, setProductDetails] = useState({});
   const [cartOpen, setCartOpen] = useState(false);
   const [color, setColor] = useState('Blue');
   const [size, setSize] = useState('Medium');
   const [successMessage, setSuccessMessage] = useState(false);
 
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/product/${id}`);
+        setProductDetails(response.data);
+      } catch (error) {
+        console.error('Error fetching product details:', error);
+      }
+    };
+
+    fetchProductDetails();
+  }, [id]);
+
   const handleAddToCart = () => {
     addToCart({
-      image: imageUrl,
-      category: category,
+      image: productDetails.imageUrl,
+      category,
+      subCategory,
       color,
       size,
       price: parseFloat(price),
-      name: name
+      name,
+      brand: productDetails.brand,
+      stock: productDetails.stock,
     });
     setCartOpen(true);
     setSuccessMessage(true);
@@ -46,27 +64,19 @@ export const ProductDetail = () => {
         <Box height="100vh" width="85%">
           <Grid container spacing={2} display="flex" justifyContent="space-between">
             <Grid item xs={12} md={5.5} sx={{ backgroundColor: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <img src={imageUrl} alt="product" style={{ maxWidth: '100%', maxHeight: '70%', borderRadius: '10%', marginTop: '5%' }} />
+              <img src={productDetails.imageUrl} alt="product" style={{ maxWidth: '100%', maxHeight: '70%', borderRadius: '10%', marginTop: '5%' }} />
             </Grid>
             <Grid item xs={12} md={6.5}>
               <Typography variant="h5" color="black">{name}</Typography>
               <Typography fontSize="15px" color="black" marginTop="8px" marginBottom="5px">
                 <strike>$900.00</strike> / {price}
               </Typography>
-              <Typography marginTop="6px" sx={{ fontFamily: 'Calibri Light' }}>Sku: NJC50968-Black-L</Typography>
+              <Typography marginTop="6px" sx={{ fontFamily: 'Calibri Light' }}>Sku: {productDetails.sku}</Typography>
+              <Typography sx={{ color: 'black', fontWeight: '500' ,marginBottom:'5px' ,marginTop:'4px'}}>Brand: {productDetails.brand}</Typography>
+              <Typography sx={{ color: 'black', fontWeight: '500' ,marginBottom:'5px'  }}>Category: {category}</Typography>
+              <Typography sx={{ color: 'black', fontWeight: '500', marginBottom:'5px'  }}>Subcategory: {subCategory}</Typography>
+
               <Typography marginTop="13px" sx={{ color: 'black', fontWeight: '500' }}>Color: {color}</Typography>
-              <Typography sx={{ color: 'black', fontWeight: '500' }}>Brand: Converse</Typography>
-              <Typography marginTop="10px" marginBottom="10px">
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 350 }}>
-                  <InputLabel>Category</InputLabel>
-                  <Select
-                    value={category}
-                    label="Category"
-                  >
-                    <MenuItem value={category}>{category}</MenuItem>
-                  </Select>
-                </FormControl>
-              </Typography>
 
               <Typography marginTop="25px">
                 {sizeOptions.map((sizeOption) => (
@@ -112,10 +122,7 @@ export const ProductDetail = () => {
 
               <Typography marginTop="30px" sx={{ fontFamily: 'Calibri Light' }}>
                 <Typography paragraph>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae provident harum tenetur.
-                </Typography>
-                <Typography paragraph>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus provident mollitia eaque asperiores, fuga, optio suscipit magni beatae sapiente voluptas et ducimus.
+                  {productDetails?.description}
                 </Typography>
               </Typography>
             </Grid>
@@ -127,7 +134,7 @@ export const ProductDetail = () => {
             position="fixed"
             top={115}
             right={15}
-            height="42vh"
+            height="72vh"
             width="300px"
             bgcolor="white"
             boxShadow={3}
@@ -142,11 +149,16 @@ export const ProductDetail = () => {
                 </IconButton>
               </Grid>
               <Grid item container justifyContent="center">
-                <img src={imageUrl} alt="product" width="80" style={{ borderRadius: '5%' }} />
+                <img src={productDetails?.imageUrl} alt="product" width="80" style={{ borderRadius: '5%' }} />
               </Grid>
               <Grid item>
                 <Typography>{name}</Typography>
+                <Typography>Brand: {productDetails?.brand}</Typography>
                 <Typography>Category: {category}</Typography>
+                <Typography>Subcategory: {subCategory}</Typography>
+                <Typography>Color: {color}</Typography>
+                <Typography>Size: {size}</Typography>
+                <Typography>Price: {price}</Typography>
               </Grid>
               <Grid item>
                 <Button
