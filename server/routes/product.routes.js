@@ -1,9 +1,10 @@
 import express from "express";
 import {addProduct , viewAllProduct, viewSingleProduct, deleteProduct, updateProduct} from "../controller/product.controller.js"
+import {verifyUser } from "../utils/verifyToken.js"
 const router = express.Router();
 
 
-router.get("/", viewAllProduct);
+router.get("/", verifyUser , viewAllProduct);
 router.get("/:id", viewSingleProduct);
 router.post("/", addProduct);
 router.put("/:id", updateProduct);
