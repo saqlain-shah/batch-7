@@ -4,6 +4,7 @@ import Product from '../model/product.model.js';
 
 export const addInvoice = async (req, res, next) => {
   try {
+    
     const { items, quantities } = req.body;
 
     let subtotal = 0;

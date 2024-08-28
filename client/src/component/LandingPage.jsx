@@ -18,17 +18,17 @@ const slider = [
 ];
 const categories = [
   {
-    title: 'Kids Collection',
+    title: 'Kids',
     image: kidsImg,
     description: 'Discover the latest trends in kids\' fashion with a special 5% discount on all items. Perfect for every occasion!',
   },
   {
-    title: 'Women Collection',
+    title: 'Women',
     image: womensImg,
     description: 'Elegant and stylish, our women\'s collection offers the perfect blend of comfort and sophistication for any wardrobe.',
   },
   {
-    title: 'Men Collection',
+    title: 'Men',
     image: mensImg,
     description: 'From casual wear to formal attire, explore our men\'s collection designed for versatility and comfort.',
   }
@@ -40,7 +40,7 @@ const LandingPage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % slider.length);
-    }, 2000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);

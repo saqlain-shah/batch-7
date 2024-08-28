@@ -7,7 +7,8 @@ const ViewCart = () => {
   const { cartItems, clearCart, removeFromCart } = useCart();
   const navigate = useNavigate();
 
-  const totalPrice = cartItems.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
+  // Calculate the total price
+  const totalPrice = cartItems.reduce((sum, item) => sum + (item.price ? parseFloat(item.price) : 0), 0);
 
   const handleProceedToShipping = () => {
     navigate('/shipping', { state: { cartItems, totalPrice } });
@@ -23,21 +24,27 @@ const ViewCart = () => {
               <TableHead>
                 <TableRow>
                   <TableCell>Image</TableCell>
+                  <TableCell>Name</TableCell>
                   <TableCell>Brand</TableCell>
+                  <TableCell>Category</TableCell>
+                  <TableCell>Subcategory</TableCell>
                   <TableCell>Color</TableCell>
                   <TableCell>Size</TableCell>
                   <TableCell>Price</TableCell>
-                  <TableCell>Action</TableCell> {/* New Delete column */}
+                  <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {cartItems.map((item, index) => (
                   <TableRow key={index}>
                     <TableCell><img src={item.image} alt="product" width="50" /></TableCell>
+                    <TableCell>{item.name}</TableCell>
                     <TableCell>{item.brand || 'Adidas'}</TableCell>
+                    <TableCell>{item.category}</TableCell>
+                    <TableCell>{item.subcategory}</TableCell>
                     <TableCell>{item.color}</TableCell>
                     <TableCell>{item.size}</TableCell>
-                    <TableCell>${(parseFloat(item.price) || 0).toFixed(2)}</TableCell>
+                    <TableCell>${item.price ? parseFloat(item.price).toFixed(2) : '0.00'}</TableCell>
                     <TableCell>
                       <Button variant="contained" color="secondary" onClick={() => removeFromCart(index)}>
                         Remove
