@@ -1,178 +1,125 @@
+// src/InventoryManagement.js
 import React, { useState } from 'react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Button,
-  TextField,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-
-const initialFormData = {
-  name: '',
-  id: '',
-  quantity: '',
-  price: '',
-};
 
 const InventoryManagement = () => {
-  const [inventory, setInventory] = useState([
-    { name: 'Product 1', id: 'INV001', quantity: 100, price: 20 },
-    { name: 'Product 2', id: 'INV002', quantity: 150, price: 30 },
-    { name: 'Product 3', id: 'INV003', quantity: 200, price: 25 },
-    { name: 'Product 4', id: 'INV004', quantity: 50, price: 35 },
-  ]);
-
-  const [formData, setFormData] = useState(initialFormData);
+  const [inventory, setInventory] = useState([]);
+  const [formData, setFormData] = useState({ name: '', id: '', quantity: '', price: '' });
   const [editIndex, setEditIndex] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleAddOrEditProduct = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (editIndex !== null) {
-      // Update the product data
-      setInventory((prevData) => {
-        const newData = [...prevData];
-        newData[editIndex] = formData;
-        return newData;
-      });
+      // Update existing product
+      setInventory((prevData) =>
+        prevData.map((item, index) =>
+          index === editIndex
+            ? { ...formData, quantity: parseInt(formData.quantity), price: parseFloat(formData.price) }
+            : item
+        )
+      );
       setEditIndex(null);
     } else {
-      // Add a new product
-      setInventory((prevData) => [...prevData, formData]);
+      // Add new product
+      setInventory((prevData) => [
+        ...prevData,
+        { ...formData, quantity: parseInt(formData.quantity), price: parseFloat(formData.price) }
+      ]);
     }
-    setFormData(initialFormData);
-    handleClose();
+    setFormData({ name: '', id: '', quantity: '', price: '' });
+    setShowForm(false);
   };
 
-  const handleEditProduct = (index) => {
+  const handleEdit = (index) => {
     setFormData(inventory[index]);
     setEditIndex(index);
-    setOpen(true);
+    setShowForm(true);
   };
 
-  const handleDeleteProduct = (index) => {
+  const handleDelete = (index) => {
     setInventory((prevData) => prevData.filter((_, i) => i !== index));
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleClickOpen = () => {
-    setFormData(initialFormData);
+  const handleShowForm = () => {
+    setFormData({ name: '', id: '', quantity: '', price: '' });
     setEditIndex(null);
-    setOpen(true);
+    setShowForm(true);
   };
 
   return (
-    <div style={{ padding: 16 }}>
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>ID</TableCell>
-              <TableCell>Quantity</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {inventory.map((item, index) => (
-              <TableRow key={index}>
-                <TableCell>{item.name}</TableCell>
-                <TableCell>{item.id}</TableCell>
-                <TableCell>{item.quantity}</TableCell>
-                <TableCell>${item.price}</TableCell>
-                <TableCell>
-                  <IconButton color="primary" onClick={() => handleEditProduct(index)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton color="secondary" onClick={() => handleDeleteProduct(index)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+    <div style={{ padding: '20px',backgroundColor: '#78aaf0' }}>
+      <h1>Inventory Management</h1>
+      <button onClick={handleShowForm} style={{ marginBottom: '20px' }}>Add Product</button>
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleClickOpen}
-        startIcon={<AddIcon />}
-        style={{ marginTop: 16 }}
-      >
-        Add Product
-      </Button>
-
-      {/* Add/Edit Product Dialog */}
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{editIndex !== null ? 'Edit Product' : 'Add Product'}</DialogTitle>
-        <DialogContent>
-          <TextField
+      {showForm && (
+        <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
+          <input
+            type="text"
             name="name"
-            label="Name"
+            placeholder="Name"
             value={formData.name}
             onChange={handleInputChange}
-            fullWidth
-            sx={{ marginBottom: 2 }}
+            required
           />
-          <TextField
+          <input
+            type="text"
             name="id"
-            label="ID"
+            placeholder="ID"
             value={formData.id}
             onChange={handleInputChange}
-            fullWidth
-            sx={{ marginBottom: 2 }}
+            required
           />
-          <TextField
+          <input
+            type="number"
             name="quantity"
-            label="Quantity"
+            placeholder="Quantity"
             value={formData.quantity}
             onChange={handleInputChange}
-            fullWidth
-            sx={{ marginBottom: 2 }}
+            required
           />
-          <TextField
+          <input
+            type="number"
             name="price"
-            label="Price"
+            placeholder="Price"
             value={formData.price}
             onChange={handleInputChange}
-            fullWidth
-            sx={{ marginBottom: 2 }}
+            required
           />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleAddOrEditProduct} color="primary">
-            {editIndex !== null ? 'Save Changes' : 'Add Product'}
-          </Button>
-        </DialogActions>
-      </Dialog>
+          <button type="submit">{editIndex !== null ? 'Update Product' : 'Add Product'}</button>
+          <button type="button" onClick={() => setShowForm(false)}>Cancel</button>
+        </form>
+      )}
+
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {inventory.map((item, index) => (
+            <tr key={index}>
+              <td>{item.name}</td>
+              <td>{item.id}</td>
+              <td>{item.quantity}</td>
+              <td>${item.price.toFixed(2)}</td>
+              <td>
+                <button onClick={() => handleEdit(index)}>Edit</button>
+                <button onClick={() => handleDelete(index)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
