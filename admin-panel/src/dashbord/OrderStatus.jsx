@@ -58,7 +58,7 @@ const OrderSummary = () => {
 
   return (
     <Box sx={{ width: '100%', marginBottom: '20px' ,backgroundColor: '#78aaf0', }}>
-      <Box sx={{ border: '2px solid #ccc', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',marginBottom:"20px" }}>
+      <Box sx={{ border: '2px solid #ccc', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',marginBottom:"20px",backgroundColor: '#78aaf0', }}>
         <Typography variant="h6" gutterBottom>
           Order Summary
         </Typography>

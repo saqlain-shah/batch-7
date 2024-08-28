@@ -24,7 +24,7 @@ export default function TopSellingProducts({ count }) {
   const pieChartData = topSellingProducts.map(product => ({ name: product.name, value: product.sales }));
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{backgroundColor: '#78aaf0',}}>
       {/* Table of top selling products */}
       <Grid item xs={12}>
         <Card>

@@ -33,7 +33,7 @@ const OrderList = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: "200%" }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: "200%",backgroundColor: '#78aaf0', }}>
       {/* Table for Order Details */}
       <TableContainer component={Paper} style={{ width: '100%' }}>
         <Table>
