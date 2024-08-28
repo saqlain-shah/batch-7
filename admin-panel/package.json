@@ -14,10 +14,14 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.16",
     "@mui/material": "^5.15.17",
+    "dayjs": "^1.11.13",
+    "dom": "^0.0.3",
     "material-react-table": "^2.13.0",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-dom": "^18.2.0",
-    "recharts": "^2.12.7"
+    "react-router-dom": "^6.26.1",
+    "recharts": "^2.12.7",
+    "router": "^1.3.8"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

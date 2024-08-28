@@ -13,7 +13,7 @@ import Collapse from '@mui/material/Collapse';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-const OrderDetails = () => {
+const OrderList = () => {
   // Updated dummy data with additional products
   const orderDetails = [
     { id: 1, productName: 'Product A', price: '$10', quantity: 2, customerId: '110' },
@@ -101,7 +101,7 @@ const OrderDetails = () => {
       {/* Summary, Shipping Address, and Payment Method */}
       <Box sx={{ width: '35%', marginLeft: '5%', display: 'flex', flexDirection: 'column' }}>
         {/* Summary */}
-        <Box sx={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px' }}>
+        <Box sx={{ marginBottom: '20px', border: '1px solid #ccc', padding: '10px', backgroundColor: '#78aaf0', }}>
           <Typography variant="subtitle1" gutterBottom>
             Summary
           </Typography>
@@ -150,4 +150,4 @@ const OrderDetails = () => {
   );
 };
 
-export default OrderDetails;
+export default OrderList;
