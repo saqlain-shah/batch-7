@@ -167,7 +167,7 @@ const ProductManagement = () => {
   };
 
   return (
-    <div style={{ padding: 16 }}>
+    <div style={{ padding: 16, width:'170%' }}>
       <Grid container spacing={2}>
         {/* Add Product Form */}
       

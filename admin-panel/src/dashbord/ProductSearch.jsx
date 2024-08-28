@@ -48,7 +48,7 @@ const ProductSearch = () => {
   };
 
   return (
-    <div>
+    <div sx={{width:"300%", backgroundColor: '#78aaf0'}}>
       <input
         type="text"
         placeholder="Search products..."
