@@ -23,11 +23,20 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import OrderDetails from './OrderList';
 import OrderSummary from './OrderStatus';
-import NoOfCustomer from '../dashbord/NoOfCustomer';
-import SalesSummary from '../dashbord/SalesSummary';
-import Dashboard from '../dashbord/dashboard';
-import OrderCount from '../dashbord/NoOfOrder';
-import TopSellingProducts from '../dashbord/TopSales';
+import NoOfCustomer from './NoOfCustomer';
+import SalesSummary from './SalesSummary';
+import Dashboard from './dashboard';
+import OrderDetailsComponent from './NoOfOrder';
+import TopSellingProducts from './TopSales';
+import OrdersList from './OrderList';
+import InventoryManagement from './InventoryManagement';
+import ProductCategories from './ProductCategories';
+import ProductDetails from './ProductDetail';
+import ProductList from './ProductList';
+import ProductSearch from './ProductSearch';
+import ProductManagement from './ProductManagement';
+
+// import OrderCount from '../dashbord/NoOfOrder';
 // import { Dashboard } from '@mui/icons-material';
 
 
@@ -106,7 +115,7 @@ const menuItems = [
       { text: 'Dashboard', component: () => <Dashboard/> },
       { text: 'Sales summary (today, this week, this month)', component: () => <div><SalesSummary/></div> },
       { text: 'Number of customers', component: () => <div> <NoOfCustomer/></div> },
-      { text: 'Number of order', component: () => <NoOfCustomer/> },
+      { text: 'Number of order', component: () => <OrderDetailsComponent/> },
       { text: 'Top-selling products', component: () => <TopSellingProducts/> },
     ],
   },
@@ -114,7 +123,7 @@ const menuItems = [
     text: 'Orders Management',
     icon: <MailIcon />,
     subMenu: [
-      { text: 'List of orders', component: () => <div>List of orders component</div> },
+      { text: 'List of orders', component: () => <div><OrdersList/></div> },
       { text: 'Order details', component: () => <div> <OrderDetails/></div> },
       { text: 'Order status update', component: () => <div><OrderSummary/></div> },
     ],
@@ -123,11 +132,13 @@ const menuItems = [
     text: 'Products Management',
     icon: <InboxIcon />,
     subMenu: [
-      { text: 'List of products', component: () => <div>List of products component</div> },
-      { text: 'Add/edit/delete products', component: () => <div>Add/edit/delete products component</div> },
-      { text: 'Product categories', component: () => <div>Product categories component</div> },
-      { text: 'Inventory management', component: () => <div>Inventory management component</div> },
-      { text: 'Product search', component: () => <div>Product search component</div> },
+      { text: 'List of products', component: () => <ProductList/> },
+      { text: 'Product details', component: () => <ProductDetails/> },
+      { text: 'Add/edit/delete products', component: () => < ProductManagement/> },
+      { text: 'Product categories', component: () => <ProductCategories/>
+       },
+      { text: 'Inventory management', component: () => <InventoryManagement/> },
+      { text: 'Product search', component: () => <ProductSearch/> },
     ],
   },
 ];

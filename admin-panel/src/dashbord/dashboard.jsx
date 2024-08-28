@@ -75,7 +75,7 @@ const Dashboard = ({ isOpen }) => {
   };
 
   return (
-    <div style={{ marginLeft: isOpen ? '300px' : '0',marginLeft: '0%', transition: 'margin-left 0.3s' }}>
+    <Box sx={{ backgroundColor: '#78aaf0', padding: 3, minHeight: '100vh', transition: 'margin-left 0.3s',width: "100%", marginLeft: isOpen ? '300px' : '0' }}>
       <Typography variant="h4" gutterBottom>
         Dashboard
       </Typography>
@@ -120,121 +120,110 @@ const Dashboard = ({ isOpen }) => {
             </LineChart>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 2, height: '100%' }}>
-            <Box>
-              <Typography variant="h6" gutterBottom>
-                Top Products
-              </Typography>
-              <List>
-                {products.map((product, index) => (
-                  <ListItem key={index}>
-                    {product.icon}
-                    <ListItemText primary={product.name} secondary={`${product.items} Items -15% $${product.price}`} />
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-            <Button onClick={handleShowMoreProducts}>
+        <Grid item xs={12} md={6} lg={3}>
+          <Paper sx={{ padding: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Top Products
+            </Typography>
+            <List>
+              {products.map((product, index) => (
+                <ListItem key={index}>
+                  {product.icon}
+                  <ListItemText primary={product.name} secondary={`Items: ${product.items} | Price: $${product.price}`} />
+                </ListItem>
+              ))}
+            </List>
+            <Button variant="contained" color="primary" onClick={handleShowMoreProducts}>
               {showMoreProducts ? 'Show Less' : 'Show More'}
             </Button>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 2, height: '100%' }}>
-            <Box>
-              <Typography variant="h6" gutterBottom>
-                Top Countries By Sales
-              </Typography>
-              <Typography variant="h4">$37,802</Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                1.56% since last weekend
-              </Typography>
-              <List>
-                {countries.map((item, index) => (
-                  <ListItem key={index}>
-                    {item.icon}
-                    <ListItemText primary={item.country} secondary={item.sales} />
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-            <Button onClick={handleShowMoreCountries}>
+        <Grid item xs={12} md={6} lg={3}>
+          <Paper sx={{ padding: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Top Countries
+            </Typography>
+            <List>
+              {countries.map((country, index) => (
+                <ListItem key={index}>
+                  {country.icon}
+                  <ListItemText primary={country.country} secondary={`Sales: $${country.sales}`} />
+                </ListItem>
+              ))}
+            </List>
+            <Button variant="contained" color="primary" onClick={handleShowMoreCountries}>
               {showMoreCountries ? 'Show Less' : 'Show More'}
             </Button>
           </Paper>
         </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Paper sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 2, height: '100%' }}>
-            <Box>
-              <Typography variant="h6" gutterBottom>
-                Best Shop Sellers
-              </Typography>
-              <TableContainer>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Shop</TableCell>
-                      <TableCell>Categories</TableCell>
-                      <TableCell>Total</TableCell>
-                      <TableCell>Status</TableCell>
+        <Grid item xs={12} md={6} lg={6}>
+          <Paper sx={{ padding: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Top Sellers
+            </Typography>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Purchases</TableCell>
+                    <TableCell>Categories</TableCell>
+                    <TableCell>Total</TableCell>
+                    <TableCell>Status</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {initialSellers.map((seller, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{seller.name}</TableCell>
+                      <TableCell>{seller.purchases}</TableCell>
+                      <TableCell>{seller.categories}</TableCell>
+                      <TableCell>{seller.total}</TableCell>
+                      <TableCell>{seller.status}</TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {initialSellers.map((seller, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{seller.name}</TableCell>
-                        <TableCell>{seller.categories}</TableCell>
-                        <TableCell>{seller.total}</TableCell>
-                        <TableCell>{seller.status}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 2, height: '100%' }}>
-            <Box>
-              <Typography variant="h6" gutterBottom>
-                Product Overview
-              </Typography>
-              <TableContainer>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell>Product ID</TableCell>
-                      <TableCell>Price</TableCell>
-                      <TableCell>Quantity</TableCell>
-                      <TableCell>Sale</TableCell>
-                      <TableCell>Revenue</TableCell>
-                      <TableCell>Status</TableCell>
+        <Grid item xs={12}>
+          <Paper sx={{ padding: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Product Overview
+            </Typography>
+            <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Product Name</TableCell>
+                    <TableCell>Product ID</TableCell>
+                    <TableCell>Price</TableCell>
+                    <TableCell>Quantity</TableCell>
+                    <TableCell>Sale</TableCell>
+                    <TableCell>Revenue</TableCell>
+                    <TableCell>Status</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {initialProductOverview.map((product, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{product.name}</TableCell>
+                      <TableCell>{product.productId}</TableCell>
+                      <TableCell>{`$${product.price}`}</TableCell>
+                      <TableCell>{product.quantity}</TableCell>
+                      <TableCell>{product.sale}</TableCell>
+                      <TableCell>{`$${product.revenue}`}</TableCell>
+                      <TableCell>{product.status}</TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {initialProductOverview.map((product, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{product.name}</TableCell>
-                        <TableCell>{product.productId}</TableCell>
-                        <TableCell>${product.price.toFixed(2)}</TableCell>
-                        <TableCell>{product.quantity}</TableCell>
-                        <TableCell>{product.sale}</TableCell>
-                        <TableCell>${product.revenue.toFixed(2)}</TableCell>
-                        <TableCell>{product.status}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Paper>
         </Grid>
       </Grid>
-    </div>
+    </Box>
   );
 };
 

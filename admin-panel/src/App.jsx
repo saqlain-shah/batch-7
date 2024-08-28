@@ -1,7 +1,7 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Sidebar from './component/sidebar';
+import Sidebar from './dashbord/sidebar';
 import Dashboard from './dashbord/dashboard';
 import NoOfCustomer from './dashbord/NoOfCustomer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';

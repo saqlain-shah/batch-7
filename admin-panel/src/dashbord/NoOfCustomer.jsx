@@ -24,7 +24,6 @@ const initialData = [
   { firstName: 'Kashif', lastName: 'Hassan', username: 'kashif123', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
   { firstName: 'Abid', lastName: 'Khan', username: 'abid456', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
   { firstName: 'Zafar', lastName: 'Ali', username: 'zafar789', email: 'abcd@gmail.com', phone: '034567890', fathername: 'John', address: '123 Street', dob: '1990-01-01', image: 'https://via.placeholder.com/50' },
-  
 ];
 
 const NoOfCustomer = () => {
@@ -90,7 +89,7 @@ const NoOfCustomer = () => {
     () => [
       {
         accessorKey: 'picture',
-        header: 'picture',
+        header: 'Picture',
         size: 100,
         Cell: ({ row }) => (
           <img
@@ -117,16 +116,6 @@ const NoOfCustomer = () => {
         header: 'Email',
         size: 150,
       },
-      // {
-      //   accessorKey: 'fathername',
-      //   header: 'Father Name',
-      //   size: 150,
-      // },
-      // {
-      //   accessorKey: 'address',
-      //   header: 'Address',
-      //   size: 150,
-      // },
       {
         accessorKey: 'actions',
         header: 'Edit and Delete',
@@ -159,7 +148,7 @@ const NoOfCustomer = () => {
   });
 
   return (
-    <Box sx={{ justifyContent: 'center', width: '140%', position: 'relative' }}>
+    <Box sx={{ backgroundColor: '#78aaf0', justifyContent: 'center', width: '117%', position: 'relative', margin: 'auto', padding: 5 }}>
       <h2>Number of Customers</h2>
       <IconButton
         color="primary"

@@ -1,34 +1,96 @@
 import React from 'react';
+import {
+  Grid, Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box, Divider,
+} from '@mui/material';
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+} from 'recharts';
 
-const OrderCount = ({ count }) => {
+// Sample data representing orders
+const data = [
+  { orderId: 'O001', product: 'Product 1', quantity: 50, price: 20, date: '2024-08-01' },
+  { orderId: 'O002', product: 'Product 2', quantity: 30, price: 30, date: '2024-08-02' },
+  { orderId: 'O003', product: 'Product 3', quantity: 70, price: 25, date: '2024-08-03' },
+  { orderId: 'O004', product: 'Product 4', quantity: 40, price: 35, date: '2024-08-04' },
+];
+
+// Function to calculate the total number of orders
+const getTotalOrders = (data) => {
+  return data.reduce((acc, order) => acc + order.quantity, 0);
+};
+
+export default function OrderDetails() {
+  const totalOrders = getTotalOrders(data);
+
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Number of Orders</h2>
-      <p style={styles.count}>{count}</p>
-    </div>
+    <Grid container spacing={2} sx={{ backgroundColor: '#78aaf0', padding: 5 , height:"150%"}}>
+      {/* Table of order details */}
+      <Grid item xs={12}>
+        <Card sx={{ backgroundColor: 'white' }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Order Details
+            </Typography>
+            <Divider />
+            <TableContainer>
+              <Table aria-label="order table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Order ID</TableCell>
+                    <TableCell>Product</TableCell>
+                    <TableCell>Date</TableCell>
+                    <TableCell>Price</TableCell>
+                    <TableCell>Quantity</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data.map((row) => (
+                    <TableRow key={row.orderId}>
+                      <TableCell>{row.orderId}</TableCell>
+                      <TableCell>{row.product}</TableCell>
+                      <TableCell>{row.date}</TableCell>
+                      <TableCell>${row.price}</TableCell>
+                      <TableCell>{row.quantity}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </CardContent>
+        </Card>
+      </Grid>
+
+      {/* Bar chart of order quantities */}
+      <Grid item xs={12}>
+        <Card sx={{ backgroundColor: 'white' }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Total Order Quantities Bar Chart
+            </Typography>
+            <Divider />
+            <Box height={300}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={data}
+                  margin={{
+                    top: 5,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="product" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="quantity" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
+            </Box>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
-};
-
-const styles = {
-  container: {
-    padding: '20px',
-    textAlign: 'center',
-    borderRadius: '8px',
-    backgroundColor: '#f5f5f5',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    maxWidth: '200px',
-    margin: 'auto',
-  },
-  heading: {
-    margin: '0',
-    fontSize: '18px',
-    color: '#333',
-  },
-  count: {
-    fontSize: '36px',
-    color: '#007bff',
-    margin: '10px 0 0 0',
-  },
-};
-
-export default OrderCount;
+}

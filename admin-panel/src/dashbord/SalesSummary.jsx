@@ -9,9 +9,8 @@ const data = [
 ];
 
 export default function SalesSummary() {
-
   return (
-    <div style={{ padding: 16 }}>
+    <Box sx={{ padding: 5,width: "110%", backgroundColor: '#78aaf0' }}>
       <Grid container spacing={2}>
 
         {/* Sales, Total Income, Order Paid */}
@@ -158,6 +157,6 @@ export default function SalesSummary() {
         </Grid>
 
       </Grid>
-    </div>
+    </Box>
   );
 }

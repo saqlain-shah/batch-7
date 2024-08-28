@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.16",
     "@mui/material": "^5.15.17",
+    "dayjs": "^1.11.13",
     "dom": "^0.0.3",
     "material-react-table": "^2.13.0",
     "react": "^18.3.1",
