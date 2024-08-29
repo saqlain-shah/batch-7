@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function Invoice() {
-  return (
-    <div>Invoice</div>
-  )
+  return <div>Invoice</div>;
 }

@@ -4,7 +4,6 @@ import { Grid, TextField, Button, Typography, IconButton, Dialog, DialogContent,
 import { Close as CloseIcon } from '@mui/icons-material';
 import { useDropzone } from 'react-dropzone';
 
-
 export default function EditArtifact({ open, handleClose, artifact, onSave }) {
   const [formData, setFormData] = useState(() => ({
     name: '',
@@ -281,8 +280,7 @@ export default function EditArtifact({ open, handleClose, artifact, onSave }) {
               </Grid>
             </Grid>
           </Grid>
-
-           </Grid>
+        </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary" variant="contained">

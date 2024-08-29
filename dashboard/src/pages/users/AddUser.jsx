@@ -1,57 +1,54 @@
 /* eslint-disable prettier/prettier */
 import { useMemo } from 'react';
-import {
-  MaterialReactTable,
-  useMaterialReactTable,
-} from 'material-react-table';
+import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
 
 //nested data is ok, see accessorKeys in ColumnDef below
 const data = [
   {
     name: {
       firstName: 'John',
-      lastName: 'Doe',
+      lastName: 'Doe'
     },
     address: '261 Erdman Ford',
     city: 'East Daphne',
-    state: 'Kentucky',
+    state: 'Kentucky'
   },
   {
     name: {
       firstName: 'Jane',
-      lastName: 'Doe',
+      lastName: 'Doe'
     },
     address: '769 Dominic Grove',
     city: 'Columbus',
-    state: 'Ohio',
+    state: 'Ohio'
   },
   {
     name: {
       firstName: 'Joe',
-      lastName: 'Doe',
+      lastName: 'Doe'
     },
     address: '566 Brakus Inlet',
     city: 'South Linda',
-    state: 'West Virginia',
+    state: 'West Virginia'
   },
   {
     name: {
       firstName: 'Kevin',
-      lastName: 'Vandy',
+      lastName: 'Vandy'
     },
     address: '722 Emie Stream',
     city: 'Lincoln',
-    state: 'Nebraska',
+    state: 'Nebraska'
   },
   {
     name: {
       firstName: 'Joshua',
-      lastName: 'Rolluffs',
+      lastName: 'Rolluffs'
     },
     address: '32188 Larkin Turnpike',
     city: 'Charleston',
-    state: 'South Carolina',
-  },
+    state: 'South Carolina'
+  }
 ];
 
 const Example = () => {
@@ -61,35 +58,35 @@ const Example = () => {
       {
         accessorKey: 'name.firstName', //access nested data with dot notation
         header: 'First Name',
-        size: 150,
+        size: 150
       },
       {
         accessorKey: 'name.lastName',
         header: 'Last Name',
-        size: 150,
+        size: 150
       },
       {
         accessorKey: 'address', //normal accessorKey
         header: 'Address',
-        size: 200,
+        size: 200
       },
       {
         accessorKey: 'city',
         header: 'City',
-        size: 150,
+        size: 150
       },
       {
         accessorKey: 'state',
         header: 'State',
-        size: 150,
-      },
+        size: 150
+      }
     ],
-    [],
+    []
   );
 
   const table = useMaterialReactTable({
     columns,
-    data, //data must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
+    data //data must be memoized or stable (useState, useMemo, defined outside of this component, etc.)
   });
 
   return <MaterialReactTable table={table} />;

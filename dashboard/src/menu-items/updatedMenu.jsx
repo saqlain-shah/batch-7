@@ -1,5 +1,5 @@
 // type
-import { Home3, HomeTrendUp, Box, Archive, User, Setting2 } from 'iconsax-react';
+import { Home3, HomeTrendUp, Box, Archive, User, Setting2, ShoppingCart, Bag2, UserSquare , ReceiptItem } from 'iconsax-react';
 
 // icons
 const icons = {
@@ -8,7 +8,12 @@ const icons = {
   artifacts: Box,
   stockRegistering: Archive,
   users: User,
-  settings: Setting2
+  settings: Setting2,
+  orders: ShoppingCart,
+  products: Bag2,
+  buyer: UserSquare,
+  customers: User,
+  invoices: ReceiptItem
 };
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
@@ -28,18 +33,50 @@ const UpdatedMenu = {
       breadcrumbs: false
     },
     {
+      id: 'orders',
+      title: 'Orders',
+      type: 'item',
+      url: '/orders',
+      icon: icons.orders,
+      breadcrumbs: false
+    },
+    {
+      id: 'products',
+      title: 'Products',
+      type: 'item',
+      url: '/products',
+      icon: icons.products,
+      breadcrumbs: false
+    },
+    {
+      id: 'buyer',
+      title: 'Buyer',
+      type: 'item',
+      url: '/buyer',
+      icon: icons.buyer,
+      breadcrumbs: false
+    },
+    {
+      id: 'customers',
+      title: 'Customers',
+      type: 'item',
+      url: '/customers',
+      icon: icons.customers,
+      breadcrumbs: false
+    },
+    {
+      id: 'invoices',
+      title: 'Invoices',
+      type: 'item',
+      url: '/invoices',
+      icon: icons.invoices,
+      breadcrumbs: false
+    },
+    {
       id: 'users',
       title: 'Users',
       type: 'item',
       url: '/users',
-      icon: icons.users,
-      breadcrumbs: false
-    },
-    {
-      id: 'invoice',
-      title: 'Invoice',
-      type: 'item',
-      url: '/invoice',
       icon: icons.users,
       breadcrumbs: false
     },
