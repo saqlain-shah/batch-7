@@ -85,4 +85,10 @@ export const viewAllUser = async (req, res, next) => {
     console.error(error); 
     res.status(500).json({ message: 'Internal Server Error', Error_Info : error.message });
   }
+<<<<<<< HEAD
 };
+=======
+};
+
+
+>>>>>>> main

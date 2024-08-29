@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Invoice from '../model/invoice.model.js';
 import Product from '../model/product.model.js';
 
@@ -134,3 +135,24 @@ export const viewAllInvoice = async (req, res, next) => {
 // export const viewAllInvoice = async (req, res, next) => {
  
 // };
+=======
+export const addInvoice = async (req, res, next) => {
+   
+};
+
+export const updateInvoice = async (req, res, next) => {
+ 
+};
+
+export const deleteInvoice = async (req, res, next) => {
+ 
+};
+
+export const viewSingleInvoice = async (req, res, next) => {
+ 
+};
+
+export const viewAllInvoice = async (req, res, next) => {
+ 
+};
+>>>>>>> main
