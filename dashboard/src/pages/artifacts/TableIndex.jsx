@@ -4,14 +4,12 @@ import axios from 'axios';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
 import { Box, IconButton, Menu, MenuItem, Button } from '@mui/material';
 import { Visibility as VisibilityIcon, Edit as EditIcon, Delete as DeleteIcon, MoreVert as MoreVertIcon } from '@mui/icons-material';
-import ViewArtifactModal from './ViewArtifact';
-import AddArtifact from './AddArtifact/AddArtifact';
-import EditArtifact from './Edit/EditArtifact';
+import OrderDetailsModal from './OrderDetails'; // Import the OrderDetails modal
 
 const Example = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [currentRow, setCurrentRow] = useState(null);
-  const [modalOpen, setModalOpen] = useState({ type: '', open: false });
+  const [modalOpen, setModalOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [data, setData] = useState([]); // State to store fetched data
@@ -21,9 +19,9 @@ const Example = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/artifacts');
-        console.log("response",response.data); // Assuming response.data is an array of artifacts
-        setData(response.data); // Assuming response.data is an array of artifacts
+        const response = await axios.get('http://localhost:5000/api/orders'); // Assuming endpoint is for orders
+        console.log('response', response.data); // Assuming response.data is an array of orders
+        setData(response.data); // Assuming response.data is an array of orders
         setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -60,41 +58,25 @@ const Example = () => {
       },
       {
         accessorKey: 'id',
-        header: 'Id',
+        header: 'Order ID',
         enableEditing: false,
         size: 80
       },
       {
         accessorKey: 'name',
-        header: 'Name'
+        header: 'Customer Name'
       },
       {
-        accessorKey: 'itemNo',
-        header: 'Item No'
+        accessorKey: 'date',
+        header: 'Order Date'
       },
       {
-        accessorKey: 'serialNo',
-        header: 'Serial No'
+        accessorKey: 'total',
+        header: 'Total Amount'
       },
       {
-        accessorKey: 'description',
-        header: 'Description'
-      },
-      {
-        accessorKey: 'madeOf',
-        header: 'Made Of'
-      },
-      {
-        accessorKey: 'age',
-        header: 'Age'
-      },
-      {
-        accessorKey: 'shelfNo',
-        header: 'Shelf No'
-      },
-      {
-        accessorKey: 'hallNo',
-        header: 'Hall No'
+        accessorKey: 'status',
+        header: 'Order Status'
       }
     ],
     []
@@ -109,7 +91,7 @@ const Example = () => {
 
   // Handle view, edit, delete actions
   const handleView = () => {
-    setModalOpen({ type: 'view', open: true });
+    setModalOpen(true); // Open the OrderDetailsModal
     handleClose();
   };
 
@@ -128,7 +110,7 @@ const Example = () => {
   };
 
   const handleCloseModal = () => {
-    setModalOpen({ type: '', open: false });
+    setModalOpen(false);
   };
 
   const handleCloseEditModal = () => {
@@ -143,19 +125,19 @@ const Example = () => {
     setAddModalOpen(false);
   };
 
-  // Save edited artifact
-  const handleSaveEdit = (updatedArtifact) => {
-    console.log('Saving edited artifact:', updatedArtifact);
+  // Save edited order
+  const handleSaveEdit = (updatedOrder) => {
+    console.log('Saving edited order:', updatedOrder);
     // Here you should update your data source
     handleCloseEditModal();
   };
 
   return (
     <>
-      {/* Button to add a new artifact */}
+      {/* Button to add a new order (if applicable) */}
       <Box sx={{ mb: 2 }}>
         <Button variant="contained" color="primary" onClick={handleOpenAddModal}>
-          Add New Artifact
+          Add New Order
         </Button>
       </Box>
 
@@ -176,15 +158,10 @@ const Example = () => {
         </MenuItem>
       </Menu>
 
-      {/* ViewArtifactModal to view details of the selected artifact */}
-      <ViewArtifactModal open={modalOpen.open && modalOpen.type === 'view'} handleClose={handleCloseModal} artifact={currentRow} />
+      {/* OrderDetailsModal to view details of the selected order */}
+      <OrderDetailsModal open={modalOpen} handleClose={handleCloseModal} orderDetails={currentRow} />
 
-      {/* AddArtifactModal to add a new artifact */}
-      <AddArtifact open={addModalOpen} handleClose={handleCloseAddModal} />
-
-      {/* EditArtifactModal to edit the selected artifact */}
-      <EditArtifact open={editModalOpen} handleClose={handleCloseEditModal} artifact={currentRow} onSave={handleSaveEdit} />
-    </>
+      </>
   );
 };
 

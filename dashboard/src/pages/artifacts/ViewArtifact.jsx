@@ -4,17 +4,13 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState } from 'react';
-import { Box, Grid, Typography, IconButton, Dialog, DialogContent, DialogTitle,  } from '@mui/material';
+import { Box, Grid, Typography, IconButton, Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
 
 const ViewArtifactModal = ({ open, handleClose, artifact }) => {
-
-
-
   const safeArtifact = artifact || {}; // Fallback in case artifact is not provided
 
-
-  console.log("artifact Detail in the view modal ", artifact)
+  console.log('artifact Detail in the view modal ', artifact);
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="lg" fullWidth sx={{ '& .MuiPaper-root': { borderRadius: '10px' } }}>
       <DialogTitle sx={{ backgroundColor: '#f5f5f5', borderBottom: '1px solid #ccc' }}>
@@ -47,8 +43,6 @@ const ViewArtifactModal = ({ open, handleClose, artifact }) => {
           </Typography>
         )}
       </DialogContent>
-
-
     </Dialog>
   );
 };

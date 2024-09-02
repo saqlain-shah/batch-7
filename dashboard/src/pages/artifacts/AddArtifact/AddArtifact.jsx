@@ -306,7 +306,6 @@ export default function AddArtifact({ open, handleClose }) {
                 </Grid>
               </Grid>
             </Grid>
-
           </Grid>
         </DialogContent>
         <DialogActions>
