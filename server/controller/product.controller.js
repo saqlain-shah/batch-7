@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
 import Product from '../model/product.model.js';
 
 export const updateProduct = async (req, res, next) => {
@@ -83,6 +86,7 @@ export const viewAllProduct = async (req, res, next) => {
   }
 };
 
+<<<<<<< HEAD
 export const addProduct = async (req, res, next) => {
   try {
     const productData = req.body;
@@ -114,4 +118,17 @@ export const addProduct = async (req, res, next) => {
   export const viewAllProduct = async (req, res, next) => {
    
   };
+>>>>>>> main
+=======
+export const addProduct = async (req, res, next) => {
+  try {
+    const productData = req.body;
+    const product = new Product(productData);
+    await product.save();
+    res.status(201).json({ message: 'Product added successfully', Data: product });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error', Error_Info: error.message });
+  }
+};
 >>>>>>> main

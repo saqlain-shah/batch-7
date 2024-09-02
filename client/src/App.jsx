@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ProductDetail } from './component/productDetail';
+import ViewCart from './component/viewCart';
+import About from './component/aboutUs';
+import { CartProvider } from './component/cartContext'; 
+import LandingPage from './component/LandingPage';
+import Login from './component/Login';
+import Register from "./component/Register";
+import NavBar from './component/navBar';
+import ThankYouMessage from './component/ThankYouMessage';
+import ShippingDetails from './component/ShippingDetails';
+import ProductList from './component/ProductList';
+import Footer from './component/footer';
 
-function App() {
-  const [count, setCount] = useState(0)
 
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <CartProvider>
+      <Router>
+        <NavBar/>
+        <Routes>
+        <Route path="/" element={<LandingPage />} />
+          <Route path="/home" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/productDetail" element={<ProductDetail />} />
+          <Route path="/viewCart" element={<ViewCart />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/shipping" element={<ShippingDetails />} />
+          <Route path="/thankyou" element={<ThankYouMessage />} />
+          <Route path="/product-List" element={<ProductList />} />
+          <Route path="/contact" element={<ProductList />} />
 
-export default App
+        </Routes>
+        <Footer/>
+      </Router>
+    </CartProvider>
+  );
+};
+
+export default App;

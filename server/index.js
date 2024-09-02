@@ -17,7 +17,11 @@ app.use(express.json());
 
 const DatabaseConnection = async () => {
     try {
+<<<<<<< HEAD
       await mongoose.connect(process.env.MONGO_URI);
+=======
+      await mongoose.connect(process.env.MONGODB_URI);
+>>>>>>> main
       console.log("Connected to mongoDB.");
     } catch {
       console.log("Connection Error");
@@ -33,7 +37,11 @@ app.get("/", (req, res)=>{
 res.json({message:"Hello"})
 })
 
+<<<<<<< HEAD
 const port = process.env.PORT || 5000;
+=======
+const port = process.env.PORT || 8000;
+>>>>>>> main
 
 
 
