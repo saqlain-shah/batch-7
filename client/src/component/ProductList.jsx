@@ -21,6 +21,8 @@ function ProductList() {
           setProducts(products);
           setPagination(pagination);
           setLoading(false);
+          console.log("Product Lsit Component",category)
+          console.log("Product Lsit Response",response)
         })
         .catch(error => {
           setError('Failed to load products. Please try again later.');
@@ -40,7 +42,6 @@ function ProductList() {
   if (error) {
     return <Typography variant="h6" sx={{ textAlign: 'center', marginTop: '120px' }}>{error}</Typography>;
   }
-
   const filteredProducts = products.filter(product => product.category === category);
 
   return (

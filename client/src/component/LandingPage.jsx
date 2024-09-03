@@ -25,7 +25,7 @@ const categories = [
   {
     title: 'Women',
     image: womensImg,
-    description: 'Elegant and stylish, our women\'s collection offers the perfect blend of comfort and sophistication for any wardrobe.',
+    description: 'Elegant and stylish, our women\'s collection offers the perfect blend of comfort for any wardrobe.',
   },
   {
     title: 'Men',
