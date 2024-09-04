@@ -13,14 +13,26 @@ function ProductList() {
   const location = useLocation();
   const { category } = location.state || {};
 
+  const BASE_URL = 'http://localhost:8000/'; // Base URL for your images
+
   useEffect(() => {
     if (category) {
       axios.get("http://localhost:8000/api/product/")
         .then(response => {
           const { products, pagination } = response.data;
-          setProducts(products);
+          // Process the image URLs
+          const processedProducts = products.map(product => ({
+            ...product,
+            imageUrl: product.imageUrl ? product.imageUrl.map(img => {
+              const fixedUrl = `${BASE_URL}${img.replace(/\\/g, '/')}`;
+              return fixedUrl;
+            }) : [],
+          }));
+
+          setProducts(processedProducts); // Update to set processedProducts
           setPagination(pagination);
           setLoading(false);
+          console.log("processedProducts",processedProducts)
         })
         .catch(error => {
           setError('Failed to load products. Please try again later.');
@@ -53,7 +65,7 @@ function ProductList() {
               <Button
                 onClick={() => {
                   const formData = {
-                    id:item._id,
+                    id: item._id,
                     name: item.name,
                     imageUrl: item.imageUrl,
                     price: item.price,
@@ -94,24 +106,30 @@ function ProductList() {
                       marginBottom: '1rem',
                     }}
                   >
-                    <img
-                      src={item && item.imageUrl}
-                      alt={item && item.name}
-                      style={{
-                        width: '120%',
-                        height: '200px',
-                        maxHeight: '200px',
-                        objectFit: 'cover',
-                        borderRadius: '8px',
-                      }}
-                    />
+                    {item.imageUrl && item.imageUrl.length > 0 ? (
+                      <img
+                        src={item.imageUrl[0]}
+                        alt={item.name}
+                        style={{
+                          width: '120%',
+                          height: '200px',
+                          maxHeight: '200px',
+                          objectFit: 'cover',
+                          borderRadius: '8px',
+                        }}
+                      />
+                    ) : (
+                      <Typography variant="body2" color="textSecondary">
+                        No image available
+                      </Typography>
+                    )}
                   </Box>
                   <Box sx={{ height: '50px', width: '100%' }}>
                     <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                      {item && item.name}
+                      {item.name}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      {item && item.price}
+                      {item.price}
                     </Typography>
                   </Box>
                 </Box>

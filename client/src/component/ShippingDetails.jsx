@@ -35,19 +35,20 @@ const ShippingDetails = () => {
       cartItems,
       totalPrice,
     };
+    console.log(dataToSend)
 
     try {
-    //   const response = await axios.post('http://localhost:8000/api/purchase/', dataToSend, {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   });
+      const response = await axios.post('http://localhost:8000/api/invoice/', dataToSend, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    //   if (response.status === 200) {
-    //     navigate('/thankyou', { state: { cartItems, totalPrice, customerDetails } });
-    //   } else {
-    //     setError('Something went wrong. Please try again later.');
-    //   }
+      if (response.status === 200) {
+        navigate('/thankyou', { state: { cartItems, totalPrice, customerDetails } });
+      } else {
+        setError('Something went wrong. Please try again later.');
+      }
    console.log("Shipping Component",customerDetails)
       navigate('/thankyou', { state: { cartItems, totalPrice, customerDetails } });
 

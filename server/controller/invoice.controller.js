@@ -1,31 +1,65 @@
 import Invoice from '../model/invoice.model.js';
 import Product from '../model/product.model.js';
+import { 
+  getProductIds, 
+  getUserId, 
+  generateInvoiceNumber, 
+  calculateDueDate } from "../services/service.invoice.js"
+// export const addInvoice = async (req, res, next) => {
+//   try {
+//     const { items, quantities } = req.body;
 
+//     let subtotal = 0;
+//     for (let i = 0; i < items.length; i++) {
+//       const product = await Product.findById(items[i]);
+//       subtotal += product.price * quantities[i];
+//     }
 
-export const addInvoice = async (req, res, next) => {
+//     const total = subtotal; 
+
+//     const invoice = new Invoice({
+//       ...req.body,
+//       subtotal,
+//       total
+//     });
+
+//     await invoice.save();
+//     res.status(201).json(invoice);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+export const createInvoice = async (req, res) => {
   try {
-    
-    const { items, quantities } = req.body;
+    const { cartItems, customerDetails, totalPrice } = req.body;
 
-    let subtotal = 0;
-    for (let i = 0; i < items.length; i++) {
-      const product = await Product.findById(items[i]);
-      subtotal += product.price * quantities[i];
-    }
+    const userId = await getUserId(customerDetails.email); 
+    const productIds = await getProductIds(cartItems); 
+    const quantities = cartItems.map(item => 1); 
 
-    const total = subtotal; 
+    const invoiceData = {
+      invoiceNumber: generateInvoiceNumber(), 
+      issueDate: new Date(),
+      dueDate: calculateDueDate(), 
+      customer: userId,
+      items: productIds,
+      quantities: quantities,
+      subtotal: totalPrice, 
+      total: totalPrice, 
+      paymentStatus: "unpaid", 
+      notes: "",
+    };
 
-
-    const invoice = new Invoice({
-      ...req.body,
-      subtotal,
-      total
-    });
-
+    // Create the invoice
+    const invoice = new Invoice(invoiceData);
     await invoice.save();
-    res.status(201).json({ message: 'Invoice added successfully', Data: invoice });
+    console.log("Response", invoice)
+
+    res.status(201).json({ success: true,message:"Successful", invoice });
   } catch (error) {
-    next(error);
+    console.error(error)
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 

@@ -1,11 +1,11 @@
 import express from "express";
-import {addInvoice , viewAllInvoice, viewSingleInvoice, deleteInvoice, updateInvoice} from "../controller/invoice.controller.js"
+import {createInvoice , viewAllInvoice, viewSingleInvoice, deleteInvoice, updateInvoice} from "../controller/invoice.controller.js"
 const router = express.Router();
 
 
 router.get("/", viewAllInvoice);
 router.get("/:id", viewSingleInvoice);
-router.post("/", addInvoice);
+router.post("/", createInvoice);
 router.put("/:id", updateInvoice);
 router.delete("/:id", deleteInvoice);
 

@@ -18,7 +18,6 @@ export const updateProduct = async (req, res, next) => {
   }
 };
 
-
 export const deleteProduct = async (req, res, next) => {
   try {
     const productId = req.params.id; 
@@ -33,7 +32,6 @@ export const deleteProduct = async (req, res, next) => {
     res.status(500).json({ message: 'Internal Server Error', Error_Info: error.message });
   }
 };
-
 
 export const viewSingleProduct = async (req, res, next) => {
   try {
@@ -85,14 +83,61 @@ export const viewAllProduct = async (req, res, next) => {
 };
 
 export const addProduct = async (req, res, next) => {
-  console.log("Request Data", req.body)
   try {
-    const productData = req.body;
+    const productImages = req.files.map(file => file.path);
+    console.log("productImages",productImages)
+    const productData = {
+      ...req.body,
+      images: productImages
+    };
+
     const product = new Product(productData);
     await product.save();
+
     res.status(201).json({ message: 'Product added successfully', Data: product });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error', Error_Info: error.message });
   }
 };
+
+
+export const addMultipleProducts = async (req, res, next) => {
+  try {
+    const productsData = req.body.products; // Expecting an array of products
+    if (!Array.isArray(productsData)) {
+      return res.status(400).json({ message: 'Invalid data format. Expected an array of products.' });
+    }
+
+    const savedProducts = [];
+    for (const productData of productsData) {
+      const product = new Product(productData);
+      const savedProduct = await product.save();
+      savedProducts.push(savedProduct);
+    }
+
+    res.status(201).json({ message: 'Products added successfully', data: savedProducts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error', error: error.message });
+  }
+};
+
+
+// export const addMultipleProducts = async (req, res, next) => {
+//   try {
+//     const productsData = req.body.products; 
+//     const savedProducts = [];
+
+//     for (const productData of productsData) {
+//       const product = new Product(productData); 
+//       const savedProduct = await products.save(); 
+//       savedProducts.push(savedProduct); 
+//     }
+
+//     res.status(201).json({ message: 'Products added successfully', Data: savedProducts });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Internal Server Error', Error_Info: error.message });
+//   }
+// };
