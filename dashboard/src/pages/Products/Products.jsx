@@ -8,10 +8,13 @@ import {
   Modal,
   TextField,
   Typography,
+  lighten,
 } from '@mui/material';
 import {
   MaterialReactTable,
   useMaterialReactTable,
+  MRT_GlobalFilterTextField,
+  MRT_ToggleFiltersButton,
 } from 'material-react-table';
 import { MoreVert as MoreVertIcon } from '@mui/icons-material';
 
@@ -29,7 +32,7 @@ const ProductList = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [openDetailModal, setOpenDetailModal] = useState(false); // For viewing details
+  const [openDetailModal, setOpenDetailModal] = useState(false);
   const [formValues, setFormValues] = useState({
     id: '',
     name: '',
@@ -43,26 +46,45 @@ const ProductList = () => {
       {
         accessorKey: 'id',
         header: 'Product ID',
+        size: 100,
       },
       {
         accessorKey: 'name',
         header: 'Product Name',
+        size: 250,
       },
       {
         accessorKey: 'category',
         header: 'Category',
+        size: 200,
       },
       {
         accessorKey: 'price',
         header: 'Price ($)',
-      },
-      {
-        accessorKey: 'stock',
-        header: 'Stock',
+        size: 100,
+        Cell: ({ cell }) => (
+          <Box
+            sx={(theme) => ({
+              backgroundColor:
+                cell.getValue() < 20
+                  ? theme.palette.success.main
+                  : cell.getValue() < 50
+                  ? theme.palette.warning.main
+                  : theme.palette.error.main,
+              borderRadius: '0.25rem',
+              color: '#fff',
+              p: '0.25rem',
+              textAlign: 'center',
+            })}
+          >
+            ${cell.getValue()}
+          </Box>
+        ),
       },
       {
         id: 'actions',
         header: 'Actions',
+        size: 150,
         Cell: ({ row }) => (
           <>
             <IconButton
@@ -88,10 +110,12 @@ const ProductList = () => {
               >
                 Edit
               </MenuItem>
-              <MenuItem onClick={() => {
-                setProducts(products.filter(product => product.id !== row.original.id));
-                setAnchorEl(null);
-              }}>
+              <MenuItem
+                onClick={() => {
+                  setProducts(products.filter(product => product.id !== row.original.id));
+                  setAnchorEl(null);
+                }}
+              >
                 Delete
               </MenuItem>
               <MenuItem
@@ -113,6 +137,16 @@ const ProductList = () => {
   const table = useMaterialReactTable({
     columns,
     data: products,
+    enableColumnFilterModes: true,
+    enableColumnOrdering: true,
+    enableGrouping: true,
+    enableRowActions: true,
+    enableRowSelection: true,
+    initialState: {
+      showColumnFilters: true,
+      showGlobalFilter: true,
+    },
+    paginationDisplayMode: 'pages',
     muiTableBodyCellProps: {
       sx: {
         backgroundColor: '#f5f5f5',
@@ -122,7 +156,7 @@ const ProductList = () => {
     muiTableBodyRowProps: {
       sx: {
         '&:nth-of-type(odd)': {
-          backgroundColor: '#fafafa',
+          backgroundColor: '#ffffff',
         },
         '&:hover': {
           backgroundColor: '#f1f1f1',
@@ -131,8 +165,8 @@ const ProductList = () => {
     },
     muiTableHeadCellProps: {
       sx: {
-        backgroundColor: '#1976d2',
-        color: '#ffffff',
+        backgroundColor: '#ffffff', // Change to white
+        color: '#000000', // Change text color to black
         fontWeight: 'bold',
         textTransform: 'uppercase',
       },
@@ -143,6 +177,24 @@ const ProductList = () => {
         borderRadius: '8px',
         overflow: 'hidden',
       },
+    },
+    renderTopToolbar: ({ table }) => {
+      return (
+        <Box
+          sx={(theme) => ({
+            backgroundColor: lighten(theme.palette.background.default, 0.05),
+            display: 'flex',
+            gap: '0.5rem',
+            p: '8px',
+            justifyContent: 'space-between',
+          })}
+        >
+          <Box sx={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            <MRT_GlobalFilterTextField table={table} />
+            <MRT_ToggleFiltersButton table={table} />
+          </Box>
+        </Box>
+      );
     },
   });
 
@@ -216,40 +268,43 @@ const ProductList = () => {
               fullWidth
               margin="normal"
             />
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-              <Button onClick={handleFormSubmit} variant="contained" color="primary">
-                {isEditing ? 'Save Changes' : 'Add Product'}
-              </Button>
-            </Box>
+            <Button variant="contained" color="primary" sx={{ marginTop: 2 }} onClick={handleFormSubmit}>
+              {isEditing ? 'Save Changes' : 'Add Product'}
+            </Button>
           </form>
         </Box>
       </Modal>
 
-      {/* Detail Modal for Viewing Product */}
-      <Modal open={openDetailModal} onClose={() => setOpenDetailModal(false)}>
-        <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', marginTop: '10%', width: 400, borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
-          <Typography variant="h6" gutterBottom>
-            Product Details
-          </Typography>
-          {selectedProduct && (
-            <Box>
-              <Typography variant="body1"><strong>Product ID:</strong> {selectedProduct.id}</Typography>
-              <Typography variant="body1"><strong>Product Name:</strong> {selectedProduct.name}</Typography>
-              <Typography variant="body1"><strong>Category:</strong> {selectedProduct.category}</Typography>
-              <Typography variant="body1"><strong>Price:</strong> ${selectedProduct.price}</Typography>
-              <Typography variant="body1"><strong>Stock:</strong> {selectedProduct.stock}</Typography>
-            </Box>
-          )}
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-            <Button onClick={() => setOpenDetailModal(false)} variant="contained" color="primary">
+      {/* Detail Modal */}
+      {selectedProduct && (
+        <Modal open={openDetailModal} onClose={() => setOpenDetailModal(false)}>
+          <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', marginTop: '10%', width: 400, borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
+            <Typography variant="h6" gutterBottom>
+              Product Details
+            </Typography>
+            <Typography variant="body1">
+              <strong>Product ID:</strong> {selectedProduct.id}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Product Name:</strong> {selectedProduct.name}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Category:</strong> {selectedProduct.category}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Price:</strong> ${selectedProduct.price}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Stock:</strong> {selectedProduct.stock}
+            </Typography>
+            <Button variant="contained" color="primary" sx={{ marginTop: 2 }} onClick={() => setOpenDetailModal(false)}>
               Close
             </Button>
           </Box>
-        </Box>
-      </Modal>
+        </Modal>
+      )}
     </Box>
   );
 };
-
 
 export default ProductList;
