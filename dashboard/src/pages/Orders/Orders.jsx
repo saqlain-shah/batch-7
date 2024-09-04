@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+// /* eslint-disable prettier/prettier */
 import React, { useMemo, useState } from 'react';
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table';
 import { MenuItem, IconButton, Menu } from '@mui/material';
