@@ -12,6 +12,7 @@ import ThankYouMessage from './component/ThankYouMessage';
 import ShippingDetails from './component/ShippingDetails';
 import ProductList from './component/ProductList';
 import Footer from './component/footer';
+import Profile from './component/profile';
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/thankyou" element={<ThankYouMessage />} />
           <Route path="/product-List" element={<ProductList />} />
           <Route path="/contact" element={<ProductList />} />
+          <Route path="/profile" element={<Profile />} />
 
         </Routes>
         <Footer/>

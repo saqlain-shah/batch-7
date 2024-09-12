@@ -34,12 +34,14 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
+
+// View a single user by ID
 export const viewSingleUser = async (req, res, next) => {
   try {
-    const userId = req.params.userId; 
-    const user = await User.findById(userId); 
+    const userId = req.params.id; // Ensure we're using the correct param
+    const user = await User.findById(userId); // Fetch the user by ID
 
-    if (!user) return res.status(404).send('User not found');
+    if (!user) return res.status(404).json({ message: 'User not found' });
     
     res.status(200).json({ message: 'User Details', Data: user });
   } catch (error) {
@@ -47,6 +49,7 @@ export const viewSingleUser = async (req, res, next) => {
     res.status(500).json({ message: 'Internal Server Error', Error_Info: error.message });
   }
 };
+
 
 export const viewAllUser = async (req, res, next) => {
   try {

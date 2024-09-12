@@ -6,19 +6,24 @@ import axios from 'axios';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/login', { email, password })
-      .then((response)=>{
-        console.log(response.data)
-        navigate('/');
+      const response = await axios.post('http://localhost:8000/api/auth/login', { email, password });
 
-      })
-  
+      // Assuming the API sends back a token upon successful login
+console.log("Response Data ", response.data.Detail.username)
+      // Store token and user info in localStorage (or use sessionStorage if preferred)
+      localStorage.setItem('user', JSON.stringify(response.data.Detail.username));
+
+      // Navigate to the home page after successful login
+      navigate('/');
+
     } catch (error) {
       console.error('Login error:', error);
+      setErrorMessage('Login failed. Please check your credentials.');
     }
   };
 
@@ -29,6 +34,11 @@ const Login = () => {
           <Typography variant="h5" component="h1" gutterBottom>
             Login
           </Typography>
+          {errorMessage && (
+            <Typography color="error" align="center">
+              {errorMessage}
+            </Typography>
+          )}
           <TextField
             label="Email"
             variant="outlined"

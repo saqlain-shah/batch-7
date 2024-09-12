@@ -8,10 +8,9 @@ const router = express.Router();
 router.get("/" , viewAllProduct);
 router.get("/:id", viewSingleProduct);
 router.post("/", upload.array('images', 5),addProduct);
-router.post("/", addMultipleProducts);
+router.post("/addMultiple", addMultipleProducts);
 router.put("/:id", updateProduct);
 router.delete("/:id", deleteProduct);
-
 
 // http://localhost:8000/api/product/
 // http://localhost:8000/api/product/:id

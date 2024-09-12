@@ -104,7 +104,7 @@ export const addProduct = async (req, res, next) => {
 
 export const addMultipleProducts = async (req, res, next) => {
   try {
-    const productsData = req.body.products; // Expecting an array of products
+    const productsData = req.body.products; 
     if (!Array.isArray(productsData)) {
       return res.status(400).json({ message: 'Invalid data format. Expected an array of products.' });
     }
