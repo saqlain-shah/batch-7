@@ -8,10 +8,13 @@ import {
   Modal,
   TextField,
   Typography,
+  lighten,
 } from '@mui/material';
 import {
   MaterialReactTable,
   useMaterialReactTable,
+  MRT_GlobalFilterTextField,
+  MRT_ToggleFiltersButton,
 } from 'material-react-table';
 import { MoreVert as MoreVertIcon } from '@mui/icons-material';
 
@@ -44,7 +47,6 @@ const initialInvoices = [
     createdAt: '2024-02-05',
     updatedAt: '2024-02-15',
   },
-  // Add more invoices here
 ];
 
 const InvoiceList = () => {
@@ -53,7 +55,7 @@ const InvoiceList = () => {
   const [selectedInvoice, setSelectedInvoice] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [openDetailModal, setOpenDetailModal] = useState(false); // For viewing details
+  const [openDetailModal, setOpenDetailModal] = useState(false);
   const [formValues, setFormValues] = useState({
     invoiceNumber: '',
     issueDate: '',
@@ -74,30 +76,27 @@ const InvoiceList = () => {
       {
         accessorKey: 'invoiceNumber',
         header: 'Invoice Number',
-      },
-      {
-        accessorKey: 'issueDate',
-        header: 'Issue Date',
-      },
-      {
-        accessorKey: 'dueDate',
-        header: 'Due Date',
+        size: 100,
       },
       {
         accessorKey: 'customer',
         header: 'Customer',
+        size: 200,
       },
       {
         accessorKey: 'total',
         header: 'Total ($)',
+        size: 100,
       },
       {
         accessorKey: 'paymentStatus',
         header: 'Payment Status',
+        size: 150,
       },
       {
         id: 'actions',
         header: 'Actions',
+        size: 150,
         Cell: ({ row }) => (
           <>
             <IconButton
@@ -123,10 +122,12 @@ const InvoiceList = () => {
               >
                 Edit
               </MenuItem>
-              <MenuItem onClick={() => {
-                setInvoices(invoices.filter(invoice => invoice.invoiceNumber !== row.original.invoiceNumber));
-                setAnchorEl(null);
-              }}>
+              <MenuItem
+                onClick={() => {
+                  setInvoices(invoices.filter(invoice => invoice.invoiceNumber !== row.original.invoiceNumber));
+                  setAnchorEl(null);
+                }}
+              >
                 Delete
               </MenuItem>
               <MenuItem
@@ -148,6 +149,14 @@ const InvoiceList = () => {
   const table = useMaterialReactTable({
     columns,
     data: invoices,
+    enableColumnFilterModes: true,
+    enableColumnOrdering: true,
+    enableRowActions: true,
+    enableRowSelection: true,
+    initialState: {
+      showColumnFilters: true,
+      showGlobalFilter: true,
+    },
     muiTableBodyCellProps: {
       sx: {
         backgroundColor: '#f5f5f5',
@@ -157,7 +166,7 @@ const InvoiceList = () => {
     muiTableBodyRowProps: {
       sx: {
         '&:nth-of-type(odd)': {
-          backgroundColor: '#fafafa',
+          backgroundColor: '#ffffff',
         },
         '&:hover': {
           backgroundColor: '#f1f1f1',
@@ -166,8 +175,8 @@ const InvoiceList = () => {
     },
     muiTableHeadCellProps: {
       sx: {
-        backgroundColor: '#1976d2',
-        color: '#ffffff',
+        backgroundColor: '#ffffff',
+        color: '#000000',
         fontWeight: 'bold',
         textTransform: 'uppercase',
       },
@@ -176,8 +185,27 @@ const InvoiceList = () => {
       sx: {
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
         borderRadius: '8px',
-        overflow: 'hidden',
+        overflow: 'auto',
+        maxWidth: '100%',
       },
+    },
+    renderTopToolbar: ({ table }) => {
+      return (
+        <Box
+          sx={(theme) => ({
+            backgroundColor: lighten(theme.palette.background.default, 0.05),
+            display: 'flex',
+            gap: '0.5rem',
+            p: '8px',
+            justifyContent: 'space-between',
+          })}
+        >
+          <Box sx={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            <MRT_GlobalFilterTextField table={table} />
+            <MRT_ToggleFiltersButton table={table} />
+          </Box>
+        </Box>
+      );
     },
   });
 
@@ -221,10 +249,12 @@ const InvoiceList = () => {
       >
         Add New Invoice
       </Button>
-      <MaterialReactTable table={table} />
+      <Box sx={{ overflowX: 'auto' }}> {/* Wrap table in a scrollable box */}
+        <MaterialReactTable table={table} />
+      </Box>
 
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
-        <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', marginTop: '10%', width: 400, borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
+        <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', marginTop: '1%', width: 400, borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
           <Typography variant="h6" gutterBottom>
             {isEditing ? 'Edit Invoice' : 'Add New Invoice'}
           </Typography>
@@ -299,42 +329,51 @@ const InvoiceList = () => {
               fullWidth
               margin="normal"
             />
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-              <Button onClick={handleFormSubmit} variant="contained" color="primary">
-                {isEditing ? 'Save Changes' : 'Add Invoice'}
-              </Button>
-            </Box>
+            <TextField
+              label="Created At"
+              value={formValues.createdAt}
+              onChange={(e) => setFormValues({ ...formValues, createdAt: e.target.value })}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Updated At"
+              value={formValues.updatedAt}
+              onChange={(e) => setFormValues({ ...formValues, updatedAt: e.target.value })}
+              fullWidth
+              margin="normal"
+            />
+            <Button
+              type="button"
+              variant="contained"
+              color="primary"
+              onClick={handleFormSubmit}
+              sx={{ marginTop: 2 }}
+            >
+              {isEditing ? 'Update Invoice' : 'Add Invoice'}
+            </Button>
           </form>
         </Box>
       </Modal>
 
-      {/* Detail Modal for Viewing Invoice */}
+      {/* Detail Modal */}
       <Modal open={openDetailModal} onClose={() => setOpenDetailModal(false)}>
-        <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', marginTop: '10%', width: 400, borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
+        <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', marginTop: '1%', width: 400, borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
           <Typography variant="h6" gutterBottom>
             Invoice Details
           </Typography>
-          {selectedInvoice && (
-            <Box>
-              <Typography variant="body1"><strong>Invoice Number:</strong> {selectedInvoice.invoiceNumber}</Typography>
-              <Typography variant="body1"><strong>Issue Date:</strong> {selectedInvoice.issueDate}</Typography>
-              <Typography variant="body1"><strong>Due Date:</strong> {selectedInvoice.dueDate}</Typography>
-              <Typography variant="body1"><strong>Customer:</strong> {selectedInvoice.customer}</Typography>
-              <Typography variant="body1"><strong>Items:</strong> {selectedInvoice.items}</Typography>
-              <Typography variant="body1"><strong>Quantities:</strong> {selectedInvoice.quantities}</Typography>
-              <Typography variant="body1"><strong>Subtotal:</strong> ${selectedInvoice.subtotal}</Typography>
-              <Typography variant="body1"><strong>Total:</strong> ${selectedInvoice.total}</Typography>
-              <Typography variant="body1"><strong>Payment Status:</strong> {selectedInvoice.paymentStatus}</Typography>
-              <Typography variant="body1"><strong>Notes:</strong> {selectedInvoice.notes}</Typography>
-              <Typography variant="body1"><strong>Created At:</strong> {selectedInvoice.createdAt}</Typography>
-              <Typography variant="body1"><strong>Updated At:</strong> {selectedInvoice.updatedAt}</Typography>
-            </Box>
-          )}
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-            <Button onClick={() => setOpenDetailModal(false)} variant="contained" color="primary">
-              Close
-            </Button>
-          </Box>
+          <Typography>Invoice Number: {selectedInvoice?.invoiceNumber}</Typography>
+          <Typography>Issue Date: {selectedInvoice?.issueDate}</Typography>
+          <Typography>Due Date: {selectedInvoice?.dueDate}</Typography>
+          <Typography>Customer: {selectedInvoice?.customer}</Typography>
+          <Typography>Items: {selectedInvoice?.items}</Typography>
+          <Typography>Quantities: {selectedInvoice?.quantities}</Typography>
+          <Typography>Subtotal: {selectedInvoice?.subtotal}</Typography>
+          <Typography>Total: {selectedInvoice?.total}</Typography>
+          <Typography>Payment Status: {selectedInvoice?.paymentStatus}</Typography>
+          <Typography>Notes: {selectedInvoice?.notes}</Typography>
+          <Typography>Created At: {selectedInvoice?.createdAt}</Typography>
+          <Typography>Updated At: {selectedInvoice?.updatedAt}</Typography>
         </Box>
       </Modal>
     </Box>
@@ -342,3 +381,4 @@ const InvoiceList = () => {
 };
 
 export default InvoiceList;
+

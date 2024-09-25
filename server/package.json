@@ -10,7 +10,7 @@
   "keywords": [
     "backend"
   ],
-  "author": "saqlain shah",
+  "author": "shahid",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

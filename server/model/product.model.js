@@ -47,10 +47,10 @@ const ProductSchema = new mongoose.Schema({
   images: [{
     type: String
   }],
-  reviews: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Review'
-  }],
+  // reviews: [{
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'Review'
+  // }],
   createdAt: {
     type: Date,
     default: Date.now

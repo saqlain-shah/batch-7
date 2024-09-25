@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import axios from 'axios';
 import {
   Box,
   Button,
@@ -8,83 +9,88 @@ import {
   Modal,
   TextField,
   Typography,
-  lighten,
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem as MuiMenuItem,
 } from '@mui/material';
 import {
   MaterialReactTable,
   useMaterialReactTable,
-  MRT_GlobalFilterTextField,
-  MRT_ToggleFiltersButton,
 } from 'material-react-table';
 import { MoreVert as MoreVertIcon } from '@mui/icons-material';
 
-const initialProducts = [
-  { id: 'P001', name: 'Cotton T-Shirt', category: 'T-Shirts', price: '19.99', stock: 50 },
-  { id: 'P002', name: 'Denim Jeans', category: 'Jeans', price: '39.99', stock: 30 },
-  { id: 'P003', name: 'Leather Jacket', category: 'Jackets', price: '89.99', stock: 15 },
-  { id: 'P004', name: 'Wool Sweater', category: 'Sweaters', price: '29.99', stock: 40 },
-  { id: 'P005', name: 'Silk Scarf', category: 'Accessories', price: '14.99', stock: 60 },
-];
+// Backend API URL
+const API_URL = 'http://localhost:8000/api/product/';
 
 const ProductList = () => {
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [openDetailModal, setOpenDetailModal] = useState(false);
   const [formValues, setFormValues] = useState({
-    id: '',
     name: '',
     category: '',
+    subCategory: '',
+    size: '',
+    color: '',
     price: '',
+    brand: '',
+    description: '',
     stock: '',
   });
+
+  // Fetch products from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(API_URL);
+        setProducts(response.data.products); // Assuming data contains the products
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'id',
-        header: 'Product ID',
-        size: 100,
-      },
-      {
         accessorKey: 'name',
         header: 'Product Name',
-        size: 250,
+        size: 130,
       },
       {
         accessorKey: 'category',
         header: 'Category',
-        size: 200,
+        size: 80,
+      },
+      {
+        accessorKey: 'subCategory',
+        header: 'Sub-Category',
+        size: 80,
       },
       {
         accessorKey: 'price',
         header: 'Price ($)',
-        size: 100,
-        Cell: ({ cell }) => (
-          <Box
-            sx={(theme) => ({
-              backgroundColor:
-                cell.getValue() < 20
-                  ? theme.palette.success.main
-                  : cell.getValue() < 50
-                  ? theme.palette.warning.main
-                  : theme.palette.error.main,
-              borderRadius: '0.25rem',
-              color: '#fff',
-              p: '0.25rem',
-              textAlign: 'center',
-            })}
-          >
-            ${cell.getValue()}
-          </Box>
-        ),
+        size: 60,
+      },
+      {
+        accessorKey: 'stock',
+        header: 'Stock',
+        size: 50,
+      },
+      {
+        accessorKey: 'color',
+        header: 'Color',
+        size: 60,
       },
       {
         id: 'actions',
         header: 'Actions',
-        size: 150,
+        size: 50,
         Cell: ({ row }) => (
           <>
             <IconButton
@@ -97,7 +103,7 @@ const ProductList = () => {
             </IconButton>
             <Menu
               anchorEl={anchorEl}
-              open={Boolean(anchorEl) && selectedProduct?.id === row.original.id}
+              open={Boolean(anchorEl) && selectedProduct?._id === row.original._id}
               onClose={() => setAnchorEl(null)}
             >
               <MenuItem
@@ -111,8 +117,13 @@ const ProductList = () => {
                 Edit
               </MenuItem>
               <MenuItem
-                onClick={() => {
-                  setProducts(products.filter(product => product.id !== row.original.id));
+                onClick={async () => {
+                  try {
+                    await axios.delete(`${API_URL}${row.original._id}`);
+                    setProducts(products.filter(product => product._id !== row.original._id));
+                  } catch (error) {
+                    console.error('Error deleting product:', error);
+                  }
                   setAnchorEl(null);
                 }}
               >
@@ -137,80 +148,43 @@ const ProductList = () => {
   const table = useMaterialReactTable({
     columns,
     data: products,
-    enableColumnFilterModes: true,
-    enableColumnOrdering: true,
-    enableGrouping: true,
-    enableRowActions: true,
-    enableRowSelection: true,
-    initialState: {
-      showColumnFilters: true,
-      showGlobalFilter: true,
-    },
-    paginationDisplayMode: 'pages',
-    muiTableBodyCellProps: {
-      sx: {
-        backgroundColor: '#f5f5f5',
-        borderBottom: '1px solid #e0e0e0',
-      },
-    },
-    muiTableBodyRowProps: {
-      sx: {
-        '&:nth-of-type(odd)': {
-          backgroundColor: '#ffffff',
-        },
-        '&:hover': {
-          backgroundColor: '#f1f1f1',
-        },
-      },
-    },
-    muiTableHeadCellProps: {
-      sx: {
-        backgroundColor: '#ffffff', // Change to white
-        color: '#000000', // Change text color to black
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-      },
-    },
-    muiTableContainerProps: {
-      sx: {
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        borderRadius: '8px',
-        overflow: 'hidden',
-      },
-    },
-    renderTopToolbar: ({ table }) => {
-      return (
-        <Box
-          sx={(theme) => ({
-            backgroundColor: lighten(theme.palette.background.default, 0.05),
-            display: 'flex',
-            gap: '0.5rem',
-            p: '8px',
-            justifyContent: 'space-between',
-          })}
-        >
-          <Box sx={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-            <MRT_GlobalFilterTextField table={table} />
-            <MRT_ToggleFiltersButton table={table} />
-          </Box>
-        </Box>
-      );
-    },
   });
 
   const handleAddProduct = () => {
     setIsEditing(false);
-    setFormValues({ id: '', name: '', category: '', price: '', stock: '' });
+    setFormValues({
+      name: '',
+      category: '',
+      subCategory: '',
+      size: '',
+      color: '',
+      price: '',
+      brand: '',
+      description: '',
+      stock: '',
+    });
     setOpenModal(true);
   };
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async () => {
     if (isEditing) {
-      setProducts(products.map((product) => 
-        product.id === formValues.id ? formValues : product
-      ));
+      // Update product via backend
+      try {
+        await axios.put(`${API_URL}${formValues._id}`, formValues);
+        setProducts(products.map((product) =>
+          product._id === formValues._id ? formValues : product
+        ));
+      } catch (error) {
+        console.error('Error updating product:', error);
+      }
     } else {
-      setProducts([...products, formValues]);
+      // Add new product via backend
+      try {
+        const response = await axios.post(API_URL, formValues);
+        setProducts([...products, response.data.data]);
+      } catch (error) {
+        console.error('Error adding product:', error);
+      }
     }
     setOpenModal(false);
   };
@@ -225,78 +199,114 @@ const ProductList = () => {
       >
         Add New Product
       </Button>
-      <MaterialReactTable table={table} />
+      <Box sx={{ overflowX: 'auto' }}>
+        <MaterialReactTable table={table} />
+      </Box>
 
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
-        <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', marginTop: '10%', width: 400, borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
+        <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', marginTop: '1%', width: 400, borderRadius: '8px' }}>
           <Typography variant="h6" gutterBottom>
             {isEditing ? 'Edit Product' : 'Add New Product'}
           </Typography>
-          <form>
-            <TextField
-              label="Product ID"
-              value={formValues.id}
-              onChange={(e) => setFormValues({ ...formValues, id: e.target.value })}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Product Name"
-              value={formValues.name}
-              onChange={(e) => setFormValues({ ...formValues, name: e.target.value })}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Category"
-              value={formValues.category}
-              onChange={(e) => setFormValues({ ...formValues, category: e.target.value })}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Price"
-              value={formValues.price}
-              onChange={(e) => setFormValues({ ...formValues, price: e.target.value })}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Stock"
-              value={formValues.stock}
-              onChange={(e) => setFormValues({ ...formValues, stock: e.target.value })}
-              fullWidth
-              margin="normal"
-            />
-            <Button variant="contained" color="primary" sx={{ marginTop: 2 }} onClick={handleFormSubmit}>
-              {isEditing ? 'Save Changes' : 'Add Product'}
-            </Button>
-          </form>
+          <Box sx={{ maxHeight: 400, overflowY: 'auto' }}>
+            <form>
+              <TextField
+                label="Product Name"
+                value={formValues.name}
+                onChange={(e) => setFormValues({ ...formValues, name: e.target.value })}
+                fullWidth
+                margin="normal"
+              />
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Category</InputLabel>
+                <Select
+                  value={formValues.category}
+                  onChange={(e) => setFormValues({ ...formValues, category: e.target.value })}
+                  label="Category"
+                >
+                  <MuiMenuItem value="Men">Men</MuiMenuItem>
+                  <MuiMenuItem value="Women">Women</MuiMenuItem>
+                  <MuiMenuItem value="Child">Child</MuiMenuItem>
+                </Select>
+              </FormControl>
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Sub-Category</InputLabel>
+                <Select
+                  value={formValues.subCategory}
+                  onChange={(e) => setFormValues({ ...formValues, subCategory: e.target.value })}
+                  label="Sub-Category"
+                >
+                  <MuiMenuItem value="Shirt">Shirt</MuiMenuItem>
+                  <MuiMenuItem value="Pants">Pants</MuiMenuItem>
+                  <MuiMenuItem value="Dress">Dress</MuiMenuItem>
+                  <MuiMenuItem value="Jacket">Jacket</MuiMenuItem>
+                  <MuiMenuItem value="Skirt">Skirt</MuiMenuItem>
+                  <MuiMenuItem value="Shorts">Shorts</MuiMenuItem>
+                  <MuiMenuItem value="Other">Other</MuiMenuItem>
+                </Select>
+              </FormControl>
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Size</InputLabel>
+                <Select
+                  value={formValues.size}
+                  onChange={(e) => setFormValues({ ...formValues, size: e.target.value })}
+                  label="Size"
+                >
+                  <MuiMenuItem value="Small">Small</MuiMenuItem>
+                  <MuiMenuItem value="Medium">Medium</MuiMenuItem>
+                  <MuiMenuItem value="Large">Large</MuiMenuItem>
+                </Select>
+              </FormControl>
+              <TextField
+                label="Color"
+                value={formValues.color}
+                onChange={(e) => setFormValues({ ...formValues, color: e.target.value })}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Price"
+                value={formValues.price}
+                onChange={(e) => setFormValues({ ...formValues, price: e.target.value })}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Brand"
+                value={formValues.brand}
+                onChange={(e) => setFormValues({ ...formValues, brand: e.target.value })}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Stock"
+                value={formValues.stock}
+                onChange={(e) => setFormValues({ ...formValues, stock: e.target.value })}
+                fullWidth
+                margin="normal"
+              />
+              <Button variant="contained" color="primary" sx={{ marginTop: 2 }} onClick={handleFormSubmit}>
+                {isEditing ? 'Save Changes' : 'Add Product'}
+              </Button>
+            </form>
+          </Box>
         </Box>
       </Modal>
 
       {/* Detail Modal */}
       {selectedProduct && (
         <Modal open={openDetailModal} onClose={() => setOpenDetailModal(false)}>
-          <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', marginTop: '10%', width: 400, borderRadius: '8px', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)' }}>
+          <Box sx={{ padding: 4, backgroundColor: 'white', margin: 'auto', marginTop: '1%', width: 400, borderRadius: '8px' }}>
             <Typography variant="h6" gutterBottom>
               Product Details
             </Typography>
-            <Typography variant="body1">
-              <strong>Product ID:</strong> {selectedProduct.id}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Product Name:</strong> {selectedProduct.name}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Category:</strong> {selectedProduct.category}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Price:</strong> ${selectedProduct.price}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Stock:</strong> {selectedProduct.stock}
-            </Typography>
+            <Typography>Name: {selectedProduct.name}</Typography>
+            <Typography>Category: {selectedProduct.category}</Typography>
+            <Typography>Sub-Category: {selectedProduct.subCategory}</Typography>
+            <Typography>Size: {selectedProduct.size}</Typography>
+            <Typography>Color: {selectedProduct.color}</Typography>
+            <Typography>Price: {selectedProduct.price}</Typography>
+            <Typography>Stock: {selectedProduct.stock}</Typography>
             <Button variant="contained" color="primary" sx={{ marginTop: 2 }} onClick={() => setOpenDetailModal(false)}>
               Close
             </Button>

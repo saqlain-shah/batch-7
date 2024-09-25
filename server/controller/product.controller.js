@@ -53,7 +53,7 @@ export const viewAllProduct = async (req, res, next) => {
     console.log("ViewAllProduct Endpoint Triggered");
     const query = {};
     const page = parseInt(req.query.page) || 1; 
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 50;
     const sort = req.query.sort;
 
     if (req.query.productname) {
