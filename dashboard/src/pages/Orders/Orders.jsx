@@ -18,13 +18,6 @@ import {
 } from 'material-react-table';
 import { MoreVert as MoreVertIcon } from '@mui/icons-material';
 
-const initialOrders = [
-  { id: '001', name: 'John Doe', date: '2024-08-29', total: '$150.00', status: 'Completed' },
-  { id: '002', name: 'Jane Smith', date: '2024-08-28', total: '$250.00', status: 'Pending' },
-  { id: '003', name: 'Alex Brown', date: '2024-08-27', total: '$120.00', status: 'Shipped' },
-  { id: '004', name: 'Emma Johnson', date: '2024-08-26', total: '$350.00', status: 'Cancelled' },
-];
-
 const OrderTable = () => {
   const [orders, setOrders] = useState(initialOrders);
   const [anchorEl, setAnchorEl] = useState(null);

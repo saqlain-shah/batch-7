@@ -34,7 +34,7 @@ app.use(express.json());
 
 
 app.use("/api/auth", authRoute);
-app.use("/api/user", userRoute);
+app.use("/api/User", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/invoice", invoiceRoute);
 const DatabaseConnection = async () => {

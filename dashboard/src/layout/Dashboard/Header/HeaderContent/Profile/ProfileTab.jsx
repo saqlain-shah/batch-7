@@ -11,7 +11,7 @@ import { Card, Edit2, Logout, Profile, Profile2User } from 'iconsax-react';
 
 // ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
 
-export default function ProfileTab() {
+export default function ProfileTab({handleLogout}) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -48,7 +48,7 @@ export default function ProfileTab() {
         <ListItemIcon>
           <Logout variant="Bulk" size={18} />
         </ListItemIcon>
-        <ListItemText primary="Logout" />
+        <ListItemText primary="Logout"  onClick={handleLogout}/>
       </ListItemButton>
     </List>
   );

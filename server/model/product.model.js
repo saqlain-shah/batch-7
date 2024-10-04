@@ -20,7 +20,7 @@ const ProductSchema = new mongoose.Schema({
   size: {
     type: String,
     required: true,
-    enum: ['small', 'medium', 'large']
+    enum: ['Small', 'Medium', 'Large']
   },
   color: {
     type: String,

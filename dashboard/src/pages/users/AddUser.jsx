@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import axios from 'axios';
 import {
   Box,
   Button,
@@ -8,7 +9,6 @@ import {
   Modal,
   TextField,
   Typography,
-  lighten,
 } from '@mui/material';
 import {
   MaterialReactTable,
@@ -18,16 +18,11 @@ import {
 } from 'material-react-table';
 import { MoreVert as MoreVertIcon } from '@mui/icons-material';
 
-const initialUsers = [
-  { firstName: 'John', lastName: 'Doe', address: '261 Erdman Ford', city: 'East Daphne', state: 'Kentucky' },
-  { firstName: 'Jane', lastName: 'Doe', address: '769 Dominic Grove', city: 'Columbus', state: 'Ohio' },
-  { firstName: 'Joe', lastName: 'Doe', address: '566 Brakus Inlet', city: 'South Linda', state: 'West Virginia' },
-  { firstName: 'Kevin', lastName: 'Vandy', address: '722 Emie Stream', city: 'Lincoln', state: 'Nebraska' },
-  { firstName: 'Joshua', lastName: 'Rolluffs', address: '32188 Larkin Turnpike', city: 'Charleston', state: 'South Carolina' },
-];
+// Backend API URL
+const API_URL = 'http://localhost:8000/api/user/';
 
 const UserTable = () => {
-  const [users, setUsers] = useState(initialUsers);
+  const [users, setUsers] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -40,6 +35,19 @@ const UserTable = () => {
     state: '',
   });
 
+  // Fetch users from backend
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(API_URL);
+        setUsers(response.data.users); // Assuming the API returns an array of users
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+    fetchUsers();
+  }, []);
+
   const columns = useMemo(() => [
     {
       accessorFn: (row) => `${row.firstName} ${row.lastName}`,
@@ -47,20 +55,27 @@ const UserTable = () => {
       header: 'Name',
       size: 250,
     },
+    
     {
-      accessorKey: 'address',
+      accessorKey: 'email',
+      header: 'Email',
+      size: 150,
+    },
+    {
+      accessorKey: 'phone',
+      header: 'Contact',
+      size: 150,
+    },
+    {
+      accessorKey: 'roles',
+      header: 'Roles',
+      size: 150,
+    },
+    {
+      accessorFn: (row) => `${row.address.street} ${row.address.city} ${row.address.state}`,
+      id: 'address',
       header: 'Address',
       size: 250,
-    },
-    {
-      accessorKey: 'city',
-      header: 'City',
-      size: 150,
-    },
-    {
-      accessorKey: 'state',
-      header: 'State',
-      size: 150,
     },
     {
       id: 'actions',
@@ -92,8 +107,13 @@ const UserTable = () => {
               Edit
             </MenuItem>
             <MenuItem
-              onClick={() => {
-                setUsers(users.filter(user => user.firstName !== row.original.firstName));
+              onClick={async () => {
+                try {
+                  await axios.delete(`${API_URL}${selectedUser._id}`);
+                  setUsers(users.filter(user => user._id !== selectedUser._id));
+                } catch (error) {
+                  console.error('Error deleting user:', error);
+                }
                 setAnchorEl(null);
               }}
             >
@@ -114,55 +134,7 @@ const UserTable = () => {
       showColumnFilters: true,
       showGlobalFilter: true,
     },
-    enableColumnFilterModes: false, // Disable column filters
-    muiTableBodyCellProps: {
-      sx: {
-        backgroundColor: '#f5f5f5',
-        borderBottom: '1px solid #e0e0e0',
-      },
-    },
-    muiTableBodyRowProps: {
-      sx: {
-        '&:nth-of-type(odd)': {
-          backgroundColor: '#ffffff',
-        },
-        '&:hover': {
-          backgroundColor: '#f1f1f1',
-        },
-      },
-    },
-    muiTableHeadCellProps: {
-      sx: {
-        backgroundColor: '#ffffff',
-        color: '#000000',
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-      },
-    },
-    muiTableContainerProps: {
-      sx: {
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        borderRadius: '8px',
-        overflow: 'auto',
-        maxWidth: '100%',
-      },
-    },
-    renderTopToolbar: ({ table }) => (
-      <Box
-        sx={(theme) => ({
-          backgroundColor: lighten(theme.palette.background.default, 0.05),
-          display: 'flex',
-          gap: '0.5rem',
-          p: '8px',
-          justifyContent: 'space-between',
-        })}
-      >
-        <Box sx={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-          <MRT_GlobalFilterTextField table={table} />
-          <MRT_ToggleFiltersButton table={table} /> {/* Keep the button but disable filters */}
-        </Box>
-      </Box>
-    ),
+    enableColumnFilterModes: false,
   });
 
   const handleAddUser = () => {
@@ -171,11 +143,23 @@ const UserTable = () => {
     setOpenModal(true);
   };
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async () => {
     if (isEditing) {
-      setUsers(users.map(user => (user.firstName === formValues.firstName ? formValues : user)));
+      // Update user via backend
+      try {
+        await axios.put(`${API_URL}${formValues._id}`, formValues);
+        setUsers(users.map(user => (user._id === formValues._id ? formValues : user)));
+      } catch (error) {
+        console.error('Error updating user:', error);
+      }
     } else {
-      setUsers([...users, formValues]);
+      // Add new user via backend
+      try {
+        const response = await axios.post(API_URL, formValues);
+        setUsers([...users, response.data.user]);
+      } catch (error) {
+        console.error('Error adding user:', error);
+      }
     }
     setOpenModal(false);
   };
@@ -222,21 +206,21 @@ const UserTable = () => {
             />
             <TextField
               label="Address"
-              value={formValues.address}
+              value={formValues.address.street}
               onChange={(e) => setFormValues({ ...formValues, address: e.target.value })}
               fullWidth
               margin="normal"
             />
             <TextField
               label="City"
-              value={formValues.city}
+              value={formValues.address.city}
               onChange={(e) => setFormValues({ ...formValues, city: e.target.value })}
               fullWidth
               margin="normal"
             />
             <TextField
               label="State"
-              value={formValues.state}
+              value={formValues.address.state}
               onChange={(e) => setFormValues({ ...formValues, state: e.target.value })}
               fullWidth
               margin="normal"

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState,useEffect, useMemo } from 'react';
 import {
   Box,
   Button,
@@ -17,29 +17,11 @@ import {
   MRT_ToggleFiltersButton,
 } from 'material-react-table';
 import { MoreVert as MoreVertIcon } from '@mui/icons-material';
+import axios from 'axios';
 
-const initialData = [
-  {
-    id: '1',
-    fullname: 'John Doe',
-    email: 'john@example.com',
-    country: 'USA',
-    date: '2024-01-01',
-    status: 'Active',
-  },
-  {
-    id: '2',
-    fullname: 'Jane Smith',
-    email: 'jane@example.com',
-    country: 'Canada',
-    date: '2024-02-05',
-    status: 'Inactive',
-  },
-  // Add more data here
-];
-
+const API_URL = 'http://localhost:8000/api/user/';
 const UserList = () => {
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -53,28 +35,50 @@ const UserList = () => {
     date: '',
     status: '',
   });
+ // Fetch users from backend
+ useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      console.log('response', response.data.users)
+     const customers= response.data.users.filter((data)=>data.roles[0]==="user")
+      setData(customers); // Assuming the API returns an array of users
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+  fetchUsers();
+}, []);
 
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'id',
-        header: 'ID',
-        size: 100,
+        accessorFn: (row) => `${row.firstName} ${row.lastName}`,
+        id: 'name',
+        header: 'Name',
+        size: 250,
       },
+      
       {
-        accessorKey: 'fullname',
-        header: 'Fullname',
-        size: 200,
-      },
-      {
-        accessorKey: 'country',
-        header: 'Country',
+        accessorKey: 'email',
+        header: 'Email',
         size: 150,
       },
       {
-        accessorKey: 'status',
-        header: 'Status',
-        size: 100,
+        accessorKey: 'phone',
+        header: 'Contact',
+        size: 150,
+      },
+      // {
+      //   accessorKey: 'roles',
+      //   header: 'Roles',
+      //   size: 150,
+      // },
+      {
+        accessorFn: (row) => `${row.address.street} ${row.address.city} ${row.address.state}`,
+        id: 'address',
+        header: 'Address',
+        size: 250,
       },
       {
         id: 'actions',

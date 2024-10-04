@@ -16,21 +16,21 @@ app.use(express.json());
 
 
 const DatabaseConnection = async () => {
-    try {
-      await mongoose.connect(process.env.MONGODB_URI);
-      console.log("Connected to mongoDB.");
-    } catch {
-      console.log("Connection Error");
-    }
-  };
-  
-  mongoose.connection.on("disconnected", () => {
-    console.log("MongoDB Disconnected!");
-  });
-  
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log("Connected to mongoDB.");
+  } catch (error) {
+    console.log("Connection Error", error);
+  }
+};
 
-app.get("/", (req, res)=>{
-res.json({message:"Hello"})
+mongoose.connection.on("disconnected", () => {
+  console.log("MongoDB Disconnected!");
+});
+
+
+app.get("/", (req, res) => {
+  res.json({ message: "Hello" })
 })
 
 const port = process.env.PORT || 8000;
@@ -48,7 +48,7 @@ app.use((err, req, res, next) => {
   });
 });
 app.listen(port, () => {
-DatabaseConnection();
+  DatabaseConnection();
   console.log(`Server Listen on port ${port}`);
   console.log("Connected to backend.");
-});wq234
+}); wq234

@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 
 // fonts
-import 'assets/fonts/inter/inter.css';
+import './assets/fonts/inter/inter.css';
 
 // scroll bar
 import 'simplebar/dist/simplebar.css';
@@ -9,13 +9,13 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 // third-party
-import 'assets/third-party/apex-chart.css';
+import './assets/third-party/apex-chart.css';
 import { Provider as ReduxProvider } from 'react-redux';
 
 // project-imports
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { store } from 'store';
+import { store } from './store';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
