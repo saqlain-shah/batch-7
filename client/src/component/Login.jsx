@@ -13,12 +13,14 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:8000/api/auth/login', { email, password });
 
-      // Assuming the API sends back a token upon successful login
-console.log("Response Data ", response.data.Detail.username)
-      // Store token and user info in localStorage (or use sessionStorage if preferred)
-      localStorage.setItem('user', JSON.stringify(response.data.Detail.username));
+      // Check if the response includes profile details
+      const userDetails = response.data.Detail; // Assuming this contains all the required fields
+      
+      // Store all the user details in localStorage
+      localStorage.setItem('user', JSON.stringify(userDetails));
+      console.log('User details:', userDetails);
 
-      // Navigate to the home page after successful login
+      // Navigate to the profile page where all user details will be displayed
       navigate('/');
 
     } catch (error) {

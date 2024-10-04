@@ -59,7 +59,7 @@ const ShippingDetails = () => {
   };
 
   return (
-    <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'90vh'} marginTop={'6.5%'}>
+    <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'90vh'} >
       <Paper elevation={3} sx={{ padding: 4, width: '70%' }}>
         <Typography variant="h5" marginBottom={4}>
           Shipping Details

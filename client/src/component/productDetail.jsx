@@ -8,9 +8,9 @@ import { useCart } from './cartContext.jsx';
 export const ProductDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { id, name, price, category, subCategory } = location.state?.formData || {}; // Destructure product data from state
+  const { id, name, price, category, subCategory  } = location.state?.formData || {}; // 
+  // Destructure product data from state
   const { addToCart } = useCart();
-
   const [productDetails, setProductDetails] = useState(location.state?.formData || null); // Use state data if available
   const [cartOpen, setCartOpen] = useState(false);
   const [color, setColor] = useState('Blue');
@@ -24,6 +24,7 @@ export const ProductDetail = () => {
         try {
           const response = await axios.get(`http://localhost:8000/api/product/${id}`);
           setProductDetails(response.data);
+          console.log('response : ', response.data)
         } catch (error) {
           console.error('Error fetching product details:', error);
         }
@@ -74,8 +75,8 @@ export const ProductDetail = () => {
 
   return (
     <>
-      <Box width="100%" display="flex" justifyContent="center" marginTop="110px">
-        <Box height="100vh" width="85%">
+      <Box width="100%" display="flex" justifyContent="center" >
+        <Box height="150vh" width="85%">
           <Grid container spacing={2} display="flex" justifyContent="space-between">
             <Grid item xs={12} md={5.5} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
               {/* Display multiple images */}
@@ -110,7 +111,7 @@ export const ProductDetail = () => {
                 Category: {category || productDetails.category}
               </Typography>
               <Typography sx={{ color: 'black', fontWeight: '500', marginBottom: '5px' }}>
-                Subcategory: {subCategory || productDetails.subCategory}
+                Subcategory: {subCategory || productDetails.subCategory                }
               </Typography>
 
               {/* Color and Size Options */}

@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.20",
+    "@mui/x-data-grid": "^7.18.0",
     "axios": "^1.7.3",
     "material-react-table": "^2.13.0",
     "mui": "^0.0.1",

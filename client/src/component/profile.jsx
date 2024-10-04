@@ -6,32 +6,30 @@ const Profile = () => {
   const [userDetails, setUserDetails] = useState(null);
 
   useEffect(() => {
-    // Fetch user data from the server (assuming the user ID is stored in localStorage after login)
-    const user = JSON.parse(localStorage.getItem('user'));
-    console.log('User', user)
-    const userId = user?.id; 
-    console.log('userid',userId)
+    const storedUser = localStorage.getItem('user');
+    if (!storedUser) {
+      console.error('No user data found in localStorage.');
+      return;
+    }
 
+    const user = JSON.parse(storedUser);
+    if (!user || !user._id) {
+      console.error('User ID not found in localStorage.');
+      return;
+    }
+
+    const userId = user._id;
 
     const fetchUserDetails = async () => {
       try {
-        if (!userId) {
-          console.log('No userId found');
-          return;
-        }
-        // Make a request to the endpoint with the user ID
         const response = await axios.get(`http://localhost:8000/api/user/${userId}`);
-        console.log('User details fetched from API:', response.data.Data); // Log the fetched user details
-
-        setUserDetails(response.data.Data); // Set user details into state
+        setUserDetails(response.data.Data);
       } catch (error) {
         console.error('Error fetching user details:', error);
       }
     };
 
-    if (userId) {
-      fetchUserDetails(); // Call the function if userId exists
-    }
+    fetchUserDetails();
   }, []);
 
   if (!userDetails) {
@@ -39,43 +37,97 @@ const Profile = () => {
   }
 
   return (
-    <Box sx={{ marginTop: '120px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <Box
+      sx={{
+        marginTop: '50px',
+        marginBottom: '50px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <Box
         sx={{
-          width: '70%',
-          padding: '20px',
-          backgroundColor: '#f0f0f0',
-          borderRadius: '10px',
-          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
+          width: '80%',
+          height: '60vh',
+          backgroundColor: 'white',
+          borderRadius: '20px',
+          border: '3px solid #2196f3', // Blue border
+          boxShadow: '0 8px 24px rgba(33, 150, 243, 0.2)', // Blue shadow
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
+        <Grid container spacing={4}>
+          {/* Avatar Section */}
+          <Grid
+            item
+            xs={12}
+            md={4}
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             <Avatar
-              src={`http://localhost:8000/${userDetails.profilePicture}`} // Assuming profilePicture is a path from the server
-              alt="Profile Picture"
-              sx={{ width: 150, height: 150, margin: '0 auto' }}
+              src={userDetails.profilePicture || '/default-avatar.png'}
+              alt="Profile"
+              sx={{
+                width: '160px',
+                height: '160px',
+                border: '4px solid #2196f3', // Blue border around the avatar
+                boxShadow: '0 6px 12px rgba(33, 150, 243, 0.3)', // Blue shadow around the avatar
+              }}
             />
           </Grid>
+
+          {/* User Details Section */}
           <Grid item xs={12} md={8}>
-            <Typography variant="h4" color="primary">
-              {userDetails.firstName} {userDetails.lastName}
-            </Typography>
-            <Typography variant="body1" sx={{ marginTop: '10px' }}>
-              <strong>Username:</strong> {userDetails.username}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Email:</strong> {userDetails.email}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Phone:</strong> {userDetails.phone}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Address:</strong> {userDetails.address}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Date of Birth:</strong> {userDetails.dateOfBirth}
-            </Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                height: '80%',
+                width: '80%',
+                backgroundColor: '#f0f8ff', // Light blue background for details
+                padding: '20px',
+                borderRadius: '10px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', // Light shadow for details box
+              }}
+            >
+              <Typography
+                variant="h4"
+                color="primary"
+                sx={{ fontWeight: 'bold', marginBottom: '10px', textShadow: '1px 1px 4px rgba(33, 150, 243, 0.5)' }}
+              >
+                {userDetails.firstName} {userDetails.lastName}
+              </Typography>
+
+              <Typography variant="body1" sx={{ marginBottom: '8px', color: '#333' }}>
+                <strong>Username:</strong> {userDetails.username}
+              </Typography>
+
+              <Typography variant="body1" sx={{ marginBottom: '8px', color: '#333' }}>
+                <strong>Email:</strong> {userDetails.email}
+              </Typography>
+
+              <Typography variant="body1" sx={{ marginBottom: '8px', color: '#333' }}>
+                <strong>Phone:</strong> {userDetails.phone}
+              </Typography>
+
+              <Typography variant="body1" sx={{ marginBottom: '8px', color: '#333' }}>
+                <strong>Address:</strong>{' '}
+                {`${userDetails.address.street}, ${userDetails.address.city}, ${userDetails.address.state}, ${userDetails.address.country}`}
+              </Typography>
+
+              <Typography variant="body1" sx={{ marginBottom: '8px', color: '#333' }}>
+                <strong>Date of Birth:</strong> {userDetails.dateOfBirth}
+              </Typography>
+            </Box>
           </Grid>
         </Grid>
       </Box>

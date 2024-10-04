@@ -63,9 +63,9 @@ function ProductList() {
   const filteredProducts = products.filter(product => product.category === category);
 
   return (
-    <Container sx={{ marginTop: '120px' }}>
-      <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', marginBottom: '5%' }}>{category}</Typography>
-      <Grid container spacing={4}>
+    <Container sx={{  marginBottom:'5%'}}>
+      <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', marginBottom: '5%', }}>{category}</Typography>
+      <Grid container spacing={3}>
         {filteredProducts.length > 0 ? (
           filteredProducts.map(item => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
@@ -77,7 +77,7 @@ function ProductList() {
                     images: item.images, // Use images for navigation
                     price: item.price,
                     category: item.category,
-                    subcategory: item.subCategory,
+                    subCategory: item.subCategory,
                     color: item.color,
                     size: item.size,
                     stock: item.stock,
