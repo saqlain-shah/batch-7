@@ -23,7 +23,7 @@ const NavBar = () => {
     <AppBar position="fixed" sx={{ backgroundColor: 'darkblue' }}>
       <Toolbar sx={{ flexDirection: 'column', alignItems: 'center', padding: '0 10%', backgroundColor: 'darkblue' }}>
         <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 1 }}>
-          <Box>
+          {/* <Box>
             <Link to="/home" style={{ textDecoration: 'none' }}>
               <Typography
                 variant="h6"
@@ -78,7 +78,7 @@ const NavBar = () => {
                 </Box>
               ))}
             </Box>
-          </Box>
+          </Box> */}
           <Box>
             <Button
               component={Link}

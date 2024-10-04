@@ -27,6 +27,7 @@ import IconButton from 'components/@extended/IconButton';
 // assets
 import avatar1 from 'assets/images/users/avatar-6.png';
 import { Setting2, Profile, Logout } from 'iconsax-react';
+import { useNavigate } from 'react-router';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -55,9 +56,11 @@ function a11yProps(index) {
 
 export default function ProfilePage() {
   const theme = useTheme();
+  const Navigate = useNavigate()
 
   const handleLogout = async () => {
     // Logout
+    Navigate('/login')
   };
 
   const anchorRef = useRef(null);

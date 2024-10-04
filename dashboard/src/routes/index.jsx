@@ -6,6 +6,6 @@ import MainRoutes from './MainRoutes';
 
 // ==============================|| ROUTES RENDER ||============================== //
 
-const router = createBrowserRouter([ComponentsRoutes, MainRoutes], { basename: import.meta.env.VITE_APP_BASE_NAME });
+const router = createBrowserRouter([ComponentsRoutes, ...MainRoutes], { basename: import.meta.env.VITE_APP_BASE_NAME });
 
 export default router;

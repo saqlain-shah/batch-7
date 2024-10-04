@@ -1,7 +1,7 @@
 import { RouterProvider } from 'react-router-dom';
 
 // project import
-import router from 'routes';
+import router from './routes/index';
 import ThemeCustomization from 'themes';
 import ScrollTop from 'components/ScrollTop';
 

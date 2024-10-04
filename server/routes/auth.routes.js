@@ -8,7 +8,7 @@ const router = express.Router();
 const registerValidation = [
     check('username', 'Username is required').notEmpty().trim(),
     check('email', 'Please enter a valid email').isEmail().normalizeEmail(),
-    check('password', 'Password is required').isLength({ min: 6 }),
+    check('password', 'Password is required').isLength({ min: 4 }),
     check('firstName', 'First name is required').notEmpty().trim(),
     check('lastName', 'Last name is required').notEmpty().trim(),
     check('phone', 'Please enter a valid phone number').isMobilePhone(), 
@@ -27,7 +27,7 @@ const registerValidation = [
   
   const loginValidation = [
     check('email', 'Please enter a valid email').isEmail().normalizeEmail(),
-    check('password', 'Password is required').isLength({ min: 6 }),
+    check('password', 'Password is required').isLength({ min: 4 }),
   ];
 
   
