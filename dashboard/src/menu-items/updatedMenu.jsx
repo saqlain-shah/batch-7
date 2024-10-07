@@ -48,14 +48,14 @@ const UpdatedMenu = {
       icon: icons.products,
       breadcrumbs: false
     },
-    {
-      id: 'buyer',
-      title: 'Buyer',
-      type: 'item',
-      url: '/buyer',
-      icon: icons.buyer,
-      breadcrumbs: false
-    },
+    // {
+    //   id: 'buyer',
+    //   title: 'Buyer',
+    //   type: 'item',
+    //   url: '/buyer',
+    //   icon: icons.buyer,
+    //   breadcrumbs: false
+    // },
     {
       id: 'customers',
       title: 'Customers',
