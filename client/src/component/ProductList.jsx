@@ -5,7 +5,6 @@ import axios from 'axios';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
-  const [pagination, setPagination] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -13,16 +12,36 @@ function ProductList() {
   const location = useLocation();
   const { category } = location.state || {};
 
+  const BASE_URL = 'http://localhost:8000/'; 
+
   useEffect(() => {
     if (category) {
-      axios.get("http://localhost:8000/api/product/")
+      axios.get(`${BASE_URL}api/product/`)
         .then(response => {
-          const { products, pagination } = response.data;
-          setProducts(products);
-          setPagination(pagination);
+          const { products } = response.data;
+
+          const processedProducts = products.map(product => {
+            const imageUrlArray = Array.isArray(product.imageUrl)
+              ? product.imageUrl.map(img => `${BASE_URL}${img.replace(/\\/g, '/')}`)
+              : [];
+            
+            const imagesArray = Array.isArray(product.images)
+              ? product.images.map(img => `${BASE_URL}${img.replace(/\\/g, '/')}`)
+              : [];
+
+            const combinedImages = [...imageUrlArray, ...imagesArray];
+
+            return {
+              ...product,
+              images: combinedImages, 
+            };
+          });
+
+          setProducts(processedProducts);
           setLoading(false);
+          console.log('productProccessed :',processedProducts )
         })
-        .catch(error => {
+        .catch(() => {
           setError('Failed to load products. Please try again later.');
           setLoading(false);
         });
@@ -44,26 +63,26 @@ function ProductList() {
   const filteredProducts = products.filter(product => product.category === category);
 
   return (
-    <Container sx={{ marginTop: '120px' }}>
-      <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', marginBottom: '5%' }}>{category}</Typography>
-      <Grid container spacing={4}>
+    <Container sx={{  marginBottom:'5%'}}>
+      <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', marginBottom: '5%', }}>{category}</Typography>
+      <Grid container spacing={3}>
         {filteredProducts.length > 0 ? (
           filteredProducts.map(item => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
               <Button
                 onClick={() => {
                   const formData = {
-                    id:item._id,
+                    id: item._id,
                     name: item.name,
-                    imageUrl: item.imageUrl,
+                    images: item.images, // Use images for navigation
                     price: item.price,
                     category: item.category,
-                    subcategory: item.subCategory,
+                    subCategory: item.subCategory,
                     color: item.color,
                     size: item.size,
                     stock: item.stock,
                     brand: item.brand,
-                    description: item.description
+                    description: item.description,
                   };
                   navigate('/productDetail', { state: { formData } });
                 }}
@@ -94,13 +113,15 @@ function ProductList() {
                       marginBottom: '1rem',
                     }}
                   >
+                    {/* Display the first available image */}
                     <img
-                      src={item && item.imageUrl}
-                      alt={item && item.name}
+                      src={Array.isArray(item.images) && item.images.length > 0 
+                        ? item.images[0] 
+                        : `${BASE_URL}default-image.png`} // Fallback image
+                      alt={item.name}
                       style={{
-                        width: '120%',
+                        width: '100%',
                         height: '200px',
-                        maxHeight: '200px',
                         objectFit: 'cover',
                         borderRadius: '8px',
                       }}
@@ -108,10 +129,10 @@ function ProductList() {
                   </Box>
                   <Box sx={{ height: '50px', width: '100%' }}>
                     <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                      {item && item.name}
+                      {item.name}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
-                      {item && item.price}
+                      {item.price}
                     </Typography>
                   </Box>
                 </Box>
@@ -122,7 +143,6 @@ function ProductList() {
           <Typography variant="body1" sx={{ textAlign: 'center', width: '100%' }}>No products available in this category.</Typography>
         )}
       </Grid>
-      {/* Pagination or other UI elements can be added here using pagination state */}
     </Container>
   );
 }

@@ -35,19 +35,20 @@ const ShippingDetails = () => {
       cartItems,
       totalPrice,
     };
+    console.log(dataToSend)
 
     try {
-    //   const response = await axios.post('http://localhost:8000/api/purchase/', dataToSend, {
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   });
+      const response = await axios.post('http://localhost:8000/api/invoice/', dataToSend, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    //   if (response.status === 200) {
-    //     navigate('/thankyou', { state: { cartItems, totalPrice, customerDetails } });
-    //   } else {
-    //     setError('Something went wrong. Please try again later.');
-    //   }
+      if (response.status === 200) {
+        navigate('/thankyou', { state: { cartItems, totalPrice, customerDetails } });
+      } else {
+        setError('Something went wrong. Please try again later.');
+      }
    console.log("Shipping Component",customerDetails)
       navigate('/thankyou', { state: { cartItems, totalPrice, customerDetails } });
 
@@ -58,7 +59,7 @@ const ShippingDetails = () => {
   };
 
   return (
-    <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'90vh'} marginTop={'6.5%'}>
+    <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'90vh'} >
       <Paper elevation={3} sx={{ padding: 4, width: '70%' }}>
         <Typography variant="h5" marginBottom={4}>
           Shipping Details

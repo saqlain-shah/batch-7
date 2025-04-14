@@ -6,19 +6,26 @@ import axios from 'axios';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/login', { email, password })
-      .then((response)=>{
-        console.log(response.data)
-        navigate('/');
+      const response = await axios.post('http://localhost:8000/api/auth/login', { email, password });
 
-      })
-  
+      // Check if the response includes profile details
+      const userDetails = response.data.Detail; // Assuming this contains all the required fields
+      
+      // Store all the user details in localStorage
+      localStorage.setItem('user', JSON.stringify(userDetails));
+      console.log('User details:', userDetails);
+
+      // Navigate to the profile page where all user details will be displayed
+      navigate('/');
+
     } catch (error) {
       console.error('Login error:', error);
+      setErrorMessage('Login failed. Please check your credentials.');
     }
   };
 
@@ -29,6 +36,11 @@ const Login = () => {
           <Typography variant="h5" component="h1" gutterBottom>
             Login
           </Typography>
+          {errorMessage && (
+            <Typography color="error" align="center">
+              {errorMessage}
+            </Typography>
+          )}
           <TextField
             label="Email"
             variant="outlined"

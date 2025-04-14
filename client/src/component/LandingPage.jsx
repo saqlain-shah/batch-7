@@ -1,8 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Box, Grid, Typography, Button, Container } from '@mui/material';
-import footerImg from '../../public/footer.png';
 import img1 from '../../public/mens.png';
 import img2 from '../../public/kids.png';
 import img3 from '../../public/junaid.png';
@@ -25,7 +23,7 @@ const categories = [
   {
     title: 'Women',
     image: womensImg,
-    description: 'Elegant and stylish, our women\'s collection offers the perfect blend of comfort and sophistication for any wardrobe.',
+    description: 'Elegant and stylish, our women\'s collection offers the perfect blend of comfort for any wardrobe.',
   },
   {
     title: 'Men',
@@ -46,7 +44,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <Box sx={{ backgroundColor: 'ghostwhite', marginTop: '8%' }}>
+    <Box sx={{ backgroundColor: 'ghostwhite', }}>
       <Box sx={{ width: '100%', height: '500px', position: 'relative' }}>
         <img
           src={slider[currentImageIndex].image}
