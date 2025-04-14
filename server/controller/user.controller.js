@@ -2,6 +2,8 @@
 import  User from '../model/user.model.js'
 
 
+
+
 export const updateUser = async (req, res, next) => {
   try {
     const userId = req.params.userId; 
@@ -21,6 +23,8 @@ export const updateUser = async (req, res, next) => {
 };
 }
 
+
+
 export const deleteUser = async (req, res, next) => {
   try {
     const userId = req.params.userId; 
@@ -35,6 +39,8 @@ export const deleteUser = async (req, res, next) => {
 };
 
 
+
+
 export const viewSingleUser = async (req, res, next) => {
   try {
     const userId = req.params.userId; 
@@ -47,6 +53,9 @@ export const viewSingleUser = async (req, res, next) => {
     res.status(500).json({ message: 'Internal Server Error', Error_Info : error.message });
   }
 };
+
+
+
 
 
 export const viewAllUser = async (req, res, next) => {
@@ -86,5 +95,3 @@ export const viewAllUser = async (req, res, next) => {
     res.status(500).json({ message: 'Internal Server Error', Error_Info : error.message });
   }
 };
-
-

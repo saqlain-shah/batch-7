@@ -9,7 +9,7 @@ const invoiceSchema = new mongoose.Schema({
   issueDate: {
     type: Date,
     required: true,
-    default: Date.now, 
+    default: Date.now,
   },
   dueDate: {
     type: Date,
@@ -17,18 +17,18 @@ const invoiceSchema = new mongoose.Schema({
   },
   customer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", 
+    ref: "User",
     required: true,
   },
   items: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Product", 
+    ref: "Product",
     required: true,
   }],
   quantities: [{
     type: Number,
     required: true,
-    min: 1, 
+    min: 1,
   }],
   subtotal: {
     type: Number,
@@ -50,14 +50,9 @@ const invoiceSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+
+},
+  { timestamps: true },
+);
 
 export default mongoose.model("Invoice", invoiceSchema);

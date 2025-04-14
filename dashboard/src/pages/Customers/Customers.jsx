@@ -1,0 +1,329 @@
+import React, { useState,useEffect, useMemo } from 'react';
+import {
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Modal,
+  TextField,
+  Typography,
+  lighten,
+} from '@mui/material';
+import {
+  MaterialReactTable,
+  useMaterialReactTable,
+  MRT_GlobalFilterTextField,
+  MRT_ToggleFiltersButton,
+} from 'material-react-table';
+import { MoreVert as MoreVertIcon } from '@mui/icons-material';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8000/api/user/';
+const UserList = () => {
+  const [data, setData] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [openDetailModal, setOpenDetailModal] = useState(false);
+  const [formValues, setFormValues] = useState({
+    id: '',
+    fullname: '',
+    email: '',
+    country: '',
+    date: '',
+    status: '',
+  });
+ // Fetch users from backend
+ useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      console.log('response', response.data.users)
+     const customers= response.data.users.filter((data)=>data.roles[0]==="user")
+      setData(customers); // Assuming the API returns an array of users
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+  fetchUsers();
+}, []);
+
+  const columns = useMemo(
+    () => [
+      {
+        accessorFn: (row) => `${row.firstName} ${row.lastName}`,
+        id: 'name',
+        header: 'Name',
+        size: 250,
+      },
+      
+      {
+        accessorKey: 'email',
+        header: 'Email',
+        size: 150,
+      },
+      {
+        accessorKey: 'phone',
+        header: 'Contact',
+        size: 150,
+      },
+      // {
+      //   accessorKey: 'roles',
+      //   header: 'Roles',
+      //   size: 150,
+      // },
+      {
+        accessorFn: (row) => `${row.address.street} ${row.address.city} ${row.address.state}`,
+        id: 'address',
+        header: 'Address',
+        size: 250,
+      },
+      {
+        id: 'actions',
+        header: 'Actions',
+        size: 150,
+        Cell: ({ row }) => (
+          <>
+            <IconButton
+              onClick={(event) => {
+                setAnchorEl(event.currentTarget);
+                setSelectedUser(row.original);
+              }}
+            >
+              <MoreVertIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={() => setAnchorEl(null)}
+            >
+              <MenuItem
+                onClick={() => {
+                  setFormValues(selectedUser);
+                  setIsEditing(true);
+                  setOpenModal(true);
+                  setAnchorEl(null);
+                }}
+              >
+                Edit
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setData(data.filter((user) => user.id !== row.original.id));
+                  setAnchorEl(null);
+                }}
+              >
+                Delete
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setOpenDetailModal(true);
+                  setAnchorEl(null);
+                }}
+              >
+                View
+              </MenuItem>
+            </Menu>
+          </>
+        ),
+      },
+    ],
+    [anchorEl, selectedUser, data],
+  );
+
+  const table = useMaterialReactTable({
+    columns,
+    data,
+    enableColumnFilterModes: true,
+    enableColumnOrdering: true,
+    enableRowActions: true,
+    enableRowSelection: true,
+    initialState: {
+      showColumnFilters: true,
+      showGlobalFilter: true,
+    },
+    muiTableBodyCellProps: {
+      sx: {
+        backgroundColor: '#f5f5f5',
+        borderBottom: '1px solid #e0e0e0',
+      },
+    },
+    muiTableBodyRowProps: {
+      sx: {
+        '&:nth-of-type(odd)': {
+          backgroundColor: '#ffffff',
+        },
+        '&:hover': {
+          backgroundColor: '#f1f1f1',
+        },
+      },
+    },
+    muiTableHeadCellProps: {
+      sx: {
+        backgroundColor: '#ffffff',
+        color: '#000000',
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+      },
+    },
+    muiTableContainerProps: {
+      sx: {
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+        borderRadius: '8px',
+        overflow: 'auto',
+        maxWidth: '100%',
+      },
+    },
+    renderTopToolbar: ({ table }) => {
+      return (
+        <Box
+          sx={(theme) => ({
+            backgroundColor: lighten(theme.palette.background.default, 0.05),
+            display: 'flex',
+            gap: '0.5rem',
+            p: '8px',
+            justifyContent: 'space-between',
+          })}
+        >
+          <Box sx={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            <MRT_GlobalFilterTextField table={table} />
+            <MRT_ToggleFiltersButton table={table} />
+          </Box>
+        </Box>
+      );
+    },
+  });
+
+  const handleAddUser = () => {
+    setIsEditing(false);
+    setFormValues({
+      id: '',
+      fullname: '',
+      email: '',
+      country: '',
+      date: '',
+      status: '',
+    });
+    setOpenModal(true);
+  };
+
+  const handleFormSubmit = () => {
+    if (isEditing) {
+      setData(data.map((user) => (user.id === formValues.id ? formValues : user)));
+    } else {
+      setData([...data, formValues]);
+    }
+    setOpenModal(false);
+  };
+
+  return (
+    <Box sx={{ padding: 4, backgroundColor: '#f0f2f5', maxWidth: '100%' }}>
+      <Button
+        variant="contained"
+        color="primary"
+        sx={{ marginBottom: 2 }}
+        onClick={handleAddUser}
+      >
+        Add New User
+      </Button>
+      <Box sx={{ overflowX: 'auto' }}> {/* Wrap table in a scrollable box */}
+        <MaterialReactTable table={table} />
+      </Box>
+
+      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+        <Box
+          sx={{
+            padding: 4,
+            backgroundColor: 'white',
+            margin: 'auto',
+            marginTop: '1%',
+            width: 400,
+            borderRadius: '8px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            {isEditing ? 'Edit User' : 'Add New User'}
+          </Typography>
+          <form>
+            <TextField
+              label="ID"
+              value={formValues.id}
+              onChange={(e) => setFormValues({ ...formValues, id: e.target.value })}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Fullname"
+              value={formValues.fullname}
+              onChange={(e) => setFormValues({ ...formValues, fullname: e.target.value })}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Email"
+              value={formValues.email}
+              onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Country"
+              value={formValues.country}
+              onChange={(e) => setFormValues({ ...formValues, country: e.target.value })}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Date"
+              value={formValues.date}
+              onChange={(e) => setFormValues({ ...formValues, date: e.target.value })}
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Status"
+              value={formValues.status}
+              onChange={(e) => setFormValues({ ...formValues, status: e.target.value })}
+              fullWidth
+              margin="normal"
+            />
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
+              <Button onClick={handleFormSubmit} variant="contained" color="primary">
+                {isEditing ? 'Save Changes' : 'Add User'}
+              </Button>
+            </Box>
+          </form>
+        </Box>
+      </Modal>
+
+      <Modal open={openDetailModal} onClose={() => setOpenDetailModal(false)}>
+        <Box
+          sx={{
+            padding: 4,
+            backgroundColor: 'white',
+            margin: 'auto',
+            marginTop: '10%',
+            width: 400,
+            borderRadius: '8px',
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+          }}
+        >
+          <Typography variant="h6" gutterBottom>
+            User Details
+          </Typography>
+          <Typography>ID: {selectedUser?.id}</Typography>
+          <Typography>Fullname: {selectedUser?.fullname}</Typography>
+          <Typography>Email: {selectedUser?.email}</Typography>
+          <Typography>Country: {selectedUser?.country}</Typography>
+          <Typography>Date: {selectedUser?.date}</Typography>
+          <Typography>Status: {selectedUser?.status}</Typography>
+        </Box>
+      </Modal>
+    </Box>
+  );
+};
+
+export default UserList;

@@ -1,7 +1,7 @@
-import  { validationResult } from 'express-validator'
-import  User from '../model/user.model.js'
-import  bcrypt from 'bcryptjs'
-import  jwt from 'jsonwebtoken'
+import { validationResult } from 'express-validator'
+import User from '../model/user.model.js'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
 export const Register = async (req, res, next) => {
   const errors = validationResult(req);
@@ -9,7 +9,7 @@ export const Register = async (req, res, next) => {
     return res.status(400).json({ errors: errors.array() });
   }
   const { username, email, password, firstName, lastName, ...rest } = req.body;
-  const salt =  await bcrypt.genSalt(10);
+  const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   try {
     const user = new User({
@@ -23,15 +23,15 @@ export const Register = async (req, res, next) => {
 
     await user.save();
     res
-    .status(201)
-    .json({ 
+      .status(201)
+      .json({
         status: true,
         message: 'User created successfully',
-        data:user
-    });
+        data: user
+      });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Error creating user' , error:err });
+    res.status(500).json({ message: 'Error creating user', error: err });
   }
 };
 
@@ -40,23 +40,24 @@ export const Login = async (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { email, password } = req.body;
+  const { email } = req.body;
   try {
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: 'Email Not Found' });
     }
-    const isMatch = await bcrypt.compare(password, user.password);
+    const { password, ...rest } = user._doc
+    const isMatch = await bcrypt.compare(req.body.password, password);
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid  password' });
     }
-    const payload = { userId: user._id, role: user.roles[0] }; 
+    const payload = { userId: user._id, role: user.roles[0] };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' });
-  
-    res.cookie('access_token', token, { httpOnly: true }); 
-    res.status(200).json({ message: 'Login successful', Detail : user.email, });
+
+    res.cookie('access_token', token, { httpOnly: true });
+    res.status(200).json({ message: 'Login successful', Detail: rest, });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Error logging in',  Error: err });
+    res.status(500).json({ message: 'Error logging in', Error: err });
   }
 };

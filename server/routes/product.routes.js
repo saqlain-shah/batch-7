@@ -4,7 +4,7 @@ import {verifyUser } from "../utils/verifyToken.js"
 const router = express.Router();
 
 
-router.get("/", verifyUser , viewAllProduct);
+router.get("/" , viewAllProduct);
 router.get("/:id", viewSingleProduct);
 router.post("/", addProduct);
 router.put("/:id", updateProduct);

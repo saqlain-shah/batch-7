@@ -1,0 +1,12 @@
+{
+  "name": "batch-7",
+  "version": "1.0.0",
+  "description": "Slider \r Feature Product \r Account Profile \r footer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
